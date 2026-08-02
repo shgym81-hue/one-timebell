@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#090d14" />
+  <title>더원 타임벨</title>
+  <style>
+    :root {
+      --bg: #090d14;
+      --panel: rgba(18, 25, 38, 0.94);
+      --panel-2: rgba(30, 41, 59, 0.82);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line: rgba(148, 163, 184, 0.22);
+      --accent: #f97316;
+      --accent-2: #fb923c;
+      --good: #22c55e;
+      --rest: #2563eb;
+      --prepare: #d97706;
+      --danger: #ef4444;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(249, 115, 22, 0.13), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(37, 99, 235, 0.13), transparent 32%),
+        var(--bg);
+      transition: background 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    body.phase-prepare {
+      background:
+        radial-gradient(circle at 50% 30%, rgba(217, 119, 6, 0.28), transparent 38%),
+        var(--bg);
+    }
+    body.phase-work {
+      background:
+        radial-gradient(circle at 50% 30%, rgba(239, 68, 68, 0.26), transparent 40%),
+        var(--bg);
+    }
+    body.phase-rest {
+      background:
+        radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.28), transparent 40%),
+        var(--bg);
+    }
+    body.phase-finished {
+      background:
+        radial-gradient(circle at 50% 30%, rgba(34, 197, 94, 0.24), transparent 40%),
+        var(--bg);
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .app {
+      width: min(1500px, 100%);
+      margin: 0 auto;
+      padding: 18px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      background: linear-gradient(145deg, var(--accent), #dc2626);
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+    }
+
+    .brand h1 {
+      font-size: clamp(20px, 2.2vw, 30px);
+      line-height: 1;
+      margin: 0 0 5px;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .display-card, .settings-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .display-card {
+      min-height: calc(100vh - 105px);
+      padding: clamp(18px, 3vw, 42px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .display-card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle, rgba(255,255,255,0.06), transparent 42%);
+      z-index: -1;
+      transform: translateY(-10%);
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .round-label {
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      font-size: clamp(22px, 3vw, 48px);
+    }
+
+    .phase-badge {
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-weight: 900;
+      font-size: clamp(16px, 1.6vw, 25px);
+      background: rgba(148, 163, 184, 0.16);
+      border: 1px solid var(--line);
+    }
+
+    .timer-wrap {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 2vh 0;
+    }
+
+    .timer {
+      font-variant-numeric: tabular-nums;
+      font-weight: 1000;
+      letter-spacing: -0.07em;
+      line-height: 0.86;
+      font-size: clamp(118px, 25vw, 390px);
+      text-shadow: 0 15px 55px rgba(0,0,0,0.35);
+      transform-origin: center;
+    }
+
+    .timer.warning {
+      animation: pulse 0.9s infinite;
+      color: #fecaca;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.035); }
+    }
+
+    .sub-status {
+      text-align: center;
+      margin-top: -1vh;
+      margin-bottom: 22px;
+    }
+
+    .sub-status strong {
+      display: block;
+      font-size: clamp(24px, 3.5vw, 54px);
+      margin-bottom: 8px;
+    }
+
+    .sub-status span {
+      color: var(--muted);
+      font-size: clamp(14px, 1.5vw, 22px);
+    }
+
+    .progress-track {
+      height: clamp(10px, 1.3vw, 18px);
+      background: rgba(148, 163, 184, 0.16);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.16s linear;
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(30, 41, 59, 0.86);
+      border-radius: 14px;
+      min-height: 52px;
+      padding: 12px 14px;
+      font-weight: 850;
+      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.28); }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), #dc2626);
+      border-color: transparent;
+    }
+    .btn.good {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      border-color: transparent;
+    }
+    .btn.ghost { background: rgba(15, 23, 42, 0.55); }
+    .btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
+
+    .settings-card {
+      padding: 18px;
+      overflow-y: auto;
+      max-height: calc(100vh - 105px);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--line);
+      margin-top: 18px;
+      padding-top: 18px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 900;
+      margin: 0 0 12px;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .preset-btn {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 9px;
+      background: var(--panel-2);
+      color: var(--text);
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .preset-btn small {
+      display: block;
+      color: var(--muted);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .preset-btn.active {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent);
+      background: rgba(249, 115, 22, 0.11);
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+      padding: 9px 11px;
+      outline: none;
+    }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
+    }
+
+    .inline-time {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .inline-time span {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .switch-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .switch-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #dbeafe;
+      font-size: 14px;
+      font-weight: 720;
+    }
+
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #334155;
+      transition: 0.2s;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 3px;
+      top: 3px;
+      border-radius: 50%;
+      background: white;
+      transition: 0.2s;
+    }
+
+    .switch input:checked + .slider {
+      background: var(--accent);
+    }
+
+    .switch input:checked + .slider::before {
+      transform: translateX(20px);
+    }
+
+    .volume-row {
+      display: grid;
+      grid-template-columns: 1fr 52px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="range"] { accent-color: var(--accent); }
+
+    .small-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .footer-status {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini-chip {
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #cbd5e1;
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.58);
+    }
+
+    .mini-chip.ok { color: #bbf7d0; border-color: rgba(34,197,94,.35); }
+    .mini-chip.warn { color: #fde68a; border-color: rgba(245,158,11,.35); }
+
+    .settings-toggle {
+      display: none;
+    }
+
+    .hidden { display: none !important; }
+
+    body.fullscreen-mode .topbar,
+    body.fullscreen-mode .settings-card {
+      display: none;
+    }
+    body.fullscreen-mode .app { width: 100%; padding: 0; }
+    body.fullscreen-mode .layout { display: block; }
+    body.fullscreen-mode .display-card {
+      min-height: 100vh;
+      border-radius: 0;
+      border: 0;
+      padding: 3vh 3vw;
+    }
+    body.fullscreen-mode .control-row {
+      opacity: 0.12;
+      transition: opacity 0.2s;
+    }
+    body.fullscreen-mode .control-row:hover { opacity: 1; }
+
+    @media (max-width: 1050px) {
+      .layout { grid-template-columns: 1fr; }
+      .display-card { min-height: 68vh; }
+      .settings-card { max-height: none; }
+      .settings-toggle { display: inline-flex; }
+      .settings-card.collapsed { display: none; }
+    }
+
+    @media (max-width: 650px) {
+      .app { padding: 10px; }
+      .topbar { align-items: flex-start; }
+      .brand p { display: none; }
+      .logo { width: 40px; height: 40px; border-radius: 12px; }
+      .display-card { border-radius: 18px; min-height: 63vh; padding: 16px; }
+      .settings-card { border-radius: 18px; padding: 14px; }
+      .control-row { grid-template-columns: repeat(3, 1fr); }
+      .control-row .btn:nth-child(4),
+      .control-row .btn:nth-child(5) { grid-column: span 1; }
+      .timer { font-size: clamp(92px, 29vw, 190px); }
+      .status-row { align-items: flex-start; }
+      .phase-badge { padding: 8px 13px; }
+    }
+  </style>
+</head>
+<body class="phase-idle">
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">🥊</div>
+        <div>
+          <h1>더원 타임벨</h1>
+          <p>복싱 · 킥복싱 · 크로스핏 · 인터벌 트레이닝</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn ghost settings-toggle" id="settingsToggle">⚙️ 설정</button>
+        <button class="btn ghost" id="soundTestBtn">🔊 소리 확인</button>
+        <button class="btn ghost" id="fullscreenBtn">⛶ 전체화면</button>
+      </div>
+    </header>
+
+    <section class="layout">
+      <article class="display-card" id="displayCard">
+        <div class="status-row">
+          <div class="round-label" id="roundLabel">ROUND 1 / 10</div>
+          <div class="phase-badge" id="phaseBadge">대기</div>
+        </div>
+
+        <div class="timer-wrap">
+          <div class="timer" id="timerDisplay">03:00</div>
+        </div>
+
+        <div class="sub-status">
+          <strong id="mainStatus">운동 준비</strong>
+          <span id="nextStatus">시작 버튼을 눌러주세요</span>
+        </div>
+
+        <div class="progress-track" aria-label="진행률">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="control-row">
+          <button class="btn primary" id="startBtn">▶ 시작</button>
+          <button class="btn" id="pauseBtn" disabled>⏸ 일시정지</button>
+          <button class="btn" id="resetBtn">↺ 초기화</button>
+          <button class="btn" id="skipBtn" disabled>⏭ 다음 구간</button>
+          <button class="btn" id="addTenBtn" disabled>＋10초</button>
+        </div>
+      </article>
+
+      <aside class="settings-card" id="settingsCard">
+        <section class="section">
+          <h2 class="section-title">빠른 프로그램</h2>
+          <div class="preset-grid">
+            <button class="preset-btn active" data-preset="boxing">
+              복싱 3분
+              <small>3분 / 1분 · 10R</small>
+            </button>
+            <button class="preset-btn" data-preset="kickboxing">
+              킥복싱
+              <small>3분 / 1분 · 5R</small>
+            </button>
+            <button class="preset-btn" data-preset="tabata">
+              타바타
+              <small>20초 / 10초 · 8R</small>
+            </button>
+            <button class="preset-btn" data-preset="crossfit">
+              크로스핏
+              <small>40초 / 20초 · 10R</small>
+            </button>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">시간 설정</h2>
+          <div class="field-grid">
+            <div class="field">
+              <label for="prepareSeconds">준비 시간(초)</label>
+              <input id="prepareSeconds" type="number" min="0" max="600" value="10" />
+            </div>
+
+            <div class="field">
+              <label for="rounds">전체 라운드</label>
+              <input id="rounds" type="number" min="1" max="99" value="10" />
+            </div>
+
+            <div class="field full">
+              <label>운동 시간</label>
+              <div class="inline-time">
+                <input id="workMinutes" type="number" min="0" max="99" value="3" aria-label="운동 분" />
+                <span>분</span>
+                <input id="workSeconds" type="number" min="0" max="59" value="0" aria-label="운동 초" />
+              </div>
+            </div>
+
+            <div class="field full">
+              <label>휴식 시간</label>
+              <div class="inline-time">
+                <input id="restMinutes" type="number" min="0" max="99" value="1" aria-label="휴식 분" />
+                <span>분</span>
+                <input id="restSeconds" type="number" min="0" max="59" value="0" aria-label="휴식 초" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">알림 설정</h2>
+          <div class="switch-list">
+            <div class="switch-line">
+              <span>한국어 음성 안내</span>
+              <label class="switch">
+                <input id="voiceEnabled" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="switch-line">
+              <span>30초 남음 알림</span>
+              <label class="switch">
+                <input id="alert30" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="switch-line">
+              <span>10초 남음 알림</span>
+              <label class="switch">
+                <input id="alert10" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="switch-line">
+              <span>마지막 5초 삐 소리</span>
+              <label class="switch">
+                <input id="countdown5" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field-grid" style="margin-top: 14px;">
+            <div class="field full">
+              <label for="voiceTone">음성 톤</label>
+              <select id="voiceTone">
+                <option value="normal">기본 음성</option>
+                <option value="low">낮은 음성</option>
+                <option value="high">높은 음성</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="volumeRange">전체 음량</label>
+              <div class="volume-row">
+                <input id="volumeRange" type="range" min="0" max="100" value="90" />
+                <strong id="volumeValue">90%</strong>
+              </div>
+            </div>
+          </div>
+
+          <p class="small-note">
+            처음 사용할 때 반드시 위쪽의 <b>‘소리 확인’</b> 버튼을 한 번 눌러주세요.
+            브라우저의 소리 재생 허용을 활성화합니다.
+          </p>
+        </section>
+
+        <section class="section">
+          <button class="btn good" id="saveBtn" style="width:100%;">💾 현재 설정 저장</button>
+          <div class="footer-status">
+            <span class="mini-chip" id="wakeChip">화면 유지: 대기</span>
+            <span class="mini-chip" id="audioChip">소리: 확인 필요</span>
+          </div>
+          <p class="small-note">
+            단축키: 스페이스바 시작/정지 · R 초기화 · N 다음 구간 · F 전체화면
+          </p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    const $ = (id) => document.getElementById(id);
+
+    const els = {
+      timerDisplay: $("timerDisplay"),
+      roundLabel: $("roundLabel"),
+      phaseBadge: $("phaseBadge"),
+      mainStatus: $("mainStatus"),
+      nextStatus: $("nextStatus"),
+      progressBar: $("progressBar"),
+      startBtn: $("startBtn"),
+      pauseBtn: $("pauseBtn"),
+      resetBtn: $("resetBtn"),
+      skipBtn: $("skipBtn"),
+      addTenBtn: $("addTenBtn"),
+      fullscreenBtn: $("fullscreenBtn"),
+      soundTestBtn: $("soundTestBtn"),
+      saveBtn: $("saveBtn"),
+      settingsToggle: $("settingsToggle"),
+      settingsCard: $("settingsCard"),
+      prepareSeconds: $("prepareSeconds"),
+      workMinutes: $("workMinutes"),
+      workSeconds: $("workSeconds"),
+      restMinutes: $("restMinutes"),
+      restSeconds: $("restSeconds"),
+      rounds: $("rounds"),
+      voiceEnabled: $("voiceEnabled"),
+      alert30: $("alert30"),
+      alert10: $("alert10"),
+      countdown5: $("countdown5"),
+      voiceTone: $("voiceTone"),
+      volumeRange: $("volumeRange"),
+      volumeValue: $("volumeValue"),
+      wakeChip: $("wakeChip"),
+      audioChip: $("audioChip")
+    };
+
+    const presets = {
+      boxing:    { prepare: 10, work: 180, rest: 60, rounds: 10 },
+      kickboxing:{ prepare: 10, work: 180, rest: 60, rounds: 5 },
+      tabata:    { prepare: 10, work: 20,  rest: 10, rounds: 8 },
+      crossfit:  { prepare: 10, work: 40,  rest: 20, rounds: 10 }
+    };
+
+    const PHASE = {
+      IDLE: "idle",
+      PREPARE: "prepare",
+      WORK: "work",
+      REST: "rest",
+      FINISHED: "finished"
+    };
+
+    let state = {
+      phase: PHASE.IDLE,
+      round: 1,
+      totalRounds: 10,
+      isRunning: false,
+      isPaused: false,
+      remainingMs: 180000,
+      phaseDurationMs: 180000,
+      endAt: 0,
+      timerId: null,
+      notified: new Set()
+    };
+
+    let audioContext = null;
+    let wakeLock = null;
+
+    function clampNumber(value, min, max, fallback) {
+      const number = Number(value);
+      if (!Number.isFinite(number)) return fallback;
+      return Math.min(max, Math.max(min, number));
+    }
+
+    function readSettings() {
+      const prepare = clampNumber(els.prepareSeconds.value, 0, 600, 10);
+      const workMin = clampNumber(els.workMinutes.value, 0, 99, 3);
+      const workSec = clampNumber(els.workSeconds.value, 0, 59, 0);
+      const restMin = clampNumber(els.restMinutes.value, 0, 99, 1);
+      const restSec = clampNumber(els.restSeconds.value, 0, 59, 0);
+      const rounds = Math.floor(clampNumber(els.rounds.value, 1, 99, 10));
+
+      const work = workMin * 60 + workSec;
+      const rest = restMin * 60 + restSec;
+
+      if (work <= 0) {
+        alert("운동 시간은 1초 이상으로 설정해주세요.");
+        return null;
+      }
+
+      return {
+        prepare,
+        work,
+        rest,
+        rounds,
+        voiceEnabled: els.voiceEnabled.checked,
+        alert30: els.alert30.checked,
+        alert10: els.alert10.checked,
+        countdown5: els.countdown5.checked,
+        voiceTone: els.voiceTone.value,
+        volume: clampNumber(els.volumeRange.value, 0, 100, 90) / 100
+      };
+    }
+
+    function applyPreset(name) {
+      const p = presets[name];
+      if (!p || state.isRunning) return;
+
+      els.prepareSeconds.value = p.prepare;
+      els.workMinutes.value = Math.floor(p.work / 60);
+      els.workSeconds.value = p.work % 60;
+      els.restMinutes.value = Math.floor(p.rest / 60);
+      els.restSeconds.value = p.rest % 60;
+      els.rounds.value = p.rounds;
+
+      document.querySelectorAll(".preset-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.preset === name);
+      });
+
+      updateIdlePreview();
+      saveSettings(false);
+    }
+
+    function getPhaseSeconds(settings, phase) {
+      if (phase === PHASE.PREPARE) return settings.prepare;
+      if (phase === PHASE.WORK) return settings.work;
+      if (phase === PHASE.REST) return settings.rest;
+      return 0;
+    }
+
+    function formatTimeFromMs(ms) {
+      const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    function setBodyPhase(phase) {
+      document.body.classList.remove(
+        "phase-idle", "phase-prepare", "phase-work", "phase-rest", "phase-finished"
+      );
+      document.body.classList.add(`phase-${phase}`);
+    }
+
+    function phaseText(phase) {
+      return {
+        [PHASE.IDLE]: "대기",
+        [PHASE.PREPARE]: "준비",
+        [PHASE.WORK]: "운동",
+        [PHASE.REST]: "휴식",
+        [PHASE.FINISHED]: "완료"
+      }[phase] || "";
+    }
+
+    function nextPhaseText() {
+      if (state.phase === PHASE.IDLE) return "시작 버튼을 눌러주세요";
+      if (state.phase === PHASE.PREPARE) return "다음: 운동 시작";
+      if (state.phase === PHASE.WORK) {
+        return state.round >= state.totalRounds ? "마지막 라운드" : "다음: 휴식";
+      }
+      if (state.phase === PHASE.REST) return `다음: ROUND ${state.round + 1}`;
+      return "모든 운동이 끝났습니다";
+    }
+
+    function render() {
+      els.timerDisplay.textContent = formatTimeFromMs(state.remainingMs);
+      els.roundLabel.textContent = `ROUND ${state.round} / ${state.totalRounds}`;
+      els.phaseBadge.textContent = phaseText(state.phase);
+      els.mainStatus.textContent =
+        state.phase === PHASE.IDLE ? "운동 준비" :
+        state.phase === PHASE.PREPARE ? "준비하세요" :
+        state.phase === PHASE.WORK ? "운동 중" :
+        state.phase === PHASE.REST ? "휴식" :
+        "운동 완료";
+      els.nextStatus.textContent = state.isPaused ? "일시정지됨" : nextPhaseText();
+
+      const elapsed = Math.max(0, state.phaseDurationMs - state.remainingMs);
+      const progress = state.phaseDurationMs > 0
+        ? Math.min(100, (elapsed / state.phaseDurationMs) * 100)
+        : 0;
+      els.progressBar.style.width = `${progress}%`;
+
+      const remainingSeconds = Math.ceil(state.remainingMs / 1000);
+      els.timerDisplay.classList.toggle(
+        "warning",
+        state.isRunning && !state.isPaused && remainingSeconds <= 10 && state.phase !== PHASE.FINISHED
+      );
+
+      els.startBtn.textContent = state.isPaused ? "▶ 계속" : state.isRunning ? "● 진행 중" : "▶ 시작";
+      els.startBtn.disabled = state.isRunning && !state.isPaused;
+      els.pauseBtn.disabled = !state.isRunning || state.isPaused;
+      els.skipBtn.disabled = !state.isRunning;
+      els.addTenBtn.disabled = !state.isRunning || state.phase === PHASE.FINISHED;
+
+      setBodyPhase(state.phase);
+    }
+
+    function updateIdlePreview() {
+      if (state.isRunning) return;
+      const settings = readSettings();
+      if (!settings) return;
+
+      state.phase = PHASE.IDLE;
+      state.round = 1;
+      state.totalRounds = settings.rounds;
+      state.remainingMs = settings.work * 1000;
+      state.phaseDurationMs = settings.work * 1000;
+      render();
+    }
+
+    async function ensureAudio() {
+      if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) {
+          els.audioChip.textContent = "소리: 미지원";
+          els.audioChip.className = "mini-chip warn";
+          return false;
+        }
+        audioContext = new AudioCtx();
+      }
+
+      if (audioContext.state === "suspended") {
+        await audioContext.resume();
+      }
+
+      els.audioChip.textContent = "소리: 준비 완료";
+      els.audioChip.className = "mini-chip ok";
+      return true;
+    }
+
+    function currentVolume() {
+      return clampNumber(els.volumeRange.value, 0, 100, 90) / 100;
+    }
+
+    function tone(frequency = 880, duration = 0.12, volume = 0.38, type = "sine", delay = 0) {
+      if (!audioContext) return;
+
+      const start = audioContext.currentTime + delay;
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, start);
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(
+        Math.max(0.0001, volume * currentVolume()),
+        start + 0.01
+      );
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start(start);
+      oscillator.stop(start + duration + 0.03);
+    }
+
+    function beep(times = 1) {
+      for (let i = 0; i < times; i++) {
+        tone(980, 0.09, 0.4, "square", i * 0.16);
+      }
+    }
+
+    function bell(strong = false) {
+      const baseVolume = strong ? 0.44 : 0.34;
+      tone(520, 0.85, baseVolume, "sine", 0);
+      tone(780, 0.72, baseVolume * 0.72, "sine", 0.01);
+      tone(1040, 0.55, baseVolume * 0.46, "sine", 0.02);
+      if (strong) {
+        tone(430, 1.05, baseVolume * 0.7, "triangle", 0.03);
+      }
+    }
+
+    function finishBell() {
+      bell(true);
+      setTimeout(() => bell(true), 620);
+      setTimeout(() => bell(true), 1240);
+    }
+
+    function pickKoreanVoice() {
+      const voices = window.speechSynthesis?.getVoices?.() || [];
+      return voices.find(v => v.lang?.toLowerCase().startsWith("ko")) || voices[0] || null;
+    }
+
+    function speak(text) {
+      if (!els.voiceEnabled.checked || !("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voice = pickKoreanVoice();
+      if (voice) utterance.voice = voice;
+      utterance.lang = voice?.lang || "ko-KR";
+      utterance.rate = 1.05;
+      utterance.volume = currentVolume();
+
+      if (els.voiceTone.value === "low") utterance.pitch = 0.72;
+      else if (els.voiceTone.value === "high") utterance.pitch = 1.28;
+      else utterance.pitch = 1.0;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    async function requestWakeLock() {
+      if (!("wakeLock" in navigator)) {
+        els.wakeChip.textContent = "화면 유지: 기기 미지원";
+        els.wakeChip.className = "mini-chip warn";
+        return;
+      }
+
+      try {
+        wakeLock = await navigator.wakeLock.request("screen");
+        els.wakeChip.textContent = "화면 유지: 작동 중";
+        els.wakeChip.className = "mini-chip ok";
+
+        wakeLock.addEventListener("release", () => {
+          els.wakeChip.textContent = "화면 유지: 해제됨";
+          els.wakeChip.className = "mini-chip warn";
+        });
+      } catch (error) {
+        els.wakeChip.textContent = "화면 유지: 허용 필요";
+        els.wakeChip.className = "mini-chip warn";
+      }
+    }
+
+    async function releaseWakeLock() {
+      try {
+        if (wakeLock) await wakeLock.release();
+      } catch (_) {}
+      wakeLock = null;
+      els.wakeChip.textContent = "화면 유지: 대기";
+      els.wakeChip.className = "mini-chip";
+    }
+
+    function enterPhase(phase, seconds, announce = true) {
+      clearInterval(state.timerId);
+      state.phase = phase;
+      state.isRunning = phase !== PHASE.FINISHED;
+      state.isPaused = false;
+      state.phaseDurationMs = Math.max(0, seconds * 1000);
+      state.remainingMs = state.phaseDurationMs;
+      state.endAt = performance.now() + state.remainingMs;
+      state.notified = new Set();
+
+      if (phase === PHASE.PREPARE) {
+        beep(2);
+        if (announce) speak("운동을 준비하세요.");
+      } else if (phase === PHASE.WORK) {
+        bell(true);
+        if (announce) {
+          speak(state.round === state.totalRounds ? "마지막 라운드, 운동을 시작합니다." : "운동을 시작합니다.");
+        }
+      } else if (phase === PHASE.REST) {
+        bell(false);
+        if (announce) speak("휴식입니다.");
+      } else if (phase === PHASE.FINISHED) {
+        state.remainingMs = 0;
+        state.phaseDurationMs = 1;
+        finishBell();
+        if (announce) speak("모든 운동이 종료되었습니다.");
+        releaseWakeLock();
+        render();
+        return;
+      }
+
+      render();
+      startTicker();
+    }
+
+    function startTicker() {
+      clearInterval(state.timerId);
+      state.timerId = setInterval(tick, 100);
+      tick();
+    }
+
+    function tick() {
+      if (!state.isRunning || state.isPaused) return;
+
+      state.remainingMs = Math.max(0, state.endAt - performance.now());
+      handleAlerts();
+      render();
+
+      if (state.remainingMs <= 0) {
+        advancePhase();
+      }
+    }
+
+    function handleAlerts() {
+      const settings = readSettings();
+      if (!settings) return;
+
+      const seconds = Math.ceil(state.remainingMs / 1000);
+      const relevantPhase = state.phase === PHASE.WORK || state.phase === PHASE.REST;
+      if (!relevantPhase) return;
+
+      const key = `${state.phase}-${state.round}-${seconds}`;
+      if (state.notified.has(key)) return;
+
+      if (seconds === 30 && settings.alert30 && state.phaseDurationMs >= 31000) {
+        state.notified.add(key);
+        beep(2);
+        speak("30초 남았습니다.");
+      } else if (seconds === 10 && settings.alert10 && state.phaseDurationMs >= 11000) {
+        state.notified.add(key);
+        beep(3);
+        speak("10초 남았습니다.");
+      } else if (seconds >= 1 && seconds <= 5 && settings.countdown5) {
+        state.notified.add(key);
+        beep(1);
+      }
+    }
+
+    function advancePhase() {
+      const settings = readSettings();
+      if (!settings) {
+        resetTimer();
+        return;
+      }
+
+      if (state.phase === PHASE.PREPARE) {
+        enterPhase(PHASE.WORK, settings.work);
+        return;
+      }
+
+      if (state.phase === PHASE.WORK) {
+        if (state.round >= state.totalRounds) {
+          enterPhase(PHASE.FINISHED, 0);
+        } else if (settings.rest > 0) {
+          enterPhase(PHASE.REST, settings.rest);
+        } else {
+          state.round += 1;
+          enterPhase(PHASE.WORK, settings.work);
+        }
+        return;
+      }
+
+      if (state.phase === PHASE.REST) {
+        state.round += 1;
+        enterPhase(PHASE.WORK, settings.work);
+      }
+    }
+
+    async function startTimer() {
+      const settings = readSettings();
+      if (!settings) return;
+
+      await ensureAudio();
+      await requestWakeLock();
+
+      if (state.isPaused) {
+        state.isPaused = false;
+        state.isRunning = true;
+        state.endAt = performance.now() + state.remainingMs;
+        startTicker();
+        render();
+        return;
+      }
+
+      if (state.phase === PHASE.FINISHED) resetTimer(false);
+
+      state.round = 1;
+      state.totalRounds = settings.rounds;
+      saveSettings(false);
+
+      if (settings.prepare > 0) {
+        enterPhase(PHASE.PREPARE, settings.prepare);
+      } else {
+        enterPhase(PHASE.WORK, settings.work);
+      }
+    }
+
+    function pauseTimer() {
+      if (!state.isRunning || state.isPaused) return;
+
+      state.remainingMs = Math.max(0, state.endAt - performance.now());
+      state.isPaused = true;
+      clearInterval(state.timerId);
+      window.speechSynthesis?.cancel?.();
+      render();
+    }
+
+    function resetTimer(withSound = false) {
+      clearInterval(state.timerId);
+      window.speechSynthesis?.cancel?.();
+
+      const settings = readSettings();
+      if (!settings) return;
+
+      state = {
+        phase: PHASE.IDLE,
+        round: 1,
+        totalRounds: settings.rounds,
+        isRunning: false,
+        isPaused: false,
+        remainingMs: settings.work * 1000,
+        phaseDurationMs: settings.work * 1000,
+        endAt: 0,
+        timerId: null,
+        notified: new Set()
+      };
+
+      if (withSound && audioContext) beep(1);
+      releaseWakeLock();
+      render();
+    }
+
+    function skipPhase() {
+      if (!state.isRunning) return;
+      advancePhase();
+    }
+
+    function addTenSeconds() {
+      if (!state.isRunning || state.phase === PHASE.FINISHED) return;
+      state.remainingMs += 10000;
+      state.phaseDurationMs += 10000;
+      if (!state.isPaused) state.endAt += 10000;
+      render();
+    }
+
+    async function soundTest() {
+      const ok = await ensureAudio();
+      if (!ok) return;
+      bell(true);
+      setTimeout(() => speak("소리 확인이 완료되었습니다."), 250);
+    }
+
+    async function toggleFullscreen() {
+      try {
+        if (!document.fullscreenElement) {
+          await document.documentElement.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch (error) {
+        alert("이 기기에서는 전체화면을 사용할 수 없습니다.");
+      }
+    }
+
+    function syncFullscreenClass() {
+      document.body.classList.toggle("fullscreen-mode", Boolean(document.fullscreenElement));
+      els.fullscreenBtn.textContent = document.fullscreenElement ? "⤢ 전체화면 종료" : "⛶ 전체화면";
+    }
+
+    function saveSettings(showMessage = true) {
+      const settings = readSettings();
+      if (!settings) return;
+
+      const payload = {
+        prepareSeconds: els.prepareSeconds.value,
+        workMinutes: els.workMinutes.value,
+        workSeconds: els.workSeconds.value,
+        restMinutes: els.restMinutes.value,
+        restSeconds: els.restSeconds.value,
+        rounds: els.rounds.value,
+        voiceEnabled: els.voiceEnabled.checked,
+        alert30: els.alert30.checked,
+        alert10: els.alert10.checked,
+        countdown5: els.countdown5.checked,
+        voiceTone: els.voiceTone.value,
+        volumeRange: els.volumeRange.value
+      };
+
+      localStorage.setItem("theone-timebell-settings", JSON.stringify(payload));
+      if (showMessage) {
+        const original = els.saveBtn.textContent;
+        els.saveBtn.textContent = "✅ 저장 완료";
+        setTimeout(() => els.saveBtn.textContent = original, 1200);
+      }
+    }
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem("theone-timebell-settings");
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+
+        Object.entries(saved).forEach(([key, value]) => {
+          const element = els[key];
+          if (!element) return;
+          if (element.type === "checkbox") element.checked = Boolean(value);
+          else element.value = value;
+        });
+      } catch (_) {}
+    }
+
+    function markCustomPreset() {
+      document.querySelectorAll(".preset-btn").forEach(btn => btn.classList.remove("active"));
+    }
+
+    document.querySelectorAll(".preset-btn").forEach(button => {
+      button.addEventListener("click", () => applyPreset(button.dataset.preset));
+    });
+
+    [
+      els.prepareSeconds, els.workMinutes, els.workSeconds,
+      els.restMinutes, els.restSeconds, els.rounds
+    ].forEach(input => {
+      input.addEventListener("input", () => {
+        markCustomPreset();
+        updateIdlePreview();
+      });
+    });
+
+    [
+      els.voiceEnabled, els.alert30, els.alert10,
+      els.countdown5, els.voiceTone
+    ].forEach(input => input.addEventListener("change", () => saveSettings(false)));
+
+    els.volumeRange.addEventListener("input", () => {
+      els.volumeValue.textContent = `${els.volumeRange.value}%`;
+      saveSettings(false);
+    });
+
+    els.startBtn.addEventListener("click", startTimer);
+    els.pauseBtn.addEventListener("click", pauseTimer);
+    els.resetBtn.addEventListener("click", () => resetTimer(true));
+    els.skipBtn.addEventListener("click", skipPhase);
+    els.addTenBtn.addEventListener("click", addTenSeconds);
+    els.soundTestBtn.addEventListener("click", soundTest);
+    els.fullscreenBtn.addEventListener("click", toggleFullscreen);
+    els.saveBtn.addEventListener("click", () => saveSettings(true));
+    els.settingsToggle.addEventListener("click", () => {
+      els.settingsCard.classList.toggle("collapsed");
+    });
+
+    document.addEventListener("fullscreenchange", syncFullscreenClass);
+
+    document.addEventListener("visibilitychange", async () => {
+      if (document.visibilityState === "visible" && state.isRunning && !state.isPaused) {
+        await requestWakeLock();
+        state.endAt = performance.now() + state.remainingMs;
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
+
+      if (event.code === "Space") {
+        event.preventDefault();
+        if (state.isRunning && !state.isPaused) pauseTimer();
+        else startTimer();
+      } else if (event.key.toLowerCase() === "r") {
+        resetTimer(true);
+      } else if (event.key.toLowerCase() === "n") {
+        skipPhase();
+      } else if (event.key.toLowerCase() === "f") {
+        toggleFullscreen();
+      }
+    });
+
+    window.speechSynthesis?.getVoices?.();
+    window.speechSynthesis?.addEventListener?.("voiceschanged", () => pickKoreanVoice());
+
+    loadSettings();
+    els.volumeValue.textContent = `${els.volumeRange.value}%`;
+    resetTimer(false);
+  </script>
+</body>
+</html>
