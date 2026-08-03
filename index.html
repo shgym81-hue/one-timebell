@@ -510,6 +510,212 @@
       justify-content: space-between;
     }
 
+
+
+    /* 설정 카테고리 정리 UI */
+    .settings-card {
+      scroll-behavior: smooth;
+    }
+
+    .settings-intro {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, var(--panel-2), rgba(255,255,255,0.035));
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .settings-intro-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 1000;
+      color: var(--text);
+    }
+
+    .settings-intro-title small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .settings-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .settings-jump {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 54px;
+      background: var(--field-bg);
+      color: var(--text);
+      padding: 10px;
+      text-align: left;
+      font-weight: 950;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .settings-jump span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.15;
+    }
+
+    .settings-jump small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .settings-jump:hover {
+      border-color: var(--accent);
+      background: var(--active-bg);
+      transform: translateY(-1px);
+    }
+
+    .settings-group {
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: rgba(255,255,255,0.035);
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .settings-group[open] {
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+      box-shadow: 0 12px 34px rgba(0,0,0,0.16);
+    }
+
+    .settings-group > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .settings-group > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .settings-summary-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .settings-num {
+      width: 31px;
+      height: 31px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-size: 14px;
+      font-weight: 1000;
+      box-shadow: 0 8px 20px var(--brand-glow);
+    }
+
+    .settings-title-wrap {
+      min-width: 0;
+    }
+
+    .settings-title-wrap strong {
+      display: block;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 1000;
+      line-height: 1.2;
+    }
+
+    .settings-title-wrap small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .settings-chevron {
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 1000;
+      transition: transform 0.18s ease;
+    }
+
+    .settings-group[open] .settings-chevron {
+      transform: rotate(180deg);
+      color: var(--accent-2);
+    }
+
+    .settings-body {
+      padding: 0 14px 15px;
+      border-top: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .settings-subcard {
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 15px;
+      background: rgba(0,0,0,0.12);
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .settings-subtitle {
+      margin: 0 0 10px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 1000;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .settings-subtitle small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .settings-mini-guide {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 13px;
+      color: var(--muted);
+      background: var(--field-bg);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .save-zone {
+      margin-top: 12px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      padding: 14px;
+      background: linear-gradient(135deg, var(--panel-2), rgba(255,255,255,0.025));
+    }
+
     .preset-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1050,238 +1256,311 @@
       </article>
 
       <aside class="settings-card" id="settingsCard">
-        <section class="section">
-          <h2 class="section-title">전체 배경 색상</h2>
-          <div class="field full" style="margin-bottom: 10px;">
-            <label for="themeSelect">전체 백그라운드 선택</label>
-            <select id="themeSelect">
-              <option value="orange">다크 오렌지 배경</option>
-              <option value="yellow">다크 옐로우 배경</option>
-              <option value="red">레드 배경</option>
-              <option value="blue">블루 배경</option>
-              <option value="green">그린 배경</option>
-              <option value="purple">퍼플 배경</option>
-              <option value="black">차콜 블랙 배경</option>
-            </select>
+        <div class="settings-intro">
+          <div class="settings-intro-title">
+            <span>⚙️ 설정 메뉴</span>
+            <small>원하는 항목을 눌러 이동</small>
           </div>
-          <div class="theme-grid" aria-label="색상 빠른 선택">
-            <button class="theme-btn" type="button" data-theme="orange"><span class="theme-dot orange"></span>오렌지 배경</button>
-            <button class="theme-btn" type="button" data-theme="yellow"><span class="theme-dot yellow"></span>옐로우 배경</button>
-            <button class="theme-btn" type="button" data-theme="red"><span class="theme-dot red"></span>레드 배경</button>
-            <button class="theme-btn" type="button" data-theme="blue"><span class="theme-dot blue"></span>블루 배경</button>
-            <button class="theme-btn" type="button" data-theme="green"><span class="theme-dot green"></span>그린 배경</button>
-            <button class="theme-btn" type="button" data-theme="purple"><span class="theme-dot purple"></span>퍼플 배경</button>
-            <button class="theme-btn" type="button" data-theme="black"><span class="theme-dot black"></span>차콜 배경</button>
-          </div>
-          <p class="small-note">
-            배경을 누르면 PC와 모바일의 전체 바탕, 큰 타이머 화면, 설정창 색상이 같이 바뀌고 저장됩니다. 숫자와 글씨는 배경에 맞춰 잘 보이도록 자동 적용됩니다.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2 class="section-title">빠른 프로그램</h2>
-          <div class="preset-grid">
-            <button class="preset-btn active" data-preset="boxing">
-              <span class="preset-title" id="presetTitleBoxing">복싱 3분</span>
-              <small id="presetMetaBoxing">3분 / 1분 · 10R</small>
+          <div class="settings-nav-grid">
+            <button class="settings-jump" type="button" onclick="document.getElementById('settingsTheme').scrollIntoView({behavior:'smooth', block:'start'});">
+              <span>① 화면 디자인</span>
+              <small>배경색 / 전체 색감</small>
             </button>
-            <button class="preset-btn" data-preset="kickboxing">
-              <span class="preset-title" id="presetTitleKickboxing">킥복싱</span>
-              <small id="presetMetaKickboxing">3분 / 1분 · 5R</small>
+            <button class="settings-jump" type="button" onclick="document.getElementById('settingsPreset').scrollIntoView({behavior:'smooth', block:'start'});">
+              <span>② 빠른 프로그램</span>
+              <small>버튼 선택 / 이름 변경</small>
             </button>
-            <button class="preset-btn" data-preset="tabata">
-              <span class="preset-title" id="presetTitleTabata">타바타</span>
-              <small id="presetMetaTabata">20초 / 10초 · 8R</small>
+            <button class="settings-jump" type="button" onclick="document.getElementById('settingsTime').scrollIntoView({behavior:'smooth', block:'start'});">
+              <span>③ 시간 설정</span>
+              <small>준비 / 운동 / 휴식 / 라운드</small>
             </button>
-            <button class="preset-btn" data-preset="crossfit">
-              <span class="preset-title" id="presetTitleCrossfit">크로스핏</span>
-              <small id="presetMetaCrossfit">40초 / 20초 · 10R</small>
+            <button class="settings-jump" type="button" onclick="document.getElementById('settingsSound').scrollIntoView({behavior:'smooth', block:'start'});">
+              <span>④ 소리 설정</span>
+              <small>시작음 / 휴식음 / 종료음</small>
             </button>
           </div>
-        </section>
+        </div>
 
-        <section class="section">
-          <h2 class="section-title">빠른 프로그램 이름 수정</h2>
-          <div class="field-grid">
-            <div class="field">
-              <label for="presetNameBoxing">1번 이름</label>
-              <input id="presetNameBoxing" type="text" maxlength="16" value="복싱 3분" />
+        <details class="settings-group" id="settingsTheme" open>
+          <summary>
+            <span class="settings-summary-main">
+              <span class="settings-num">1</span>
+              <span class="settings-title-wrap">
+                <strong>화면 디자인</strong>
+                <small>전체 배경색과 타이머 화면 분위기를 바꿉니다</small>
+              </span>
+            </span>
+            <span class="settings-chevron">⌄</span>
+          </summary>
+          <div class="settings-body">
+            <p class="settings-mini-guide">포인트 색상만 바뀌는 것이 아니라, 바깥 배경·큰 타이머 화면·설정창 배경이 같이 바뀝니다.</p>
+            <div class="field full" style="margin-bottom: 10px;">
+              <label for="themeSelect">전체 백그라운드 선택</label>
+              <select id="themeSelect">
+                <option value="orange">다크 오렌지 배경</option>
+                <option value="yellow">다크 옐로우 배경</option>
+                <option value="red">레드 배경</option>
+                <option value="blue">블루 배경</option>
+                <option value="green">그린 배경</option>
+                <option value="purple">퍼플 배경</option>
+                <option value="black">차콜 블랙 배경</option>
+              </select>
             </div>
-            <div class="field">
-              <label for="presetNameKickboxing">2번 이름</label>
-              <input id="presetNameKickboxing" type="text" maxlength="16" value="킥복싱" />
-            </div>
-            <div class="field">
-              <label for="presetNameTabata">3번 이름</label>
-              <input id="presetNameTabata" type="text" maxlength="16" value="타바타" />
-            </div>
-            <div class="field">
-              <label for="presetNameCrossfit">4번 이름</label>
-              <input id="presetNameCrossfit" type="text" maxlength="16" value="크로스핏" />
+            <div class="theme-grid">
+              <button class="theme-btn active" type="button" data-theme="orange"><span class="theme-dot orange"></span>오렌지 배경</button>
+              <button class="theme-btn" type="button" data-theme="yellow"><span class="theme-dot yellow"></span>옐로우 배경</button>
+              <button class="theme-btn" type="button" data-theme="red"><span class="theme-dot red"></span>레드 배경</button>
+              <button class="theme-btn" type="button" data-theme="blue"><span class="theme-dot blue"></span>블루 배경</button>
+              <button class="theme-btn" type="button" data-theme="green"><span class="theme-dot green"></span>그린 배경</button>
+              <button class="theme-btn" type="button" data-theme="purple"><span class="theme-dot purple"></span>퍼플 배경</button>
+              <button class="theme-btn" type="button" data-theme="black"><span class="theme-dot black"></span>차콜 배경</button>
             </div>
           </div>
-          <p class="small-note">
-            빠른 프로그램을 누른 뒤 아래 시간 설정을 바꾸면, 해당 버튼의 시간 표시도 함께 바뀌고 저장됩니다.
-          </p>
-        </section>
+        </details>
 
-        <section class="section">
-          <h2 class="section-title">시간 설정</h2>
-          <div class="field-grid">
-            <div class="field">
-              <label for="prepareSeconds">준비 시간(초)</label>
-              <input id="prepareSeconds" type="number" min="0" max="600" value="10" />
-            </div>
-
-            <div class="field">
-              <label for="rounds">전체 라운드</label>
-              <input id="rounds" type="number" min="1" max="99" value="10" />
-            </div>
-
-            <div class="field full">
-              <label>운동 시간</label>
-              <div class="inline-time">
-                <input id="workMinutes" type="number" min="0" max="99" value="3" aria-label="운동 분" />
-                <span>분</span>
-                <input id="workSeconds" type="number" min="0" max="59" value="0" aria-label="운동 초" />
+        <details class="settings-group" id="settingsPreset" open>
+          <summary>
+            <span class="settings-summary-main">
+              <span class="settings-num">2</span>
+              <span class="settings-title-wrap">
+                <strong>빠른 프로그램</strong>
+                <small>자주 쓰는 훈련 4개를 선택하고 이름을 바꿉니다</small>
+              </span>
+            </span>
+            <span class="settings-chevron">⌄</span>
+          </summary>
+          <div class="settings-body">
+            <div class="settings-subcard">
+              <h3 class="settings-subtitle">A. 프로그램 선택 <small>누르면 해당 시간으로 변경</small></h3>
+              <div class="preset-grid">
+                <button class="preset-btn active" data-preset="boxing">
+                  <span class="preset-title" id="presetTitleBoxing">복싱 3분</span>
+                  <small id="presetMetaBoxing">3분 / 1분 · 10R</small>
+                </button>
+                <button class="preset-btn" data-preset="kickboxing">
+                  <span class="preset-title" id="presetTitleKickboxing">킥복싱</span>
+                  <small id="presetMetaKickboxing">3분 / 1분 · 5R</small>
+                </button>
+                <button class="preset-btn" data-preset="tabata">
+                  <span class="preset-title" id="presetTitleTabata">타바타</span>
+                  <small id="presetMetaTabata">20초 / 10초 · 8R</small>
+                </button>
+                <button class="preset-btn" data-preset="crossfit">
+                  <span class="preset-title" id="presetTitleCrossfit">크로스핏</span>
+                  <small id="presetMetaCrossfit">40초 / 20초 · 10R</small>
+                </button>
               </div>
             </div>
 
-            <div class="field full">
-              <label>휴식 시간</label>
-              <div class="inline-time">
-                <input id="restMinutes" type="number" min="0" max="99" value="1" aria-label="휴식 분" />
-                <span>분</span>
-                <input id="restSeconds" type="number" min="0" max="59" value="0" aria-label="휴식 초" />
+            <div class="settings-subcard">
+              <h3 class="settings-subtitle">B. 버튼 이름 수정 <small>체육관 스타일에 맞게 변경</small></h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="presetNameBoxing">1번 이름</label>
+                  <input id="presetNameBoxing" type="text" maxlength="16" value="복싱 3분" />
+                </div>
+                <div class="field">
+                  <label for="presetNameKickboxing">2번 이름</label>
+                  <input id="presetNameKickboxing" type="text" maxlength="16" value="킥복싱" />
+                </div>
+                <div class="field">
+                  <label for="presetNameTabata">3번 이름</label>
+                  <input id="presetNameTabata" type="text" maxlength="16" value="타바타" />
+                </div>
+                <div class="field">
+                  <label for="presetNameCrossfit">4번 이름</label>
+                  <input id="presetNameCrossfit" type="text" maxlength="16" value="크로스핏" />
+                </div>
+              </div>
+              <p class="small-note">빠른 프로그램을 누른 뒤 시간 설정을 바꾸면 해당 버튼의 시간 표시도 함께 바뀌고 저장됩니다.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="settings-group" id="settingsTime" open>
+          <summary>
+            <span class="settings-summary-main">
+              <span class="settings-num">3</span>
+              <span class="settings-title-wrap">
+                <strong>시간 설정</strong>
+                <small>준비 시간, 운동 시간, 휴식 시간, 라운드 수를 정합니다</small>
+              </span>
+            </span>
+            <span class="settings-chevron">⌄</span>
+          </summary>
+          <div class="settings-body">
+            <div class="field-grid" style="margin-top: 12px;">
+              <div class="field">
+                <label for="prepareSeconds">준비 시간(초)</label>
+                <input id="prepareSeconds" type="number" min="0" max="600" value="10" />
+              </div>
+
+              <div class="field">
+                <label for="rounds">전체 라운드</label>
+                <input id="rounds" type="number" min="1" max="99" value="10" />
+              </div>
+
+              <div class="field full">
+                <label>운동 시간</label>
+                <div class="inline-time">
+                  <input id="workMinutes" type="number" min="0" max="99" value="3" aria-label="운동 분" />
+                  <span>분</span>
+                  <input id="workSeconds" type="number" min="0" max="59" value="0" aria-label="운동 초" />
+                </div>
+              </div>
+
+              <div class="field full">
+                <label>휴식 시간</label>
+                <div class="inline-time">
+                  <input id="restMinutes" type="number" min="0" max="99" value="1" aria-label="휴식 분" />
+                  <span>분</span>
+                  <input id="restSeconds" type="number" min="0" max="59" value="0" aria-label="휴식 초" />
+                </div>
               </div>
             </div>
           </div>
-        </section>
+        </details>
 
-        <section class="section">
-          <h2 class="section-title">알림 설정</h2>
-          <div class="switch-list">
-            <div class="switch-line">
-              <span>한국어 음성 안내</span>
-              <label class="switch">
-                <input id="voiceEnabled" type="checkbox" checked />
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div class="switch-line">
-              <span>30초 남음 알림</span>
-              <label class="switch">
-                <input id="alert30" type="checkbox" checked />
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div class="switch-line">
-              <span>10초 남음 알림</span>
-              <label class="switch">
-                <input id="alert10" type="checkbox" checked />
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div class="switch-line">
-              <span>마지막 5초 삐 소리</span>
-              <label class="switch">
-                <input id="countdown5" type="checkbox" checked />
-                <span class="slider"></span>
-              </label>
-            </div>
-          </div>
+        <details class="settings-group" id="settingsSound" open>
+          <summary>
+            <span class="settings-summary-main">
+              <span class="settings-num">4</span>
+              <span class="settings-title-wrap">
+                <strong>소리 / 음성 설정</strong>
+                <small>음성 안내, 시작음, 휴식음, 종료음, 알림음을 고릅니다</small>
+              </span>
+            </span>
+            <span class="settings-chevron">⌄</span>
+          </summary>
+          <div class="settings-body">
+            <div class="settings-subcard">
+              <h3 class="settings-subtitle">A. 음성 안내</h3>
+              <div class="switch-list">
+                <div class="switch-line">
+                  <span>한국어 음성 안내</span>
+                  <label class="switch">
+                    <input id="voiceEnabled" type="checkbox" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="switch-line">
+                  <span>30초 남음 알림</span>
+                  <label class="switch">
+                    <input id="alert30" type="checkbox" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="switch-line">
+                  <span>10초 남음 알림</span>
+                  <label class="switch">
+                    <input id="alert10" type="checkbox" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+                <div class="switch-line">
+                  <span>마지막 5초 삐 소리</span>
+                  <label class="switch">
+                    <input id="countdown5" type="checkbox" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
 
-          <div class="field-grid" style="margin-top: 14px;">
-            <div class="field full">
-              <label for="voiceTone">음성 톤</label>
-              <select id="voiceTone">
-                <option value="normal">기본 음성</option>
-                <option value="low">낮은 음성</option>
-                <option value="high">높은 음성</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="prepareSound">준비 시작 소리</label>
-              <select id="prepareSound" data-preview-sound="true">
-                <option value="doubleBeep">삐삐 2번</option>
-                <option value="singleBeep">삐 1번</option>
-                <option value="longBeep">삐 길게 1번</option>
-                <option value="doubleLongBeep">삐 길게 2번</option>
-                <option value="powerBeep">강한 삐삐</option>
-                <option value="lowBuzzer">낮은 부저</option>
-                <option value="none">소리 없음</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="startSound">운동 시작 소리</label>
-              <select id="startSound" data-preview-sound="true">
-                <option value="fightBellStrong">강한 경기 벨</option>
-                <option value="boxingDing">복싱장 땡</option>
-                <option value="boxingDingDing">땡땡 2번</option>
-                <option value="boxingDingDingDing">땡땡땡 3번</option>
-                <option value="gong">징 소리</option>
-                <option value="powerBeep">강한 삐삐</option>
-                <option value="longBeep">삐 길게 1번</option>
-                <option value="siren">짧은 사이렌</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="restSound">휴식 시작 소리</label>
-              <select id="restSound" data-preview-sound="true">
-                <option value="fightBellSoft">짧은 벨</option>
-                <option value="boxingDing">복싱장 땡</option>
-                <option value="singleBeep">삐 1번</option>
-                <option value="doubleBeep">삐삐 2번</option>
-                <option value="longBeep">삐 길게 1번</option>
-                <option value="lowBuzzer">낮은 부저</option>
-                <option value="softChime">부드러운 알림</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="finishSound">전체 종료 소리</label>
-              <select id="finishSound" data-preview-sound="true">
-                <option value="tripleBell">경기 벨 3번</option>
-                <option value="boxingDingDingDing">땡땡땡 3번</option>
-                <option value="longBuzzer">길게 종료음</option>
-                <option value="gongTriple">징 소리 3번</option>
-                <option value="victory">승리 팡파르</option>
-                <option value="sirenLong">긴 사이렌</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="alertSound">10초/5초 알림 소리</label>
-              <select id="alertSound" data-preview-sound="true">
-                <option value="singleBeep">기본 삐</option>
-                <option value="doubleBeep">삐삐 2번</option>
-                <option value="fastBeep">빠른 삐삐</option>
-                <option value="longBeep">삐 길게 1번</option>
-                <option value="lowBeep">낮은 삐</option>
-                <option value="powerBeep">강한 삐삐</option>
-                <option value="none">소리 없음</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="volumeRange">전체 음량</label>
-              <div class="volume-row">
-                <input id="volumeRange" type="range" min="0" max="150" value="110" />
-                <strong id="volumeValue">110%</strong>
+              <div class="field full" style="margin-top: 12px;">
+                <label for="voiceTone">음성 톤</label>
+                <select id="voiceTone">
+                  <option value="normal">기본 음성</option>
+                  <option value="low">낮은 음성</option>
+                  <option value="high">높은 음성</option>
+                </select>
               </div>
             </div>
+
+            <div class="settings-subcard">
+              <h3 class="settings-subtitle">B. 구간별 소리 <small>선택하면 바로 재생</small></h3>
+              <div class="field-grid">
+                <div class="field full">
+                  <label for="prepareSound">준비 시작 소리</label>
+                  <select id="prepareSound" data-preview-sound="true">
+                    <option value="doubleBeep">삐삐 2번</option>
+                    <option value="singleBeep">삐 1번</option>
+                    <option value="longBeep">삐 길게 1번</option>
+                    <option value="doubleLongBeep">삐 길게 2번</option>
+                    <option value="powerBeep">강한 삐삐</option>
+                    <option value="lowBuzzer">낮은 부저</option>
+                    <option value="none">소리 없음</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label for="startSound">운동 시작 소리</label>
+                  <select id="startSound" data-preview-sound="true">
+                    <option value="fightBellStrong">강한 경기 벨</option>
+                    <option value="boxingDing">복싱장 땡</option>
+                    <option value="boxingDingDing">땡땡 2번</option>
+                    <option value="boxingDingDingDing">땡땡땡 3번</option>
+                    <option value="gong">징 소리</option>
+                    <option value="powerBeep">강한 삐삐</option>
+                    <option value="longBeep">삐 길게 1번</option>
+                    <option value="siren">짧은 사이렌</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label for="restSound">휴식 시작 소리</label>
+                  <select id="restSound" data-preview-sound="true">
+                    <option value="fightBellSoft">짧은 벨</option>
+                    <option value="boxingDing">복싱장 땡</option>
+                    <option value="singleBeep">삐 1번</option>
+                    <option value="doubleBeep">삐삐 2번</option>
+                    <option value="longBeep">삐 길게 1번</option>
+                    <option value="lowBuzzer">낮은 부저</option>
+                    <option value="softChime">부드러운 알림</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label for="finishSound">전체 종료 소리</label>
+                  <select id="finishSound" data-preview-sound="true">
+                    <option value="tripleBell">경기 벨 3번</option>
+                    <option value="boxingDingDingDing">땡땡땡 3번</option>
+                    <option value="longBuzzer">길게 종료음</option>
+                    <option value="gongTriple">징 소리 3번</option>
+                    <option value="victory">승리 팡파르</option>
+                    <option value="sirenLong">긴 사이렌</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label for="alertSound">10초/5초 알림 소리</label>
+                  <select id="alertSound" data-preview-sound="true">
+                    <option value="singleBeep">기본 삐</option>
+                    <option value="doubleBeep">삐삐 2번</option>
+                    <option value="fastBeep">빠른 삐삐</option>
+                    <option value="longBeep">삐 길게 1번</option>
+                    <option value="lowBeep">낮은 삐</option>
+                    <option value="powerBeep">강한 삐삐</option>
+                    <option value="none">소리 없음</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-subcard">
+              <h3 class="settings-subtitle">C. 전체 음량</h3>
+              <div class="field full">
+                <label for="volumeRange">전체 음량</label>
+                <div class="volume-row">
+                  <input id="volumeRange" type="range" min="0" max="150" value="110" />
+                  <strong id="volumeValue">110%</strong>
+                </div>
+              </div>
+              <p class="small-note">소리 종류를 바꾸면 선택한 소리가 바로 재생됩니다. 처음 한 번은 위쪽의 <b>‘소리 확인’</b> 버튼을 먼저 눌러주세요.</p>
+            </div>
           </div>
+        </details>
 
-          <p class="small-note">
-            소리 종류를 바꾸면 선택한 소리가 바로 재생됩니다. 처음 한 번은 휴대폰 브라우저에서 소리 허용을 위해
-            위쪽의 <b>‘소리 확인’</b> 버튼을 먼저 눌러주세요. 음량은 최대 150%까지 올릴 수 있습니다.
-          </p>
-        </section>
-
-        <section class="section">
+        <div class="save-zone" id="settingsSave">
           <button class="btn good" id="saveBtn" style="width:100%;">💾 현재 설정 저장</button>
           <div class="footer-status">
             <span class="mini-chip" id="wakeChip">화면 유지: 대기</span>
@@ -1290,7 +1569,7 @@
           <p class="small-note">
             단축키: 스페이스바 시작/정지 · R 초기화 · N 다음 구간 · F 전체화면
           </p>
-        </section>
+        </div>
       </aside>
     </section>
   </main>
