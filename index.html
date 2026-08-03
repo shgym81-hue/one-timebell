@@ -450,6 +450,173 @@
 
     .hidden { display: none !important; }
 
+    .app-brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .app-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff3b30, #ff9500);
+      color: white;
+      flex: 0 0 auto;
+      box-shadow: 0 10px 28px rgba(249, 115, 22, 0.34);
+    }
+
+    .brand-svg {
+      width: 35px;
+      height: 35px;
+      display: block;
+    }
+
+    .brand-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .brand-title {
+      font-size: clamp(20px, 2.1vw, 30px);
+      line-height: 1.1;
+      font-weight: 1000;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-subtitle {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-edit-btn {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .brand-edit-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .brand-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0, 0, 0, 0.68);
+    }
+
+    .brand-modal-backdrop.open {
+      display: flex;
+    }
+
+    .brand-modal {
+      width: min(430px, 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.26);
+      background: #111827;
+      color: #ffffff;
+      padding: 22px;
+      box-shadow: 0 24px 90px rgba(0, 0, 0, 0.58);
+    }
+
+    .brand-modal h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      font-weight: 1000;
+    }
+
+    .brand-modal-desc {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .brand-modal label {
+      display: block;
+      margin: 14px 0 7px;
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .brand-modal input {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.88);
+      color: var(--text);
+      padding: 11px 13px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .brand-modal input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
+    }
+
+    .brand-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .brand-modal-actions button {
+      min-height: 48px;
+      border: 0;
+      border-radius: 14px;
+      color: white;
+      font-weight: 1000;
+    }
+
+    .save-brand-btn {
+      background: linear-gradient(135deg, var(--accent), #dc2626);
+    }
+
+    .cancel-brand-btn {
+      background: rgba(51, 65, 85, 0.92);
+    }
+
+    .reset-brand-btn {
+      grid-column: 1 / -1;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--line) !important;
+      color: #cbd5e1 !important;
+    }
+
     body.fullscreen-mode .topbar,
     body.fullscreen-mode .settings-card {
       display: none;
@@ -490,18 +657,75 @@
       .status-row { align-items: flex-start; }
       .phase-badge { padding: 8px 13px; }
     }
+
+    @media (max-width: 650px) {
+      .topbar {
+        flex-direction: column;
+      }
+
+      .app-brand {
+        width: 100%;
+        gap: 10px;
+        padding: 11px;
+      }
+
+      .app-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+      }
+
+      .brand-svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .brand-title {
+        font-size: 20px;
+      }
+
+      .brand-subtitle {
+        font-size: 12px;
+      }
+
+      .brand-edit-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .top-actions {
+        width: 100%;
+      }
+
+      .top-actions .btn {
+        flex: 1;
+      }
+    }
+
   </style>
 </head>
 <body class="phase-idle">
   <main class="app">
     <header class="topbar">
-      <div class="brand">
-        <div class="logo">🥊</div>
-        <div>
-          <h1>더원 타임벨</h1>
-          <p>복싱 · 킥복싱 · 크로스핏 · 인터벌 트레이닝</p>
+      <div class="app-brand">
+        <div class="app-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" class="brand-svg">
+            <circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-width="4"/>
+            <path d="M32 14v18l11 7" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M23 7h18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path d="M18 51l28-30" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path d="M43 18l-4 14h11L29 57l5-18H24L43 18z" fill="currentColor"/>
+          </svg>
         </div>
+
+        <div class="brand-text">
+          <div id="brandTitle" class="brand-title">더원 타임벨</div>
+          <div id="brandSubtitle" class="brand-subtitle">격투기 · 크로스핏 · 인터벌 트레이닝</div>
+        </div>
+
+        <button class="brand-edit-btn" type="button" onclick="openBrandSettings()">상호 수정</button>
       </div>
+
       <div class="top-actions">
         <button class="btn ghost settings-toggle" id="settingsToggle">⚙️ 설정</button>
         <button class="btn ghost" id="soundTestBtn">🔊 소리 확인</button>
@@ -666,6 +890,37 @@
     </section>
   </main>
 
+  <div id="brandModalBackdrop" class="brand-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="brandModalTitle">
+    <div class="brand-modal">
+      <h2 id="brandModalTitle">상단 문구 수정</h2>
+      <p class="brand-modal-desc">
+        체육관 이름이나 설명 문구를 직접 바꿀 수 있습니다. 저장하면 다음에 열어도 그대로 유지됩니다.
+      </p>
+
+      <label for="brandTitleInput">앱 이름 / 체육관 이름</label>
+      <input
+        id="brandTitleInput"
+        type="text"
+        placeholder="예: 더원 체육관, 스카이 체육관"
+        maxlength="30"
+      />
+
+      <label for="brandSubtitleInput">설명 문구</label>
+      <input
+        id="brandSubtitleInput"
+        type="text"
+        placeholder="예: 격투기 · 크로스핏 · 인터벌 트레이닝"
+        maxlength="60"
+      />
+
+      <div class="brand-modal-actions">
+        <button class="cancel-brand-btn" type="button" onclick="closeBrandSettings()">취소</button>
+        <button class="save-brand-btn" type="button" onclick="saveBrandSettings()">저장</button>
+        <button class="reset-brand-btn" type="button" onclick="resetBrandSettings()">기본값으로 되돌리기</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     "use strict";
 
@@ -735,6 +990,78 @@
 
     let audioContext = null;
     let wakeLock = null;
+
+    const DEFAULT_BRAND_TITLE = "더원 타임벨";
+    const DEFAULT_BRAND_SUBTITLE = "격투기 · 크로스핏 · 인터벌 트레이닝";
+
+    function loadBrandSettings() {
+      const savedTitle = localStorage.getItem("timebell_brand_title");
+      const savedSubtitle = localStorage.getItem("timebell_brand_subtitle");
+
+      const title = savedTitle || DEFAULT_BRAND_TITLE;
+      const subtitle = savedSubtitle || DEFAULT_BRAND_SUBTITLE;
+
+      const brandTitle = document.getElementById("brandTitle");
+      const brandSubtitle = document.getElementById("brandSubtitle");
+
+      if (brandTitle) brandTitle.textContent = title;
+      if (brandSubtitle) brandSubtitle.textContent = subtitle;
+      document.title = title;
+    }
+
+    function openBrandSettings() {
+      const modal = document.getElementById("brandModalBackdrop");
+      const titleInput = document.getElementById("brandTitleInput");
+      const subtitleInput = document.getElementById("brandSubtitleInput");
+
+      if (!modal || !titleInput || !subtitleInput) return;
+
+      titleInput.value = localStorage.getItem("timebell_brand_title") || DEFAULT_BRAND_TITLE;
+      subtitleInput.value = localStorage.getItem("timebell_brand_subtitle") || DEFAULT_BRAND_SUBTITLE;
+
+      modal.classList.add("open");
+      setTimeout(() => titleInput.focus(), 50);
+    }
+
+    function closeBrandSettings() {
+      const modal = document.getElementById("brandModalBackdrop");
+      if (modal) modal.classList.remove("open");
+    }
+
+    function saveBrandSettings() {
+      const titleInput = document.getElementById("brandTitleInput");
+      const subtitleInput = document.getElementById("brandSubtitleInput");
+
+      if (!titleInput || !subtitleInput) return;
+
+      const title = titleInput.value.trim() || DEFAULT_BRAND_TITLE;
+      const subtitle = subtitleInput.value.trim() || DEFAULT_BRAND_SUBTITLE;
+
+      localStorage.setItem("timebell_brand_title", title);
+      localStorage.setItem("timebell_brand_subtitle", subtitle);
+
+      loadBrandSettings();
+      closeBrandSettings();
+    }
+
+    function resetBrandSettings() {
+      localStorage.removeItem("timebell_brand_title");
+      localStorage.removeItem("timebell_brand_subtitle");
+
+      const titleInput = document.getElementById("brandTitleInput");
+      const subtitleInput = document.getElementById("brandSubtitleInput");
+
+      if (titleInput) titleInput.value = DEFAULT_BRAND_TITLE;
+      if (subtitleInput) subtitleInput.value = DEFAULT_BRAND_SUBTITLE;
+
+      loadBrandSettings();
+    }
+
+    document.addEventListener("click", (event) => {
+      const modal = document.getElementById("brandModalBackdrop");
+      if (modal && event.target === modal) closeBrandSettings();
+    });
+
 
     function clampNumber(value, min, max, fallback) {
       const number = Number(value);
@@ -1319,6 +1646,7 @@
     window.speechSynthesis?.getVoices?.();
     window.speechSynthesis?.addEventListener?.("voiceschanged", () => pickKoreanVoice());
 
+    loadBrandSettings();
     loadSettings();
     els.volumeValue.textContent = `${els.volumeRange.value}%`;
     resetTimer(false);
