@@ -895,9 +895,12 @@
 
             <div class="field full">
               <label for="prepareSound">준비 시작 소리</label>
-              <select id="prepareSound">
+              <select id="prepareSound" data-preview-sound="true">
                 <option value="doubleBeep">삐삐 2번</option>
                 <option value="singleBeep">삐 1번</option>
+                <option value="longBeep">삐 길게 1번</option>
+                <option value="doubleLongBeep">삐 길게 2번</option>
+                <option value="powerBeep">강한 삐삐</option>
                 <option value="lowBuzzer">낮은 부저</option>
                 <option value="none">소리 없음</option>
               </select>
@@ -905,19 +908,26 @@
 
             <div class="field full">
               <label for="startSound">운동 시작 소리</label>
-              <select id="startSound">
+              <select id="startSound" data-preview-sound="true">
                 <option value="fightBellStrong">강한 경기 벨</option>
-                <option value="doubleBeep">삐삐 2번</option>
-                <option value="siren">짧은 사이렌</option>
+                <option value="boxingDing">복싱장 땡</option>
+                <option value="boxingDingDing">땡땡 2번</option>
+                <option value="boxingDingDingDing">땡땡땡 3번</option>
                 <option value="gong">징 소리</option>
+                <option value="powerBeep">강한 삐삐</option>
+                <option value="longBeep">삐 길게 1번</option>
+                <option value="siren">짧은 사이렌</option>
               </select>
             </div>
 
             <div class="field full">
               <label for="restSound">휴식 시작 소리</label>
-              <select id="restSound">
+              <select id="restSound" data-preview-sound="true">
                 <option value="fightBellSoft">짧은 벨</option>
+                <option value="boxingDing">복싱장 땡</option>
                 <option value="singleBeep">삐 1번</option>
+                <option value="doubleBeep">삐삐 2번</option>
+                <option value="longBeep">삐 길게 1번</option>
                 <option value="lowBuzzer">낮은 부저</option>
                 <option value="softChime">부드러운 알림</option>
               </select>
@@ -925,20 +935,25 @@
 
             <div class="field full">
               <label for="finishSound">전체 종료 소리</label>
-              <select id="finishSound">
+              <select id="finishSound" data-preview-sound="true">
                 <option value="tripleBell">경기 벨 3번</option>
+                <option value="boxingDingDingDing">땡땡땡 3번</option>
                 <option value="longBuzzer">길게 종료음</option>
-                <option value="victory">승리 팡파르</option>
                 <option value="gongTriple">징 소리 3번</option>
+                <option value="victory">승리 팡파르</option>
+                <option value="sirenLong">긴 사이렌</option>
               </select>
             </div>
 
             <div class="field full">
               <label for="alertSound">10초/5초 알림 소리</label>
-              <select id="alertSound">
+              <select id="alertSound" data-preview-sound="true">
                 <option value="singleBeep">기본 삐</option>
+                <option value="doubleBeep">삐삐 2번</option>
                 <option value="fastBeep">빠른 삐삐</option>
+                <option value="longBeep">삐 길게 1번</option>
                 <option value="lowBeep">낮은 삐</option>
+                <option value="powerBeep">강한 삐삐</option>
                 <option value="none">소리 없음</option>
               </select>
             </div>
@@ -946,15 +961,15 @@
             <div class="field full">
               <label for="volumeRange">전체 음량</label>
               <div class="volume-row">
-                <input id="volumeRange" type="range" min="0" max="100" value="90" />
-                <strong id="volumeValue">90%</strong>
+                <input id="volumeRange" type="range" min="0" max="150" value="110" />
+                <strong id="volumeValue">110%</strong>
               </div>
             </div>
           </div>
 
           <p class="small-note">
-            원하는 시작음, 휴식음, 종료음을 고른 뒤 위쪽의 <b>‘소리 확인’</b> 버튼으로 들어보세요.
-            처음 사용할 때는 브라우저 소리 재생 허용을 위해 한 번 눌러주는 게 좋습니다.
+            소리 종류를 바꾸면 선택한 소리가 바로 재생됩니다. 처음 한 번은 휴대폰 브라우저에서 소리 허용을 위해
+            위쪽의 <b>‘소리 확인’</b> 버튼을 먼저 눌러주세요. 음량은 최대 150%까지 올릴 수 있습니다.
           </p>
         </section>
 
@@ -1203,7 +1218,7 @@
         restSound: els.restSound.value,
         finishSound: els.finishSound.value,
         alertSound: els.alertSound.value,
-        volume: clampNumber(els.volumeRange.value, 0, 100, 90) / 100
+        volume: clampNumber(els.volumeRange.value, 0, 150, 110) / 100
       };
     }
 
@@ -1338,7 +1353,7 @@
     }
 
     function currentVolume() {
-      return clampNumber(els.volumeRange.value, 0, 100, 90) / 100;
+      return clampNumber(els.volumeRange.value, 0, 150, 110) / 100;
     }
 
     function tone(frequency = 880, duration = 0.12, volume = 0.38, type = "sine", delay = 0) {
@@ -1347,65 +1362,94 @@
       const start = audioContext.currentTime + delay;
       const oscillator = audioContext.createOscillator();
       const gain = audioContext.createGain();
+      const targetVolume = Math.min(0.95, Math.max(0.0001, volume * currentVolume() * 1.25));
 
       oscillator.type = type;
       oscillator.frequency.setValueAtTime(frequency, start);
       gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(
-        Math.max(0.0001, volume * currentVolume()),
-        start + 0.01
-      );
+      gain.gain.exponentialRampToValueAtTime(targetVolume, start + 0.01);
       gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
 
       oscillator.connect(gain);
       gain.connect(audioContext.destination);
       oscillator.start(start);
-      oscillator.stop(start + duration + 0.03);
+      oscillator.stop(start + duration + 0.05);
     }
 
-    function beep(times = 1, frequency = 980, gap = 0.16) {
+    function beep(times = 1, frequency = 980, gap = 0.16, duration = 0.09, volume = 0.46) {
       for (let i = 0; i < times; i++) {
-        tone(frequency, 0.09, 0.4, "square", i * gap);
+        tone(frequency, duration, volume, "square", i * gap);
       }
     }
 
+    function longBeep(times = 1, frequency = 900, gap = 0.46) {
+      for (let i = 0; i < times; i++) {
+        tone(frequency, 0.36, 0.62, "square", i * gap);
+        tone(frequency * 1.5, 0.34, 0.26, "sine", i * gap + 0.01);
+      }
+    }
+
+    function powerBeep() {
+      beep(2, 1180, 0.18, 0.13, 0.72);
+      tone(620, 0.26, 0.5, "sawtooth", 0.39);
+    }
+
     function bell(strong = false) {
-      const baseVolume = strong ? 0.44 : 0.34;
-      tone(520, 0.85, baseVolume, "sine", 0);
-      tone(780, 0.72, baseVolume * 0.72, "sine", 0.01);
-      tone(1040, 0.55, baseVolume * 0.46, "sine", 0.02);
+      const baseVolume = strong ? 0.58 : 0.42;
+      tone(520, 0.9, baseVolume, "sine", 0);
+      tone(780, 0.78, baseVolume * 0.78, "sine", 0.01);
+      tone(1040, 0.58, baseVolume * 0.52, "sine", 0.02);
       if (strong) {
-        tone(430, 1.05, baseVolume * 0.7, "triangle", 0.03);
+        tone(430, 1.08, baseVolume * 0.76, "triangle", 0.03);
+      }
+    }
+
+    function boxingDing() {
+      tone(920, 0.07, 0.9, "square", 0);
+      tone(1380, 0.18, 0.58, "triangle", 0.01);
+      tone(1840, 0.45, 0.28, "sine", 0.02);
+      tone(460, 0.62, 0.24, "sine", 0.03);
+    }
+
+    function dingRepeat(times = 1, gap = 0.42) {
+      for (let i = 0; i < times; i++) {
+        setTimeout(() => boxingDing(), i * gap * 1000);
       }
     }
 
     function lowBuzzer(duration = 0.35) {
-      tone(145, duration, 0.55, "sawtooth", 0);
-      tone(92, duration * 0.9, 0.32, "square", 0.01);
+      tone(145, duration, 0.72, "sawtooth", 0);
+      tone(92, duration * 0.92, 0.42, "square", 0.01);
     }
 
     function siren() {
-      tone(520, 0.18, 0.38, "sawtooth", 0);
-      tone(760, 0.18, 0.38, "sawtooth", 0.2);
-      tone(520, 0.18, 0.38, "sawtooth", 0.4);
+      tone(520, 0.18, 0.48, "sawtooth", 0);
+      tone(760, 0.18, 0.48, "sawtooth", 0.2);
+      tone(520, 0.18, 0.48, "sawtooth", 0.4);
+    }
+
+    function sirenLong() {
+      siren();
+      setTimeout(() => siren(), 670);
     }
 
     function gong() {
-      tone(220, 1.15, 0.5, "triangle", 0);
-      tone(330, 1.0, 0.28, "sine", 0.02);
-      tone(440, 0.85, 0.18, "sine", 0.04);
+      tone(190, 1.35, 0.68, "triangle", 0);
+      tone(285, 1.18, 0.42, "sine", 0.02);
+      tone(420, 0.95, 0.28, "sine", 0.04);
+      tone(95, 1.1, 0.28, "sine", 0.05);
     }
 
     function softChime() {
-      tone(660, 0.18, 0.25, "sine", 0);
-      tone(880, 0.28, 0.22, "sine", 0.17);
+      tone(660, 0.18, 0.32, "sine", 0);
+      tone(880, 0.28, 0.28, "sine", 0.17);
     }
 
     function victory() {
-      tone(523, 0.16, 0.36, "square", 0);
-      tone(659, 0.16, 0.36, "square", 0.18);
-      tone(784, 0.28, 0.36, "square", 0.36);
-      tone(1046, 0.55, 0.28, "triangle", 0.62);
+      tone(523, 0.16, 0.45, "square", 0);
+      tone(659, 0.16, 0.45, "square", 0.18);
+      tone(784, 0.28, 0.45, "square", 0.36);
+      tone(1046, 0.58, 0.36, "triangle", 0.62);
     }
 
     function playSound(name) {
@@ -1418,23 +1462,47 @@
         case "doubleBeep":
           beep(2);
           break;
+        case "tripleBeep":
+          beep(3);
+          break;
         case "fastBeep":
-          beep(3, 1040, 0.11);
+          beep(3, 1120, 0.105, 0.08, 0.58);
           break;
         case "lowBeep":
-          beep(1, 520);
+          beep(1, 520, 0.16, 0.12, 0.52);
+          break;
+        case "lowDoubleBeep":
+          beep(2, 520, 0.2, 0.13, 0.52);
+          break;
+        case "longBeep":
+          longBeep(1);
+          break;
+        case "doubleLongBeep":
+          longBeep(2);
+          break;
+        case "powerBeep":
+          powerBeep();
           break;
         case "lowBuzzer":
-          lowBuzzer(0.42);
+          lowBuzzer(0.46);
           break;
         case "longBuzzer":
-          lowBuzzer(1.05);
+          lowBuzzer(1.1);
           break;
         case "fightBellSoft":
           bell(false);
           break;
         case "fightBellStrong":
           bell(true);
+          break;
+        case "boxingDing":
+          dingRepeat(1);
+          break;
+        case "boxingDingDing":
+          dingRepeat(2);
+          break;
+        case "boxingDingDingDing":
+          dingRepeat(3);
           break;
         case "tripleBell":
           bell(true);
@@ -1443,6 +1511,9 @@
           break;
         case "siren":
           siren();
+          break;
+        case "sirenLong":
+          sirenLong();
           break;
         case "gong":
           gong();
@@ -1586,11 +1657,11 @@
 
       if (seconds === 30 && settings.alert30 && state.phaseDurationMs >= 31000) {
         state.notified.add(key);
-        playSound(settings.alertSound === "none" ? "none" : "doubleBeep");
+        playSound(settings.alertSound);
         speak("30초 남았습니다.");
       } else if (seconds === 10 && settings.alert10 && state.phaseDurationMs >= 11000) {
         state.notified.add(key);
-        playSound(settings.alertSound === "none" ? "none" : "fastBeep");
+        playSound(settings.alertSound);
         speak("10초 남았습니다.");
       } else if (seconds >= 1 && seconds <= 5 && settings.countdown5) {
         state.notified.add(key);
@@ -1705,15 +1776,24 @@
       render();
     }
 
+    async function previewSelectedSound(selectElement) {
+      saveSettings(false);
+      const ok = await ensureAudio();
+      if (!ok) return;
+      window.speechSynthesis?.cancel?.();
+      playSound(selectElement.value);
+    }
+
     async function soundTest() {
       const ok = await ensureAudio();
       if (!ok) return;
       const settings = readSettings();
       if (!settings) return;
-      playSound(settings.startSound);
-      setTimeout(() => playSound(settings.restSound), 850);
-      setTimeout(() => playSound(settings.finishSound), 1700);
-      setTimeout(() => speak("소리 확인이 완료되었습니다."), 2300);
+      playSound(settings.prepareSound);
+      setTimeout(() => playSound(settings.startSound), 800);
+      setTimeout(() => playSound(settings.restSound), 1650);
+      setTimeout(() => playSound(settings.finishSound), 2500);
+      setTimeout(() => speak("소리 확인이 완료되었습니다."), 3600);
     }
 
     async function toggleFullscreen() {
@@ -1908,9 +1988,14 @@
 
     [
       els.voiceEnabled, els.alert30, els.alert10,
-      els.countdown5, els.voiceTone,
-      els.prepareSound, els.startSound, els.restSound, els.finishSound, els.alertSound
+      els.countdown5, els.voiceTone
     ].forEach(input => input.addEventListener("change", () => saveSettings(false)));
+
+    [
+      els.prepareSound, els.startSound, els.restSound, els.finishSound, els.alertSound
+    ].forEach(select => {
+      select.addEventListener("change", () => previewSelectedSound(select));
+    });
 
     [
       els.presetNameBoxing, els.presetNameKickboxing,
