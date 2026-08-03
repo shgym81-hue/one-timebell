@@ -26,7 +26,16 @@
       --phase-rest-glow: rgba(37, 99, 235, 0.28);
       --phase-finished-glow: rgba(34, 197, 94, 0.24);
       --brand-glow: rgba(249, 115, 22, 0.34);
-      --topbar-glow: rgba(249, 115, 22, 0.08);
+      --surface-glow: rgba(249, 115, 22, 0.14);
+      --button-bg: rgba(30, 41, 59, 0.86);
+      --button-ghost-bg: rgba(15, 23, 42, 0.55);
+      --field-bg: rgba(15, 23, 42, 0.82);
+      --badge-bg: rgba(148, 163, 184, 0.16);
+      --progress-track-bg: rgba(148, 163, 184, 0.16);
+      --active-bg: rgba(249, 115, 22, 0.16);
+      --modal-bg: #181818;
+      --modal-input-bg: #252525;
+      --timer-shadow: 0 15px 55px rgba(0,0,0,0.38);
       --shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
     }
 
@@ -69,129 +78,206 @@
     }
 
     body.theme-orange {
-      --bg: #090d14;
-      --panel: rgba(18, 25, 38, 0.94);
-      --panel-2: rgba(30, 41, 59, 0.82);
-      --muted: #94a3b8;
-      --line: rgba(148, 163, 184, 0.22);
-      --accent: #f97316;
-      --accent-2: #fb923c;
-      --bg-glow-1: rgba(249, 115, 22, 0.16);
-      --bg-glow-2: rgba(37, 99, 235, 0.13);
-      --phase-prepare-glow: rgba(249, 115, 22, 0.30);
-      --phase-work-glow: rgba(239, 68, 68, 0.26);
-      --phase-rest-glow: rgba(37, 99, 235, 0.28);
+      --bg: #1a0d05;
+      --panel: rgba(55, 28, 11, 0.96);
+      --panel-2: rgba(78, 43, 18, 0.90);
+      --text: #fffaf3;
+      --muted: #ffd0a7;
+      --line: rgba(255, 186, 122, 0.28);
+      --accent: #ff6b1a;
+      --accent-2: #ff9f3f;
+      --bg-glow-1: rgba(255, 107, 26, 0.34);
+      --bg-glow-2: rgba(255, 159, 63, 0.22);
+      --phase-prepare-glow: rgba(255, 159, 63, 0.36);
+      --phase-work-glow: rgba(255, 76, 51, 0.38);
+      --phase-rest-glow: rgba(255, 132, 40, 0.28);
       --phase-finished-glow: rgba(34, 197, 94, 0.24);
-      --brand-glow: rgba(249, 115, 22, 0.36);
-      --topbar-glow: rgba(249, 115, 22, 0.08);
+      --brand-glow: rgba(255, 107, 26, 0.42);
+      --topbar-glow: rgba(255, 107, 26, 0.16);
+      --surface-glow: rgba(255, 131, 54, 0.16);
+      --button-bg: rgba(76, 42, 18, 0.92);
+      --button-ghost-bg: rgba(46, 24, 10, 0.72);
+      --field-bg: rgba(33, 17, 7, 0.88);
+      --badge-bg: rgba(255, 186, 122, 0.16);
+      --progress-track-bg: rgba(255, 223, 186, 0.16);
+      --active-bg: rgba(255, 107, 26, 0.22);
+      --modal-bg: #241106;
+      --modal-input-bg: rgba(33, 17, 7, 0.92);
+      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.46);
     }
 
     body.theme-yellow {
-      --bg: #111006;
-      --panel: rgba(28, 24, 12, 0.94);
-      --panel-2: rgba(47, 39, 16, 0.84);
-      --muted: #d7c98a;
-      --line: rgba(250, 204, 21, 0.22);
-      --accent: #eab308;
-      --accent-2: #facc15;
-      --bg-glow-1: rgba(234, 179, 8, 0.22);
-      --bg-glow-2: rgba(180, 83, 9, 0.16);
-      --phase-prepare-glow: rgba(234, 179, 8, 0.34);
-      --phase-work-glow: rgba(245, 158, 11, 0.32);
-      --phase-rest-glow: rgba(202, 138, 4, 0.30);
-      --phase-finished-glow: rgba(132, 204, 22, 0.24);
-      --brand-glow: rgba(234, 179, 8, 0.38);
-      --topbar-glow: rgba(234, 179, 8, 0.10);
+      --bg: #211b04;
+      --panel: rgba(68, 55, 9, 0.96);
+      --panel-2: rgba(92, 75, 14, 0.90);
+      --text: #fffbe6;
+      --muted: #f7dc75;
+      --line: rgba(250, 204, 21, 0.32);
+      --accent: #facc15;
+      --accent-2: #f59e0b;
+      --bg-glow-1: rgba(250, 204, 21, 0.34);
+      --bg-glow-2: rgba(245, 158, 11, 0.22);
+      --phase-prepare-glow: rgba(250, 204, 21, 0.38);
+      --phase-work-glow: rgba(245, 158, 11, 0.36);
+      --phase-rest-glow: rgba(202, 138, 4, 0.32);
+      --phase-finished-glow: rgba(132, 204, 22, 0.25);
+      --brand-glow: rgba(250, 204, 21, 0.42);
+      --topbar-glow: rgba(250, 204, 21, 0.16);
+      --surface-glow: rgba(250, 204, 21, 0.17);
+      --button-bg: rgba(78, 64, 12, 0.92);
+      --button-ghost-bg: rgba(46, 37, 7, 0.72);
+      --field-bg: rgba(31, 25, 4, 0.88);
+      --badge-bg: rgba(250, 204, 21, 0.17);
+      --progress-track-bg: rgba(255, 244, 184, 0.16);
+      --active-bg: rgba(250, 204, 21, 0.22);
+      --modal-bg: #292104;
+      --modal-input-bg: rgba(31, 25, 4, 0.92);
+      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.46);
     }
 
     body.theme-red {
-      --bg: #12080b;
-      --panel: rgba(30, 13, 18, 0.94);
-      --panel-2: rgba(55, 18, 25, 0.84);
-      --muted: #f1a8a8;
-      --line: rgba(248, 113, 113, 0.22);
-      --accent: #ef4444;
+      --bg: #23060a;
+      --panel: rgba(78, 13, 22, 0.96);
+      --panel-2: rgba(104, 18, 31, 0.90);
+      --text: #fff5f5;
+      --muted: #ffb4b4;
+      --line: rgba(248, 113, 113, 0.32);
+      --accent: #ff3b30;
       --accent-2: #fb7185;
-      --bg-glow-1: rgba(239, 68, 68, 0.23);
-      --bg-glow-2: rgba(251, 113, 133, 0.13);
-      --phase-prepare-glow: rgba(251, 113, 133, 0.28);
-      --phase-work-glow: rgba(239, 68, 68, 0.36);
-      --phase-rest-glow: rgba(244, 63, 94, 0.26);
-      --phase-finished-glow: rgba(248, 113, 113, 0.24);
-      --brand-glow: rgba(239, 68, 68, 0.40);
-      --topbar-glow: rgba(239, 68, 68, 0.10);
+      --bg-glow-1: rgba(255, 59, 48, 0.36);
+      --bg-glow-2: rgba(251, 113, 133, 0.22);
+      --phase-prepare-glow: rgba(251, 113, 133, 0.34);
+      --phase-work-glow: rgba(255, 59, 48, 0.42);
+      --phase-rest-glow: rgba(244, 63, 94, 0.30);
+      --phase-finished-glow: rgba(248, 113, 113, 0.26);
+      --brand-glow: rgba(255, 59, 48, 0.44);
+      --topbar-glow: rgba(255, 59, 48, 0.16);
+      --surface-glow: rgba(255, 59, 48, 0.17);
+      --button-bg: rgba(86, 16, 27, 0.92);
+      --button-ghost-bg: rgba(48, 9, 15, 0.72);
+      --field-bg: rgba(35, 6, 10, 0.88);
+      --badge-bg: rgba(248, 113, 113, 0.17);
+      --progress-track-bg: rgba(255, 220, 220, 0.16);
+      --active-bg: rgba(255, 59, 48, 0.22);
+      --modal-bg: #2c080d;
+      --modal-input-bg: rgba(35, 6, 10, 0.92);
+      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
     }
 
     body.theme-blue {
-      --bg: #06111f;
-      --panel: rgba(10, 25, 47, 0.94);
-      --panel-2: rgba(15, 38, 70, 0.84);
-      --muted: #9cc8ff;
-      --line: rgba(96, 165, 250, 0.23);
-      --accent: #2563eb;
+      --bg: #061c3a;
+      --panel: rgba(9, 42, 86, 0.96);
+      --panel-2: rgba(13, 59, 115, 0.90);
+      --text: #f3f9ff;
+      --muted: #a9d4ff;
+      --line: rgba(96, 165, 250, 0.34);
+      --accent: #2f80ff;
       --accent-2: #38bdf8;
-      --bg-glow-1: rgba(37, 99, 235, 0.22);
-      --bg-glow-2: rgba(56, 189, 248, 0.15);
-      --phase-prepare-glow: rgba(59, 130, 246, 0.28);
-      --phase-work-glow: rgba(37, 99, 235, 0.34);
-      --phase-rest-glow: rgba(14, 165, 233, 0.32);
-      --phase-finished-glow: rgba(45, 212, 191, 0.23);
-      --brand-glow: rgba(37, 99, 235, 0.40);
-      --topbar-glow: rgba(37, 99, 235, 0.10);
+      --bg-glow-1: rgba(47, 128, 255, 0.35);
+      --bg-glow-2: rgba(56, 189, 248, 0.23);
+      --phase-prepare-glow: rgba(59, 130, 246, 0.34);
+      --phase-work-glow: rgba(47, 128, 255, 0.42);
+      --phase-rest-glow: rgba(14, 165, 233, 0.36);
+      --phase-finished-glow: rgba(45, 212, 191, 0.25);
+      --brand-glow: rgba(47, 128, 255, 0.44);
+      --topbar-glow: rgba(47, 128, 255, 0.16);
+      --surface-glow: rgba(56, 189, 248, 0.16);
+      --button-bg: rgba(11, 51, 102, 0.92);
+      --button-ghost-bg: rgba(6, 27, 56, 0.72);
+      --field-bg: rgba(5, 22, 47, 0.88);
+      --badge-bg: rgba(96, 165, 250, 0.17);
+      --progress-track-bg: rgba(207, 233, 255, 0.15);
+      --active-bg: rgba(47, 128, 255, 0.23);
+      --modal-bg: #071f42;
+      --modal-input-bg: rgba(5, 22, 47, 0.92);
+      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
     }
 
     body.theme-green {
-      --bg: #06150e;
-      --panel: rgba(10, 31, 21, 0.94);
-      --panel-2: rgba(15, 48, 32, 0.84);
-      --muted: #9fe7bd;
-      --line: rgba(74, 222, 128, 0.22);
-      --accent: #16a34a;
-      --accent-2: #22c55e;
-      --bg-glow-1: rgba(34, 197, 94, 0.20);
-      --bg-glow-2: rgba(20, 184, 166, 0.13);
-      --phase-prepare-glow: rgba(34, 197, 94, 0.27);
-      --phase-work-glow: rgba(22, 163, 74, 0.34);
-      --phase-rest-glow: rgba(20, 184, 166, 0.27);
-      --phase-finished-glow: rgba(34, 197, 94, 0.32);
-      --brand-glow: rgba(34, 197, 94, 0.38);
-      --topbar-glow: rgba(34, 197, 94, 0.09);
+      --bg: #062715;
+      --panel: rgba(8, 68, 37, 0.96);
+      --panel-2: rgba(13, 92, 52, 0.90);
+      --text: #f3fff7;
+      --muted: #a6f4c5;
+      --line: rgba(74, 222, 128, 0.32);
+      --accent: #22c55e;
+      --accent-2: #4ade80;
+      --bg-glow-1: rgba(34, 197, 94, 0.34);
+      --bg-glow-2: rgba(20, 184, 166, 0.20);
+      --phase-prepare-glow: rgba(34, 197, 94, 0.32);
+      --phase-work-glow: rgba(22, 163, 74, 0.40);
+      --phase-rest-glow: rgba(20, 184, 166, 0.30);
+      --phase-finished-glow: rgba(34, 197, 94, 0.36);
+      --brand-glow: rgba(34, 197, 94, 0.42);
+      --topbar-glow: rgba(34, 197, 94, 0.15);
+      --surface-glow: rgba(34, 197, 94, 0.16);
+      --button-bg: rgba(10, 72, 40, 0.92);
+      --button-ghost-bg: rgba(5, 39, 21, 0.72);
+      --field-bg: rgba(4, 30, 16, 0.88);
+      --badge-bg: rgba(74, 222, 128, 0.16);
+      --progress-track-bg: rgba(210, 255, 226, 0.14);
+      --active-bg: rgba(34, 197, 94, 0.22);
+      --modal-bg: #073016;
+      --modal-input-bg: rgba(4, 30, 16, 0.92);
+      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
     }
 
     body.theme-purple {
-      --bg: #100a1f;
-      --panel: rgba(24, 15, 45, 0.94);
-      --panel-2: rgba(40, 28, 75, 0.84);
-      --muted: #c9b8ff;
-      --line: rgba(167, 139, 250, 0.23);
-      --accent: #8b5cf6;
+      --bg: #170a34;
+      --panel: rgba(46, 21, 92, 0.96);
+      --panel-2: rgba(64, 34, 119, 0.90);
+      --text: #fbf7ff;
+      --muted: #d7c6ff;
+      --line: rgba(167, 139, 250, 0.33);
+      --accent: #a855f7;
       --accent-2: #ec4899;
-      --bg-glow-1: rgba(139, 92, 246, 0.22);
-      --bg-glow-2: rgba(236, 72, 153, 0.13);
-      --phase-prepare-glow: rgba(168, 85, 247, 0.28);
-      --phase-work-glow: rgba(147, 51, 234, 0.32);
-      --phase-rest-glow: rgba(124, 58, 237, 0.30);
-      --phase-finished-glow: rgba(217, 70, 239, 0.22);
-      --brand-glow: rgba(139, 92, 246, 0.40);
-      --topbar-glow: rgba(139, 92, 246, 0.10);
+      --bg-glow-1: rgba(168, 85, 247, 0.34);
+      --bg-glow-2: rgba(236, 72, 153, 0.22);
+      --phase-prepare-glow: rgba(168, 85, 247, 0.34);
+      --phase-work-glow: rgba(147, 51, 234, 0.38);
+      --phase-rest-glow: rgba(124, 58, 237, 0.34);
+      --phase-finished-glow: rgba(217, 70, 239, 0.25);
+      --brand-glow: rgba(168, 85, 247, 0.44);
+      --topbar-glow: rgba(168, 85, 247, 0.16);
+      --surface-glow: rgba(168, 85, 247, 0.16);
+      --button-bg: rgba(52, 25, 101, 0.92);
+      --button-ghost-bg: rgba(28, 11, 61, 0.72);
+      --field-bg: rgba(21, 8, 47, 0.88);
+      --badge-bg: rgba(167, 139, 250, 0.17);
+      --progress-track-bg: rgba(235, 220, 255, 0.15);
+      --active-bg: rgba(168, 85, 247, 0.22);
+      --modal-bg: #1d0c40;
+      --modal-input-bg: rgba(21, 8, 47, 0.92);
+      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
     }
 
     body.theme-black {
-      --bg: #07090d;
-      --panel: rgba(16, 20, 28, 0.95);
-      --panel-2: rgba(28, 34, 45, 0.84);
-      --muted: #aab4c2;
-      --line: rgba(203, 213, 225, 0.18);
-      --accent: #64748b;
-      --accent-2: #e2e8f0;
-      --bg-glow-1: rgba(148, 163, 184, 0.12);
-      --bg-glow-2: rgba(255, 255, 255, 0.06);
+      --bg: #050609;
+      --panel: rgba(18, 22, 30, 0.97);
+      --panel-2: rgba(31, 38, 51, 0.92);
+      --text: #f8fafc;
+      --muted: #b9c3d2;
+      --line: rgba(203, 213, 225, 0.22);
+      --accent: #e2e8f0;
+      --accent-2: #94a3b8;
+      --bg-glow-1: rgba(148, 163, 184, 0.16);
+      --bg-glow-2: rgba(255, 255, 255, 0.08);
       --phase-prepare-glow: rgba(148, 163, 184, 0.18);
-      --phase-work-glow: rgba(203, 213, 225, 0.16);
-      --phase-rest-glow: rgba(100, 116, 139, 0.18);
-      --phase-finished-glow: rgba(148, 163, 184, 0.16);
-      --brand-glow: rgba(203, 213, 225, 0.22);
-      --topbar-glow: rgba(255, 255, 255, 0.06);
+      --phase-work-glow: rgba(203, 213, 225, 0.18);
+      --phase-rest-glow: rgba(100, 116, 139, 0.20);
+      --phase-finished-glow: rgba(148, 163, 184, 0.18);
+      --brand-glow: rgba(203, 213, 225, 0.26);
+      --topbar-glow: rgba(255, 255, 255, 0.08);
+      --surface-glow: rgba(255, 255, 255, 0.07);
+      --button-bg: rgba(31, 38, 51, 0.92);
+      --button-ghost-bg: rgba(10, 12, 16, 0.72);
+      --field-bg: rgba(8, 10, 14, 0.90);
+      --badge-bg: rgba(203, 213, 225, 0.13);
+      --progress-track-bg: rgba(255, 255, 255, 0.12);
+      --active-bg: rgba(226, 232, 240, 0.14);
+      --modal-bg: #0b0d12;
+      --modal-input-bg: rgba(8, 10, 14, 0.92);
+      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.52);
     }
 
     button, input, select { font: inherit; }
@@ -226,7 +312,7 @@
       place-items: center;
       font-size: 24px;
       background: linear-gradient(145deg, var(--accent), #dc2626);
-      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+      box-shadow: 0 10px 30px var(--brand-glow);
     }
 
     .brand h1 {
@@ -261,7 +347,9 @@
 
     .display-card, .settings-card {
       border: 1px solid var(--line);
-      background: var(--panel);
+      background:
+        linear-gradient(135deg, var(--surface-glow), transparent 48%),
+        var(--panel);
       backdrop-filter: blur(16px);
       border-radius: 24px;
       box-shadow: var(--shadow);
@@ -281,7 +369,7 @@
       content: "";
       position: absolute;
       inset: -30%;
-      background: radial-gradient(circle, rgba(255,255,255,0.06), transparent 42%);
+      background: radial-gradient(circle, var(--surface-glow), transparent 42%);
       z-index: -1;
       transform: translateY(-10%);
     }
@@ -304,7 +392,7 @@
       padding: 10px 20px;
       font-weight: 900;
       font-size: clamp(16px, 1.6vw, 25px);
-      background: rgba(148, 163, 184, 0.16);
+      background: var(--badge-bg);
       border: 1px solid var(--line);
     }
 
@@ -321,7 +409,8 @@
       letter-spacing: -0.07em;
       line-height: 0.86;
       font-size: clamp(118px, 25vw, 390px);
-      text-shadow: 0 15px 55px rgba(0,0,0,0.35);
+      color: var(--text);
+      text-shadow: var(--timer-shadow);
       transform-origin: center;
     }
 
@@ -354,7 +443,7 @@
 
     .progress-track {
       height: clamp(10px, 1.3vw, 18px);
-      background: rgba(148, 163, 184, 0.16);
+      background: var(--progress-track-bg);
       border-radius: 999px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.06);
@@ -378,7 +467,7 @@
     .btn {
       border: 1px solid var(--line);
       color: var(--text);
-      background: rgba(30, 41, 59, 0.86);
+      background: var(--button-bg);
       border-radius: 14px;
       min-height: 52px;
       padding: 12px 14px;
@@ -396,7 +485,7 @@
       background: linear-gradient(135deg, #16a34a, #15803d);
       border-color: transparent;
     }
-    .btn.ghost { background: rgba(15, 23, 42, 0.55); }
+    .btn.ghost { background: var(--button-ghost-bg); }
     .btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
 
     .settings-card {
@@ -415,7 +504,7 @@
       font-size: 15px;
       font-weight: 900;
       margin: 0 0 12px;
-      color: #e2e8f0;
+      color: var(--text);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -454,7 +543,7 @@
     .preset-btn.active {
       border-color: var(--accent);
       box-shadow: inset 0 0 0 1px var(--accent);
-      background: rgba(249, 115, 22, 0.11);
+      background: var(--active-bg);
     }
 
     .field-grid {
@@ -472,7 +561,7 @@
     .field.full { grid-column: 1 / -1; }
 
     .field label {
-      color: #cbd5e1;
+      color: var(--muted);
       font-size: 13px;
       font-weight: 750;
     }
@@ -482,7 +571,7 @@
       min-height: 44px;
       border-radius: 11px;
       border: 1px solid var(--line);
-      background: rgba(15, 23, 42, 0.8);
+      background: var(--field-bg);
       color: var(--text);
       padding: 9px 11px;
       outline: none;
@@ -490,7 +579,7 @@
 
     .field input:focus, .field select:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
+      box-shadow: 0 0 0 3px var(--surface-glow);
     }
 
     .inline-time {
@@ -515,7 +604,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      color: #dbeafe;
+      color: var(--text);
       font-size: 14px;
       font-weight: 720;
     }
@@ -533,7 +622,7 @@
       position: absolute;
       inset: 0;
       border-radius: 999px;
-      background: #334155;
+      background: var(--button-bg);
       transition: 0.2s;
     }
 
@@ -585,9 +674,9 @@
       border-radius: 999px;
       font-size: 11px;
       font-weight: 800;
-      color: #cbd5e1;
+      color: var(--muted);
       border: 1px solid var(--line);
-      background: rgba(15, 23, 42, 0.58);
+      background: var(--button-ghost-bg);
     }
 
     .mini-chip.ok { color: #bbf7d0; border-color: rgba(34,197,94,.35); }
@@ -629,13 +718,13 @@
       box-shadow: 0 5px 14px rgba(0,0,0,0.28);
     }
 
-    .theme-dot.orange { background: linear-gradient(135deg, #f97316, #fb923c); }
-    .theme-dot.yellow { background: linear-gradient(135deg, #ca8a04, #facc15); }
-    .theme-dot.red { background: linear-gradient(135deg, #dc2626, #fb7185); }
-    .theme-dot.blue { background: linear-gradient(135deg, #2563eb, #38bdf8); }
-    .theme-dot.green { background: linear-gradient(135deg, #16a34a, #22c55e); }
-    .theme-dot.purple { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
-    .theme-dot.black { background: linear-gradient(135deg, #111827, #e2e8f0); }
+    .theme-dot.orange { background: linear-gradient(135deg, #1a0d05, #ff6b1a); }
+    .theme-dot.yellow { background: linear-gradient(135deg, #211b04, #facc15); }
+    .theme-dot.red { background: linear-gradient(135deg, #23060a, #ff3b30); }
+    .theme-dot.blue { background: linear-gradient(135deg, #061c3a, #2f80ff); }
+    .theme-dot.green { background: linear-gradient(135deg, #062715, #22c55e); }
+    .theme-dot.purple { background: linear-gradient(135deg, #170a34, #a855f7); }
+    .theme-dot.black { background: linear-gradient(135deg, #050609, #64748b); }
 
 
     .settings-toggle {
@@ -689,7 +778,7 @@
       line-height: 1.1;
       font-weight: 1000;
       letter-spacing: -0.03em;
-      color: #ffffff;
+      color: var(--text);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -710,8 +799,8 @@
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
       padding: 9px 12px;
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
+      background: var(--button-ghost-bg);
+      color: var(--text);
       font-size: 13px;
       font-weight: 900;
       flex: 0 0 auto;
@@ -741,8 +830,8 @@
       width: min(430px, 100%);
       border-radius: 24px;
       border: 1px solid rgba(148, 163, 184, 0.26);
-      background: #111827;
-      color: #ffffff;
+      background: var(--button-ghost-bg);
+      color: var(--text);
       padding: 22px;
       box-shadow: 0 24px 90px rgba(0, 0, 0, 0.58);
     }
@@ -763,7 +852,7 @@
     .brand-modal label {
       display: block;
       margin: 14px 0 7px;
-      color: #e2e8f0;
+      color: var(--text);
       font-size: 14px;
       font-weight: 900;
     }
@@ -782,7 +871,7 @@
 
     .brand-modal input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.13);
+      box-shadow: 0 0 0 3px var(--surface-glow);
     }
 
     .brand-modal-actions {
@@ -812,7 +901,7 @@
       grid-column: 1 / -1;
       background: rgba(15, 23, 42, 0.92);
       border: 1px solid var(--line) !important;
-      color: #cbd5e1 !important;
+      color: var(--muted) !important;
     }
 
     body.fullscreen-mode .topbar,
@@ -962,30 +1051,30 @@
 
       <aside class="settings-card" id="settingsCard">
         <section class="section">
-          <h2 class="section-title">화면 색상</h2>
+          <h2 class="section-title">전체 배경 색상</h2>
           <div class="field full" style="margin-bottom: 10px;">
-            <label for="themeSelect">배경/포인트 색상 선택</label>
+            <label for="themeSelect">전체 백그라운드 선택</label>
             <select id="themeSelect">
-              <option value="orange">오렌지 기본</option>
-              <option value="yellow">다크 옐로우</option>
-              <option value="red">레드</option>
-              <option value="blue">블루</option>
-              <option value="green">그린</option>
-              <option value="purple">퍼플</option>
-              <option value="black">블랙/모노</option>
+              <option value="orange">다크 오렌지 배경</option>
+              <option value="yellow">다크 옐로우 배경</option>
+              <option value="red">레드 배경</option>
+              <option value="blue">블루 배경</option>
+              <option value="green">그린 배경</option>
+              <option value="purple">퍼플 배경</option>
+              <option value="black">차콜 블랙 배경</option>
             </select>
           </div>
           <div class="theme-grid" aria-label="색상 빠른 선택">
-            <button class="theme-btn" type="button" data-theme="orange"><span class="theme-dot orange"></span>오렌지</button>
-            <button class="theme-btn" type="button" data-theme="yellow"><span class="theme-dot yellow"></span>다크 옐로우</button>
-            <button class="theme-btn" type="button" data-theme="red"><span class="theme-dot red"></span>레드</button>
-            <button class="theme-btn" type="button" data-theme="blue"><span class="theme-dot blue"></span>블루</button>
-            <button class="theme-btn" type="button" data-theme="green"><span class="theme-dot green"></span>그린</button>
-            <button class="theme-btn" type="button" data-theme="purple"><span class="theme-dot purple"></span>퍼플</button>
-            <button class="theme-btn" type="button" data-theme="black"><span class="theme-dot black"></span>블랙/모노</button>
+            <button class="theme-btn" type="button" data-theme="orange"><span class="theme-dot orange"></span>오렌지 배경</button>
+            <button class="theme-btn" type="button" data-theme="yellow"><span class="theme-dot yellow"></span>옐로우 배경</button>
+            <button class="theme-btn" type="button" data-theme="red"><span class="theme-dot red"></span>레드 배경</button>
+            <button class="theme-btn" type="button" data-theme="blue"><span class="theme-dot blue"></span>블루 배경</button>
+            <button class="theme-btn" type="button" data-theme="green"><span class="theme-dot green"></span>그린 배경</button>
+            <button class="theme-btn" type="button" data-theme="purple"><span class="theme-dot purple"></span>퍼플 배경</button>
+            <button class="theme-btn" type="button" data-theme="black"><span class="theme-dot black"></span>차콜 배경</button>
           </div>
           <p class="small-note">
-            색상을 누르면 PC와 모바일 화면 배경, 버튼, 진행바 색상이 바로 바뀌고 저장됩니다.
+            배경을 누르면 PC와 모바일의 전체 바탕, 큰 타이머 화면, 설정창 색상이 같이 바뀌고 저장됩니다. 숫자와 글씨는 배경에 맞춰 잘 보이도록 자동 적용됩니다.
           </p>
         </section>
 
@@ -1335,13 +1424,13 @@
     const THEME_STORAGE_KEY = "theone-timebell-theme";
     const THEME_LIST = ["orange", "yellow", "red", "blue", "green", "purple", "black"];
     const THEME_META_COLORS = {
-      orange: "#090d14",
-      yellow: "#111006",
-      red: "#12080b",
-      blue: "#06111f",
-      green: "#06150e",
-      purple: "#100a1f",
-      black: "#07090d"
+      orange: "#1a0d05",
+      yellow: "#211b04",
+      red: "#23060a",
+      blue: "#061c3a",
+      green: "#062715",
+      purple: "#170a34",
+      black: "#050609"
     };
 
     function applyTheme(themeName, shouldSave = true) {
