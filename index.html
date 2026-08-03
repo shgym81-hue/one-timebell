@@ -1482,6 +1482,7 @@
                 <div class="field full">
                   <label for="prepareSound">준비 시작 소리</label>
                   <select id="prepareSound" data-preview-sound="true">
+                    <option value="file:sounds/prepare.mp3">내 파일: prepare.mp3</option>
                     <option value="doubleBeep">삐삐 2번</option>
                     <option value="singleBeep">삐 1번</option>
                     <option value="longBeep">삐 길게 1번</option>
@@ -1495,6 +1496,7 @@
                 <div class="field full">
                   <label for="startSound">운동 시작 소리</label>
                   <select id="startSound" data-preview-sound="true">
+                    <option value="file:sounds/start.mp3">내 파일: start.mp3</option>
                     <option value="fightBellStrong">강한 경기 벨</option>
                     <option value="boxingDing">복싱장 땡</option>
                     <option value="boxingDingDing">땡땡 2번</option>
@@ -1509,6 +1511,7 @@
                 <div class="field full">
                   <label for="restSound">휴식 시작 소리</label>
                   <select id="restSound" data-preview-sound="true">
+                    <option value="file:sounds/rest.mp3">내 파일: rest.mp3</option>
                     <option value="fightBellSoft">짧은 벨</option>
                     <option value="boxingDing">복싱장 땡</option>
                     <option value="singleBeep">삐 1번</option>
@@ -1522,6 +1525,7 @@
                 <div class="field full">
                   <label for="finishSound">전체 종료 소리</label>
                   <select id="finishSound" data-preview-sound="true">
+                    <option value="file:sounds/finish.mp3">내 파일: finish.mp3</option>
                     <option value="tripleBell">경기 벨 3번</option>
                     <option value="boxingDingDingDing">땡땡땡 3번</option>
                     <option value="longBuzzer">길게 종료음</option>
@@ -1534,6 +1538,7 @@
                 <div class="field full">
                   <label for="alertSound">10초/5초 알림 소리</label>
                   <select id="alertSound" data-preview-sound="true">
+                    <option value="file:sounds/alert.mp3">내 파일: alert.mp3</option>
                     <option value="singleBeep">기본 삐</option>
                     <option value="doubleBeep">삐삐 2번</option>
                     <option value="fastBeep">빠른 삐삐</option>
@@ -1547,7 +1552,16 @@
             </div>
 
             <div class="settings-subcard">
-              <h3 class="settings-subtitle">C. 전체 음량</h3>
+              <h3 class="settings-subtitle">C. 내 MP3 소리 파일 사용법</h3>
+              <p class="small-note">
+                GitHub에 <b>sounds</b> 폴더를 만들고 원하는 MP3 파일을 아래 이름으로 올리면 됩니다.<br>
+                준비: <b>prepare.mp3</b> · 운동 시작: <b>start.mp3</b> · 휴식: <b>rest.mp3</b> · 종료: <b>finish.mp3</b> · 알림: <b>alert.mp3</b><br>
+                파일을 올린 뒤 위 선택창에서 <b>내 파일</b>을 선택하면 실제 MP3 소리가 재생됩니다.
+              </p>
+            </div>
+
+            <div class="settings-subcard">
+              <h3 class="settings-subtitle">D. 전체 음량</h3>
               <div class="field full">
                 <label for="volumeRange">전체 음량</label>
                 <div class="volume-row">
@@ -1696,6 +1710,8 @@
 
     let audioContext = null;
     let wakeLock = null;
+    const customSoundBuffers = {};
+    let customSoundErrorShown = false;
 
     const DEFAULT_BRAND_TITLE = "더원 타임벨";
     const DEFAULT_BRAND_SUBTITLE = "격투기 · 크로스핏 · 인터벌 트레이닝";
@@ -2077,8 +2093,41 @@
       tone(1046, 0.58, 0.36, "triangle", 0.62);
     }
 
+    async function playCustomSound(src) {
+      try {
+        const ok = await ensureAudio();
+        if (!ok) return;
+
+        if (!customSoundBuffers[src]) {
+          const response = await fetch(src);
+          if (!response.ok) throw new Error("file not found");
+          const arrayBuffer = await response.arrayBuffer();
+          customSoundBuffers[src] = await audioContext.decodeAudioData(arrayBuffer);
+        }
+
+        const source = audioContext.createBufferSource();
+        const gain = audioContext.createGain();
+        gain.gain.setValueAtTime(Math.max(0.0001, currentVolume()), audioContext.currentTime);
+        source.buffer = customSoundBuffers[src];
+        source.connect(gain);
+        gain.connect(audioContext.destination);
+        source.start();
+      } catch (error) {
+        console.warn("사용자 소리 파일을 재생하지 못했습니다:", src, error);
+        if (!customSoundErrorShown) {
+          customSoundErrorShown = true;
+          alert("사용자 소리 파일을 찾지 못했습니다. GitHub에 sounds 폴더와 MP3 파일 이름을 확인해주세요. 예: sounds/start.mp3");
+          setTimeout(() => { customSoundErrorShown = false; }, 4000);
+        }
+      }
+    }
+
     function playSound(name) {
       if (!name || name === "none") return;
+      if (name.startsWith("file:")) {
+        playCustomSound(name.replace("file:", ""));
+        return;
+      }
 
       switch (name) {
         case "singleBeep":
