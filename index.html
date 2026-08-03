@@ -295,6 +295,13 @@
       text-align: left;
     }
 
+    .preset-title {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .preset-btn small {
       display: block;
       color: var(--muted);
@@ -762,27 +769,52 @@
         </div>
       </article>
 
-      <aside class="settings-card" id="settingsCard">
+      <aside class="settings-card collapsed" id="settingsCard">
         <section class="section">
           <h2 class="section-title">빠른 프로그램</h2>
           <div class="preset-grid">
             <button class="preset-btn active" data-preset="boxing">
-              복싱 3분
+              <span class="preset-title" id="presetTitleBoxing">복싱 3분</span>
               <small>3분 / 1분 · 10R</small>
             </button>
             <button class="preset-btn" data-preset="kickboxing">
-              킥복싱
+              <span class="preset-title" id="presetTitleKickboxing">킥복싱</span>
               <small>3분 / 1분 · 5R</small>
             </button>
             <button class="preset-btn" data-preset="tabata">
-              타바타
+              <span class="preset-title" id="presetTitleTabata">타바타</span>
               <small>20초 / 10초 · 8R</small>
             </button>
             <button class="preset-btn" data-preset="crossfit">
-              크로스핏
+              <span class="preset-title" id="presetTitleCrossfit">크로스핏</span>
               <small>40초 / 20초 · 10R</small>
             </button>
           </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">빠른 프로그램 이름 수정</h2>
+          <div class="field-grid">
+            <div class="field">
+              <label for="presetNameBoxing">1번 이름</label>
+              <input id="presetNameBoxing" type="text" maxlength="16" value="복싱 3분" />
+            </div>
+            <div class="field">
+              <label for="presetNameKickboxing">2번 이름</label>
+              <input id="presetNameKickboxing" type="text" maxlength="16" value="킥복싱" />
+            </div>
+            <div class="field">
+              <label for="presetNameTabata">3번 이름</label>
+              <input id="presetNameTabata" type="text" maxlength="16" value="타바타" />
+            </div>
+            <div class="field">
+              <label for="presetNameCrossfit">4번 이름</label>
+              <input id="presetNameCrossfit" type="text" maxlength="16" value="크로스핏" />
+            </div>
+          </div>
+          <p class="small-note">
+            빠른 프로그램의 시간은 아래 시간 설정에서 바꿀 수 있고, 여기서는 버튼 이름만 바꿉니다.
+          </p>
         </section>
 
         <section class="section">
@@ -862,6 +894,56 @@
             </div>
 
             <div class="field full">
+              <label for="prepareSound">준비 시작 소리</label>
+              <select id="prepareSound">
+                <option value="doubleBeep">삐삐 2번</option>
+                <option value="singleBeep">삐 1번</option>
+                <option value="lowBuzzer">낮은 부저</option>
+                <option value="none">소리 없음</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="startSound">운동 시작 소리</label>
+              <select id="startSound">
+                <option value="fightBellStrong">강한 경기 벨</option>
+                <option value="doubleBeep">삐삐 2번</option>
+                <option value="siren">짧은 사이렌</option>
+                <option value="gong">징 소리</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="restSound">휴식 시작 소리</label>
+              <select id="restSound">
+                <option value="fightBellSoft">짧은 벨</option>
+                <option value="singleBeep">삐 1번</option>
+                <option value="lowBuzzer">낮은 부저</option>
+                <option value="softChime">부드러운 알림</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="finishSound">전체 종료 소리</label>
+              <select id="finishSound">
+                <option value="tripleBell">경기 벨 3번</option>
+                <option value="longBuzzer">길게 종료음</option>
+                <option value="victory">승리 팡파르</option>
+                <option value="gongTriple">징 소리 3번</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="alertSound">10초/5초 알림 소리</label>
+              <select id="alertSound">
+                <option value="singleBeep">기본 삐</option>
+                <option value="fastBeep">빠른 삐삐</option>
+                <option value="lowBeep">낮은 삐</option>
+                <option value="none">소리 없음</option>
+              </select>
+            </div>
+
+            <div class="field full">
               <label for="volumeRange">전체 음량</label>
               <div class="volume-row">
                 <input id="volumeRange" type="range" min="0" max="100" value="90" />
@@ -871,8 +953,8 @@
           </div>
 
           <p class="small-note">
-            처음 사용할 때 반드시 위쪽의 <b>‘소리 확인’</b> 버튼을 한 번 눌러주세요.
-            브라우저의 소리 재생 허용을 활성화합니다.
+            원하는 시작음, 휴식음, 종료음을 고른 뒤 위쪽의 <b>‘소리 확인’</b> 버튼으로 들어보세요.
+            처음 사용할 때는 브라우저 소리 재생 허용을 위해 한 번 눌러주는 게 좋습니다.
           </p>
         </section>
 
@@ -954,10 +1036,23 @@
       alert10: $("alert10"),
       countdown5: $("countdown5"),
       voiceTone: $("voiceTone"),
+      prepareSound: $("prepareSound"),
+      startSound: $("startSound"),
+      restSound: $("restSound"),
+      finishSound: $("finishSound"),
+      alertSound: $("alertSound"),
       volumeRange: $("volumeRange"),
       volumeValue: $("volumeValue"),
       wakeChip: $("wakeChip"),
-      audioChip: $("audioChip")
+      audioChip: $("audioChip"),
+      presetNameBoxing: $("presetNameBoxing"),
+      presetNameKickboxing: $("presetNameKickboxing"),
+      presetNameTabata: $("presetNameTabata"),
+      presetNameCrossfit: $("presetNameCrossfit"),
+      presetTitleBoxing: $("presetTitleBoxing"),
+      presetTitleKickboxing: $("presetTitleKickboxing"),
+      presetTitleTabata: $("presetTitleTabata"),
+      presetTitleCrossfit: $("presetTitleCrossfit")
     };
 
     const presets = {
@@ -1095,6 +1190,11 @@
         alert10: els.alert10.checked,
         countdown5: els.countdown5.checked,
         voiceTone: els.voiceTone.value,
+        prepareSound: els.prepareSound.value,
+        startSound: els.startSound.value,
+        restSound: els.restSound.value,
+        finishSound: els.finishSound.value,
+        alertSound: els.alertSound.value,
         volume: clampNumber(els.volumeRange.value, 0, 100, 90) / 100
       };
     }
@@ -1251,9 +1351,9 @@
       oscillator.stop(start + duration + 0.03);
     }
 
-    function beep(times = 1) {
+    function beep(times = 1, frequency = 980, gap = 0.16) {
       for (let i = 0; i < times; i++) {
-        tone(980, 0.09, 0.4, "square", i * 0.16);
+        tone(frequency, 0.09, 0.4, "square", i * gap);
       }
     }
 
@@ -1267,10 +1367,88 @@
       }
     }
 
-    function finishBell() {
-      bell(true);
-      setTimeout(() => bell(true), 620);
-      setTimeout(() => bell(true), 1240);
+    function lowBuzzer(duration = 0.35) {
+      tone(145, duration, 0.55, "sawtooth", 0);
+      tone(92, duration * 0.9, 0.32, "square", 0.01);
+    }
+
+    function siren() {
+      tone(520, 0.18, 0.38, "sawtooth", 0);
+      tone(760, 0.18, 0.38, "sawtooth", 0.2);
+      tone(520, 0.18, 0.38, "sawtooth", 0.4);
+    }
+
+    function gong() {
+      tone(220, 1.15, 0.5, "triangle", 0);
+      tone(330, 1.0, 0.28, "sine", 0.02);
+      tone(440, 0.85, 0.18, "sine", 0.04);
+    }
+
+    function softChime() {
+      tone(660, 0.18, 0.25, "sine", 0);
+      tone(880, 0.28, 0.22, "sine", 0.17);
+    }
+
+    function victory() {
+      tone(523, 0.16, 0.36, "square", 0);
+      tone(659, 0.16, 0.36, "square", 0.18);
+      tone(784, 0.28, 0.36, "square", 0.36);
+      tone(1046, 0.55, 0.28, "triangle", 0.62);
+    }
+
+    function playSound(name) {
+      if (!name || name === "none") return;
+
+      switch (name) {
+        case "singleBeep":
+          beep(1);
+          break;
+        case "doubleBeep":
+          beep(2);
+          break;
+        case "fastBeep":
+          beep(3, 1040, 0.11);
+          break;
+        case "lowBeep":
+          beep(1, 520);
+          break;
+        case "lowBuzzer":
+          lowBuzzer(0.42);
+          break;
+        case "longBuzzer":
+          lowBuzzer(1.05);
+          break;
+        case "fightBellSoft":
+          bell(false);
+          break;
+        case "fightBellStrong":
+          bell(true);
+          break;
+        case "tripleBell":
+          bell(true);
+          setTimeout(() => bell(true), 620);
+          setTimeout(() => bell(true), 1240);
+          break;
+        case "siren":
+          siren();
+          break;
+        case "gong":
+          gong();
+          break;
+        case "gongTriple":
+          gong();
+          setTimeout(() => gong(), 750);
+          setTimeout(() => gong(), 1500);
+          break;
+        case "softChime":
+          softChime();
+          break;
+        case "victory":
+          victory();
+          break;
+        default:
+          bell(false);
+      }
     }
 
     function pickKoreanVoice() {
@@ -1337,21 +1515,24 @@
       state.endAt = performance.now() + state.remainingMs;
       state.notified = new Set();
 
+      const settings = readSettings();
+      if (!settings) return;
+
       if (phase === PHASE.PREPARE) {
-        beep(2);
+        playSound(settings.prepareSound);
         if (announce) speak("운동을 준비하세요.");
       } else if (phase === PHASE.WORK) {
-        bell(true);
+        playSound(settings.startSound);
         if (announce) {
           speak(state.round === state.totalRounds ? "마지막 라운드, 운동을 시작합니다." : "운동을 시작합니다.");
         }
       } else if (phase === PHASE.REST) {
-        bell(false);
+        playSound(settings.restSound);
         if (announce) speak("휴식입니다.");
       } else if (phase === PHASE.FINISHED) {
         state.remainingMs = 0;
         state.phaseDurationMs = 1;
-        finishBell();
+        playSound(settings.finishSound);
         if (announce) speak("모든 운동이 종료되었습니다.");
         releaseWakeLock();
         render();
@@ -1393,15 +1574,15 @@
 
       if (seconds === 30 && settings.alert30 && state.phaseDurationMs >= 31000) {
         state.notified.add(key);
-        beep(2);
+        playSound(settings.alertSound === "none" ? "none" : "doubleBeep");
         speak("30초 남았습니다.");
       } else if (seconds === 10 && settings.alert10 && state.phaseDurationMs >= 11000) {
         state.notified.add(key);
-        beep(3);
+        playSound(settings.alertSound === "none" ? "none" : "fastBeep");
         speak("10초 남았습니다.");
       } else if (seconds >= 1 && seconds <= 5 && settings.countdown5) {
         state.notified.add(key);
-        beep(1);
+        playSound(settings.alertSound);
       }
     }
 
@@ -1515,8 +1696,12 @@
     async function soundTest() {
       const ok = await ensureAudio();
       if (!ok) return;
-      bell(true);
-      setTimeout(() => speak("소리 확인이 완료되었습니다."), 250);
+      const settings = readSettings();
+      if (!settings) return;
+      playSound(settings.startSound);
+      setTimeout(() => playSound(settings.restSound), 850);
+      setTimeout(() => playSound(settings.finishSound), 1700);
+      setTimeout(() => speak("소리 확인이 완료되었습니다."), 2300);
     }
 
     async function toggleFullscreen() {
@@ -1536,6 +1721,12 @@
       els.fullscreenBtn.textContent = document.fullscreenElement ? "⤢ 전체화면 종료" : "⛶ 전체화면";
     }
 
+    function syncSettingsToggleLabel() {
+      if (!els.settingsToggle || !els.settingsCard) return;
+      const isCollapsed = els.settingsCard.classList.contains("collapsed");
+      els.settingsToggle.textContent = isCollapsed ? "⚙️ 설정 열기" : "⚙️ 설정 닫기";
+    }
+
     function saveSettings(showMessage = true) {
       const settings = readSettings();
       if (!settings) return;
@@ -1552,7 +1743,16 @@
         alert10: els.alert10.checked,
         countdown5: els.countdown5.checked,
         voiceTone: els.voiceTone.value,
-        volumeRange: els.volumeRange.value
+        prepareSound: els.prepareSound.value,
+        startSound: els.startSound.value,
+        restSound: els.restSound.value,
+        finishSound: els.finishSound.value,
+        alertSound: els.alertSound.value,
+        volumeRange: els.volumeRange.value,
+        presetNameBoxing: els.presetNameBoxing.value,
+        presetNameKickboxing: els.presetNameKickboxing.value,
+        presetNameTabata: els.presetNameTabata.value,
+        presetNameCrossfit: els.presetNameCrossfit.value
       };
 
       localStorage.setItem("theone-timebell-settings", JSON.stringify(payload));
@@ -1578,6 +1778,20 @@
       } catch (_) {}
     }
 
+    function updatePresetNames() {
+      const fallback = {
+        boxing: "복싱 3분",
+        kickboxing: "킥복싱",
+        tabata: "타바타",
+        crossfit: "크로스핏"
+      };
+
+      els.presetTitleBoxing.textContent = els.presetNameBoxing.value.trim() || fallback.boxing;
+      els.presetTitleKickboxing.textContent = els.presetNameKickboxing.value.trim() || fallback.kickboxing;
+      els.presetTitleTabata.textContent = els.presetNameTabata.value.trim() || fallback.tabata;
+      els.presetTitleCrossfit.textContent = els.presetNameCrossfit.value.trim() || fallback.crossfit;
+    }
+
     function markCustomPreset() {
       document.querySelectorAll(".preset-btn").forEach(btn => btn.classList.remove("active"));
     }
@@ -1598,8 +1812,19 @@
 
     [
       els.voiceEnabled, els.alert30, els.alert10,
-      els.countdown5, els.voiceTone
+      els.countdown5, els.voiceTone,
+      els.prepareSound, els.startSound, els.restSound, els.finishSound, els.alertSound
     ].forEach(input => input.addEventListener("change", () => saveSettings(false)));
+
+    [
+      els.presetNameBoxing, els.presetNameKickboxing,
+      els.presetNameTabata, els.presetNameCrossfit
+    ].forEach(input => {
+      input.addEventListener("input", () => {
+        updatePresetNames();
+        saveSettings(false);
+      });
+    });
 
     els.volumeRange.addEventListener("input", () => {
       els.volumeValue.textContent = `${els.volumeRange.value}%`;
@@ -1616,6 +1841,7 @@
     els.saveBtn.addEventListener("click", () => saveSettings(true));
     els.settingsToggle.addEventListener("click", () => {
       els.settingsCard.classList.toggle("collapsed");
+      syncSettingsToggleLabel();
     });
 
     document.addEventListener("fullscreenchange", syncFullscreenClass);
@@ -1648,6 +1874,8 @@
 
     loadBrandSettings();
     loadSettings();
+    updatePresetNames();
+    syncSettingsToggleLabel();
     els.volumeValue.textContent = `${els.volumeRange.value}%`;
     resetTimer(false);
   </script>
