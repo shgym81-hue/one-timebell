@@ -868,6 +868,16 @@
       line-height: 1.5;
     }
 
+    .preset-sound-note {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(249, 115, 22, 0.32);
+      background: rgba(249, 115, 22, 0.09);
+      color: #fed7aa;
+      font-weight: 800;
+    }
+
     .footer-status {
       margin-top: 10px;
       display: flex;
@@ -1372,7 +1382,7 @@
                   <input id="presetNameCrossfit" type="text" maxlength="16" value="크로스핏" />
                 </div>
               </div>
-              <p class="small-note">빠른 프로그램을 누른 뒤 시간 설정을 바꾸면 해당 버튼의 시간 표시도 함께 바뀌고 저장됩니다.</p>
+              <p class="small-note">빠른 프로그램을 누른 뒤 시간 설정을 바꾸면 해당 버튼의 시간 표시도 함께 바뀌고 저장됩니다. 소리/음성 설정도 프로그램별로 따로 저장됩니다.</p>
             </div>
           </div>
         </details>
@@ -1427,7 +1437,7 @@
               <span class="settings-num">4</span>
               <span class="settings-title-wrap">
                 <strong>소리 / 음성 설정</strong>
-                <small>음성 안내, 시작음, 휴식음, 종료음, 알림음을 고릅니다</small>
+                <small>프로그램마다 음성 안내, 시작음, 휴식음, 종료음, 알림음을 따로 저장합니다</small>
               </span>
             </span>
             <span class="settings-chevron">⌄</span>
@@ -1435,6 +1445,7 @@
           <div class="settings-body">
             <div class="settings-subcard">
               <h3 class="settings-subtitle">A. 음성 안내</h3>
+              <p class="small-note preset-sound-note" id="activePresetSoundNotice">현재 선택한 프로그램의 소리/음성 설정을 편집 중입니다.</p>
               <div class="switch-list">
                 <div class="switch-line">
                   <span>한국어 음성 안내</span>
@@ -1693,7 +1704,8 @@
       presetMetaBoxing: $("presetMetaBoxing"),
       presetMetaKickboxing: $("presetMetaKickboxing"),
       presetMetaTabata: $("presetMetaTabata"),
-      presetMetaCrossfit: $("presetMetaCrossfit")
+      presetMetaCrossfit: $("presetMetaCrossfit"),
+      activePresetSoundNotice: $("activePresetSoundNotice")
     };
 
     const DEFAULT_PRESETS = {
@@ -1703,7 +1715,31 @@
       crossfit:   { prepare: 10, work: 40,  rest: 20, rounds: 10 }
     };
 
+    const DEFAULT_PRESET_AUDIO = {
+      boxing: {
+        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
+        prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3",
+        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
+      },
+      kickboxing: {
+        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
+        prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3",
+        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
+      },
+      tabata: {
+        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
+        prepareSound: "file:sounds/alert.mp3", startSound: "file:sounds/start.mp3",
+        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
+      },
+      crossfit: {
+        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
+        prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3",
+        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
+      }
+    };
+
     let presets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
+    let presetAudioSettings = JSON.parse(JSON.stringify(DEFAULT_PRESET_AUDIO));
     let activePresetName = localStorage.getItem("theone-timebell-active-preset") || "boxing";
     let hasSavedPresetTimings = false;
 
@@ -1887,6 +1923,11 @@
       const p = presets[name];
       if (!p || state.isRunning) return;
 
+      if (activePresetName && activePresetName !== name) {
+        saveActivePresetTiming();
+        saveActivePresetAudio();
+      }
+
       activePresetName = name;
       localStorage.setItem("theone-timebell-active-preset", name);
 
@@ -1897,11 +1938,14 @@
       els.restSeconds.value = p.rest % 60;
       els.rounds.value = p.rounds;
 
+      applyPresetAudioToInputs(name);
+
       document.querySelectorAll(".preset-btn").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.preset === name);
       });
 
       updatePresetMetaLabels();
+      updateActivePresetSoundNotice();
       updateIdlePreview();
       saveSettings(false);
     }
@@ -2604,11 +2648,103 @@
       });
     }
 
+    function readPresetAudioFromInputs() {
+      return {
+        voiceEnabled: Boolean(els.voiceEnabled.checked),
+        alert30: Boolean(els.alert30.checked),
+        alert10: Boolean(els.alert10.checked),
+        countdown5: Boolean(els.countdown5.checked),
+        voiceTone: els.voiceTone.value,
+        prepareSound: els.prepareSound.value,
+        startSound: els.startSound.value,
+        restSound: els.restSound.value,
+        finishSound: els.finishSound.value,
+        alertSound: els.alertSound.value
+      };
+    }
+
+    function normalizePresetAudio(key, item = {}) {
+      const defaults = DEFAULT_PRESET_AUDIO[key] || DEFAULT_PRESET_AUDIO.boxing;
+      return {
+        voiceEnabled: item.voiceEnabled ?? defaults.voiceEnabled,
+        alert30: item.alert30 ?? defaults.alert30,
+        alert10: item.alert10 ?? defaults.alert10,
+        countdown5: item.countdown5 ?? defaults.countdown5,
+        voiceTone: item.voiceTone || defaults.voiceTone,
+        prepareSound: item.prepareSound || defaults.prepareSound,
+        startSound: item.startSound || defaults.startSound,
+        restSound: item.restSound || defaults.restSound,
+        finishSound: item.finishSound || defaults.finishSound,
+        alertSound: item.alertSound || defaults.alertSound
+      };
+    }
+
+    function applyPresetAudioToInputs(name) {
+      const audio = normalizePresetAudio(name, presetAudioSettings[name]);
+      els.voiceEnabled.checked = Boolean(audio.voiceEnabled);
+      els.alert30.checked = Boolean(audio.alert30);
+      els.alert10.checked = Boolean(audio.alert10);
+      els.countdown5.checked = Boolean(audio.countdown5);
+      els.voiceTone.value = audio.voiceTone;
+      els.prepareSound.value = audio.prepareSound;
+      els.startSound.value = audio.startSound;
+      els.restSound.value = audio.restSound;
+      els.finishSound.value = audio.finishSound;
+      els.alertSound.value = audio.alertSound;
+      cleanInvalidSoundSelections();
+    }
+
+    function saveActivePresetAudio() {
+      if (!activePresetName || !presetAudioSettings[activePresetName] || state.isRunning) return;
+      presetAudioSettings[activePresetName] = readPresetAudioFromInputs();
+      savePresetAudioSettings();
+      updateActivePresetSoundNotice();
+    }
+
+    function savePresetAudioSettings() {
+      localStorage.setItem("theone-timebell-preset-audio-settings", JSON.stringify(presetAudioSettings));
+    }
+
+    function loadPresetAudioSettings() {
+      try {
+        const raw = localStorage.getItem("theone-timebell-preset-audio-settings");
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        Object.keys(DEFAULT_PRESET_AUDIO).forEach((key) => {
+          presetAudioSettings[key] = normalizePresetAudio(key, saved?.[key]);
+        });
+      } catch (_) {
+        presetAudioSettings = JSON.parse(JSON.stringify(DEFAULT_PRESET_AUDIO));
+      }
+    }
+
+    function getPresetDisplayName(key) {
+      const fallback = {
+        boxing: "복싱 3분",
+        kickboxing: "킥복싱",
+        tabata: "타바타",
+        crossfit: "크로스핏"
+      };
+      const inputMap = {
+        boxing: els.presetNameBoxing,
+        kickboxing: els.presetNameKickboxing,
+        tabata: els.presetNameTabata,
+        crossfit: els.presetNameCrossfit
+      };
+      return inputMap[key]?.value?.trim() || fallback[key] || "선택한 프로그램";
+    }
+
+    function updateActivePresetSoundNotice() {
+      if (!els.activePresetSoundNotice) return;
+      els.activePresetSoundNotice.textContent = `현재 ${getPresetDisplayName(activePresetName)}의 소리/음성 설정을 편집 중입니다. 다른 프로그램을 누르면 그 프로그램의 소리 설정으로 바뀝니다.`;
+    }
+
     function saveSettings(showMessage = true) {
       const settings = readSettings();
       if (!settings) return;
 
       saveActivePresetTiming();
+      saveActivePresetAudio();
 
       const payload = {
         themeSelect: els.themeSelect?.value || localStorage.getItem(THEME_STORAGE_KEY) || "orange",
@@ -2690,6 +2826,7 @@
       els.presetTitleKickboxing.textContent = els.presetNameKickboxing.value.trim() || fallback.kickboxing;
       els.presetTitleTabata.textContent = els.presetNameTabata.value.trim() || fallback.tabata;
       els.presetTitleCrossfit.textContent = els.presetNameCrossfit.value.trim() || fallback.crossfit;
+      updateActivePresetSoundNotice();
     }
 
     function markActivePresetButton() {
@@ -2717,12 +2854,18 @@
     [
       els.voiceEnabled, els.alert30, els.alert10,
       els.countdown5, els.voiceTone
-    ].forEach(input => input.addEventListener("change", () => saveSettings(false)));
+    ].forEach(input => input.addEventListener("change", () => {
+      saveActivePresetAudio();
+      saveSettings(false);
+    }));
 
     [
       els.prepareSound, els.startSound, els.restSound, els.finishSound, els.alertSound
     ].forEach(select => {
-      select.addEventListener("change", () => previewSelectedSound(select));
+      select.addEventListener("change", () => {
+        saveActivePresetAudio();
+        previewSelectedSound(select);
+      });
     });
 
     [
@@ -2797,6 +2940,7 @@
 
     loadBrandSettings();
     loadPresetTimings();
+    loadPresetAudioSettings();
     loadSettings();
     cleanInvalidSoundSelections();
     loadThemeSettings();
