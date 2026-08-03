@@ -117,6 +117,10 @@
       align-items: stretch;
     }
 
+    .layout.settings-hidden {
+      grid-template-columns: 1fr;
+    }
+
     .display-card, .settings-card {
       border: 1px solid var(--line);
       background: var(--panel);
@@ -452,6 +456,10 @@
     .mini-chip.warn { color: #fde68a; border-color: rgba(245,158,11,.35); }
 
     .settings-toggle {
+      display: inline-flex;
+    }
+
+    .settings-card.collapsed {
       display: none;
     }
 
@@ -769,7 +777,7 @@
         </div>
       </article>
 
-      <aside class="settings-card collapsed" id="settingsCard">
+      <aside class="settings-card" id="settingsCard">
         <section class="section">
           <h2 class="section-title">빠른 프로그램</h2>
           <div class="preset-grid">
@@ -1817,6 +1825,19 @@
       if (!els.settingsToggle || !els.settingsCard) return;
       const isCollapsed = els.settingsCard.classList.contains("collapsed");
       els.settingsToggle.textContent = isCollapsed ? "⚙️ 설정 열기" : "⚙️ 설정 닫기";
+
+      const layout = document.querySelector(".layout");
+      if (layout) layout.classList.toggle("settings-hidden", isCollapsed);
+    }
+
+    function setupInitialSettingsVisibility() {
+      if (!els.settingsCard) return;
+
+      // 모바일/태블릿에서는 처음에 설정을 접어두고,
+      // PC 화면에서는 처음부터 설정 패널이 보이게 합니다.
+      const isSmallScreen = window.matchMedia("(max-width: 1050px)").matches;
+      els.settingsCard.classList.toggle("collapsed", isSmallScreen);
+      syncSettingsToggleLabel();
     }
 
     function safePresetNumber(value, min, max, fallback) {
@@ -2070,7 +2091,7 @@
     updatePresetMetaLabels();
     applyPreset(activePresetName);
     markActivePresetButton();
-    syncSettingsToggleLabel();
+    setupInitialSettingsVisibility();
     els.volumeValue.textContent = `${els.volumeRange.value}%`;
     resetTimer(false);
   </script>
