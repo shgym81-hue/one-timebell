@@ -775,19 +775,19 @@
           <div class="preset-grid">
             <button class="preset-btn active" data-preset="boxing">
               <span class="preset-title" id="presetTitleBoxing">복싱 3분</span>
-              <small>3분 / 1분 · 10R</small>
+              <small id="presetMetaBoxing">3분 / 1분 · 10R</small>
             </button>
             <button class="preset-btn" data-preset="kickboxing">
               <span class="preset-title" id="presetTitleKickboxing">킥복싱</span>
-              <small>3분 / 1분 · 5R</small>
+              <small id="presetMetaKickboxing">3분 / 1분 · 5R</small>
             </button>
             <button class="preset-btn" data-preset="tabata">
               <span class="preset-title" id="presetTitleTabata">타바타</span>
-              <small>20초 / 10초 · 8R</small>
+              <small id="presetMetaTabata">20초 / 10초 · 8R</small>
             </button>
             <button class="preset-btn" data-preset="crossfit">
               <span class="preset-title" id="presetTitleCrossfit">크로스핏</span>
-              <small>40초 / 20초 · 10R</small>
+              <small id="presetMetaCrossfit">40초 / 20초 · 10R</small>
             </button>
           </div>
         </section>
@@ -813,7 +813,7 @@
             </div>
           </div>
           <p class="small-note">
-            빠른 프로그램의 시간은 아래 시간 설정에서 바꿀 수 있고, 여기서는 버튼 이름만 바꿉니다.
+            빠른 프로그램을 누른 뒤 아래 시간 설정을 바꾸면, 해당 버튼의 시간 표시도 함께 바뀌고 저장됩니다.
           </p>
         </section>
 
@@ -1052,15 +1052,23 @@
       presetTitleBoxing: $("presetTitleBoxing"),
       presetTitleKickboxing: $("presetTitleKickboxing"),
       presetTitleTabata: $("presetTitleTabata"),
-      presetTitleCrossfit: $("presetTitleCrossfit")
+      presetTitleCrossfit: $("presetTitleCrossfit"),
+      presetMetaBoxing: $("presetMetaBoxing"),
+      presetMetaKickboxing: $("presetMetaKickboxing"),
+      presetMetaTabata: $("presetMetaTabata"),
+      presetMetaCrossfit: $("presetMetaCrossfit")
     };
 
-    const presets = {
-      boxing:    { prepare: 10, work: 180, rest: 60, rounds: 10 },
-      kickboxing:{ prepare: 10, work: 180, rest: 60, rounds: 5 },
-      tabata:    { prepare: 10, work: 20,  rest: 10, rounds: 8 },
-      crossfit:  { prepare: 10, work: 40,  rest: 20, rounds: 10 }
+    const DEFAULT_PRESETS = {
+      boxing:     { prepare: 10, work: 180, rest: 60, rounds: 10 },
+      kickboxing: { prepare: 10, work: 180, rest: 60, rounds: 5 },
+      tabata:     { prepare: 10, work: 20,  rest: 10, rounds: 8 },
+      crossfit:   { prepare: 10, work: 40,  rest: 20, rounds: 10 }
     };
+
+    let presets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
+    let activePresetName = localStorage.getItem("theone-timebell-active-preset") || "boxing";
+    let hasSavedPresetTimings = false;
 
     const PHASE = {
       IDLE: "idle",
@@ -1203,6 +1211,9 @@
       const p = presets[name];
       if (!p || state.isRunning) return;
 
+      activePresetName = name;
+      localStorage.setItem("theone-timebell-active-preset", name);
+
       els.prepareSeconds.value = p.prepare;
       els.workMinutes.value = Math.floor(p.work / 60);
       els.workSeconds.value = p.work % 60;
@@ -1214,6 +1225,7 @@
         btn.classList.toggle("active", btn.dataset.preset === name);
       });
 
+      updatePresetMetaLabels();
       updateIdlePreview();
       saveSettings(false);
     }
@@ -1727,9 +1739,89 @@
       els.settingsToggle.textContent = isCollapsed ? "⚙️ 설정 열기" : "⚙️ 설정 닫기";
     }
 
+    function safePresetNumber(value, min, max, fallback) {
+      const number = Number(value);
+      if (!Number.isFinite(number)) return fallback;
+      return Math.min(max, Math.max(min, number));
+    }
+
+    function readPresetTimingFromInputs() {
+      const prepare = Math.floor(safePresetNumber(els.prepareSeconds.value, 0, 600, 10));
+      const workMin = Math.floor(safePresetNumber(els.workMinutes.value, 0, 99, 0));
+      const workSec = Math.floor(safePresetNumber(els.workSeconds.value, 0, 59, 0));
+      const restMin = Math.floor(safePresetNumber(els.restMinutes.value, 0, 99, 0));
+      const restSec = Math.floor(safePresetNumber(els.restSeconds.value, 0, 59, 0));
+      const rounds = Math.floor(safePresetNumber(els.rounds.value, 1, 99, 10));
+      const work = workMin * 60 + workSec;
+      const rest = restMin * 60 + restSec;
+
+      if (work <= 0) return null;
+      return { prepare, work, rest, rounds };
+    }
+
+    function saveActivePresetTiming() {
+      if (!activePresetName || !presets[activePresetName] || state.isRunning) return;
+      const timing = readPresetTimingFromInputs();
+      if (!timing) return;
+      presets[activePresetName] = timing;
+      savePresetTimings();
+      updatePresetMetaLabels();
+    }
+
+    function savePresetTimings() {
+      localStorage.setItem("theone-timebell-presets", JSON.stringify(presets));
+    }
+
+    function loadPresetTimings() {
+      try {
+        const raw = localStorage.getItem("theone-timebell-presets");
+        if (!raw) return;
+        hasSavedPresetTimings = true;
+        const saved = JSON.parse(raw);
+        Object.keys(DEFAULT_PRESETS).forEach((key) => {
+          const item = saved?.[key];
+          if (!item) return;
+          const prepare = Math.floor(safePresetNumber(item.prepare, 0, 600, DEFAULT_PRESETS[key].prepare));
+          const work = Math.floor(safePresetNumber(item.work, 1, 5999, DEFAULT_PRESETS[key].work));
+          const rest = Math.floor(safePresetNumber(item.rest, 0, 5999, DEFAULT_PRESETS[key].rest));
+          const rounds = Math.floor(safePresetNumber(item.rounds, 1, 99, DEFAULT_PRESETS[key].rounds));
+          presets[key] = { prepare, work, rest, rounds };
+        });
+      } catch (_) {
+        presets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
+      }
+    }
+
+    function formatPresetSeconds(seconds) {
+      const total = Math.max(0, Math.floor(Number(seconds) || 0));
+      const minutes = Math.floor(total / 60);
+      const sec = total % 60;
+
+      if (minutes > 0 && sec > 0) return `${minutes}분 ${sec}초`;
+      if (minutes > 0) return `${minutes}분`;
+      return `${sec}초`;
+    }
+
+    function updatePresetMetaLabels() {
+      const map = {
+        boxing: els.presetMetaBoxing,
+        kickboxing: els.presetMetaKickboxing,
+        tabata: els.presetMetaTabata,
+        crossfit: els.presetMetaCrossfit
+      };
+
+      Object.entries(map).forEach(([key, element]) => {
+        const p = presets[key] || DEFAULT_PRESETS[key];
+        if (!element || !p) return;
+        element.textContent = `${formatPresetSeconds(p.work)} / ${formatPresetSeconds(p.rest)} · ${p.rounds}R`;
+      });
+    }
+
     function saveSettings(showMessage = true) {
       const settings = readSettings();
       if (!settings) return;
+
+      saveActivePresetTiming();
 
       const payload = {
         prepareSeconds: els.prepareSeconds.value,
@@ -1792,8 +1884,10 @@
       els.presetTitleCrossfit.textContent = els.presetNameCrossfit.value.trim() || fallback.crossfit;
     }
 
-    function markCustomPreset() {
-      document.querySelectorAll(".preset-btn").forEach(btn => btn.classList.remove("active"));
+    function markActivePresetButton() {
+      document.querySelectorAll(".preset-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.preset === activePresetName);
+      });
     }
 
     document.querySelectorAll(".preset-btn").forEach(button => {
@@ -1805,8 +1899,10 @@
       els.restMinutes, els.restSeconds, els.rounds
     ].forEach(input => {
       input.addEventListener("input", () => {
-        markCustomPreset();
+        saveActivePresetTiming();
+        markActivePresetButton();
         updateIdlePreview();
+        saveSettings(false);
       });
     });
 
@@ -1873,8 +1969,22 @@
     window.speechSynthesis?.addEventListener?.("voiceschanged", () => pickKoreanVoice());
 
     loadBrandSettings();
+    loadPresetTimings();
     loadSettings();
     updatePresetNames();
+    if (!presets[activePresetName]) activePresetName = "boxing";
+
+    if (!hasSavedPresetTimings) {
+      const currentTiming = readPresetTimingFromInputs();
+      if (currentTiming && presets[activePresetName]) {
+        presets[activePresetName] = currentTiming;
+        savePresetTimings();
+      }
+    }
+
+    updatePresetMetaLabels();
+    applyPreset(activePresetName);
+    markActivePresetButton();
     syncSettingsToggleLabel();
     els.volumeValue.textContent = `${els.volumeRange.value}%`;
     resetTimer(false);
