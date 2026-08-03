@@ -19,6 +19,14 @@
       --rest: #2563eb;
       --prepare: #d97706;
       --danger: #ef4444;
+      --bg-glow-1: rgba(249, 115, 22, 0.13);
+      --bg-glow-2: rgba(37, 99, 235, 0.13);
+      --phase-prepare-glow: rgba(249, 115, 22, 0.28);
+      --phase-work-glow: rgba(239, 68, 68, 0.26);
+      --phase-rest-glow: rgba(37, 99, 235, 0.28);
+      --phase-finished-glow: rgba(34, 197, 94, 0.24);
+      --brand-glow: rgba(249, 115, 22, 0.34);
+      --topbar-glow: rgba(249, 115, 22, 0.08);
       --shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
     }
 
@@ -28,8 +36,8 @@
       font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 10%, rgba(249, 115, 22, 0.13), transparent 28%),
-        radial-gradient(circle at 85% 80%, rgba(37, 99, 235, 0.13), transparent 32%),
+        radial-gradient(circle at 15% 10%, var(--bg-glow-1), transparent 28%),
+        radial-gradient(circle at 85% 80%, var(--bg-glow-2), transparent 32%),
         var(--bg);
       transition: background 0.35s ease;
       overflow-x: hidden;
@@ -37,23 +45,153 @@
 
     body.phase-prepare {
       background:
-        radial-gradient(circle at 50% 30%, rgba(217, 119, 6, 0.28), transparent 38%),
+        radial-gradient(circle at 50% 30%, var(--phase-prepare-glow), transparent 38%),
+        radial-gradient(circle at 12% 12%, var(--bg-glow-1), transparent 28%),
         var(--bg);
     }
     body.phase-work {
       background:
-        radial-gradient(circle at 50% 30%, rgba(239, 68, 68, 0.26), transparent 40%),
+        radial-gradient(circle at 50% 30%, var(--phase-work-glow), transparent 40%),
+        radial-gradient(circle at 12% 12%, var(--bg-glow-1), transparent 28%),
         var(--bg);
     }
     body.phase-rest {
       background:
-        radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.28), transparent 40%),
+        radial-gradient(circle at 50% 30%, var(--phase-rest-glow), transparent 40%),
+        radial-gradient(circle at 85% 80%, var(--bg-glow-2), transparent 32%),
         var(--bg);
     }
     body.phase-finished {
       background:
-        radial-gradient(circle at 50% 30%, rgba(34, 197, 94, 0.24), transparent 40%),
+        radial-gradient(circle at 50% 30%, var(--phase-finished-glow), transparent 40%),
+        radial-gradient(circle at 85% 80%, var(--bg-glow-2), transparent 32%),
         var(--bg);
+    }
+
+    body.theme-orange {
+      --bg: #090d14;
+      --panel: rgba(18, 25, 38, 0.94);
+      --panel-2: rgba(30, 41, 59, 0.82);
+      --muted: #94a3b8;
+      --line: rgba(148, 163, 184, 0.22);
+      --accent: #f97316;
+      --accent-2: #fb923c;
+      --bg-glow-1: rgba(249, 115, 22, 0.16);
+      --bg-glow-2: rgba(37, 99, 235, 0.13);
+      --phase-prepare-glow: rgba(249, 115, 22, 0.30);
+      --phase-work-glow: rgba(239, 68, 68, 0.26);
+      --phase-rest-glow: rgba(37, 99, 235, 0.28);
+      --phase-finished-glow: rgba(34, 197, 94, 0.24);
+      --brand-glow: rgba(249, 115, 22, 0.36);
+      --topbar-glow: rgba(249, 115, 22, 0.08);
+    }
+
+    body.theme-yellow {
+      --bg: #111006;
+      --panel: rgba(28, 24, 12, 0.94);
+      --panel-2: rgba(47, 39, 16, 0.84);
+      --muted: #d7c98a;
+      --line: rgba(250, 204, 21, 0.22);
+      --accent: #eab308;
+      --accent-2: #facc15;
+      --bg-glow-1: rgba(234, 179, 8, 0.22);
+      --bg-glow-2: rgba(180, 83, 9, 0.16);
+      --phase-prepare-glow: rgba(234, 179, 8, 0.34);
+      --phase-work-glow: rgba(245, 158, 11, 0.32);
+      --phase-rest-glow: rgba(202, 138, 4, 0.30);
+      --phase-finished-glow: rgba(132, 204, 22, 0.24);
+      --brand-glow: rgba(234, 179, 8, 0.38);
+      --topbar-glow: rgba(234, 179, 8, 0.10);
+    }
+
+    body.theme-red {
+      --bg: #12080b;
+      --panel: rgba(30, 13, 18, 0.94);
+      --panel-2: rgba(55, 18, 25, 0.84);
+      --muted: #f1a8a8;
+      --line: rgba(248, 113, 113, 0.22);
+      --accent: #ef4444;
+      --accent-2: #fb7185;
+      --bg-glow-1: rgba(239, 68, 68, 0.23);
+      --bg-glow-2: rgba(251, 113, 133, 0.13);
+      --phase-prepare-glow: rgba(251, 113, 133, 0.28);
+      --phase-work-glow: rgba(239, 68, 68, 0.36);
+      --phase-rest-glow: rgba(244, 63, 94, 0.26);
+      --phase-finished-glow: rgba(248, 113, 113, 0.24);
+      --brand-glow: rgba(239, 68, 68, 0.40);
+      --topbar-glow: rgba(239, 68, 68, 0.10);
+    }
+
+    body.theme-blue {
+      --bg: #06111f;
+      --panel: rgba(10, 25, 47, 0.94);
+      --panel-2: rgba(15, 38, 70, 0.84);
+      --muted: #9cc8ff;
+      --line: rgba(96, 165, 250, 0.23);
+      --accent: #2563eb;
+      --accent-2: #38bdf8;
+      --bg-glow-1: rgba(37, 99, 235, 0.22);
+      --bg-glow-2: rgba(56, 189, 248, 0.15);
+      --phase-prepare-glow: rgba(59, 130, 246, 0.28);
+      --phase-work-glow: rgba(37, 99, 235, 0.34);
+      --phase-rest-glow: rgba(14, 165, 233, 0.32);
+      --phase-finished-glow: rgba(45, 212, 191, 0.23);
+      --brand-glow: rgba(37, 99, 235, 0.40);
+      --topbar-glow: rgba(37, 99, 235, 0.10);
+    }
+
+    body.theme-green {
+      --bg: #06150e;
+      --panel: rgba(10, 31, 21, 0.94);
+      --panel-2: rgba(15, 48, 32, 0.84);
+      --muted: #9fe7bd;
+      --line: rgba(74, 222, 128, 0.22);
+      --accent: #16a34a;
+      --accent-2: #22c55e;
+      --bg-glow-1: rgba(34, 197, 94, 0.20);
+      --bg-glow-2: rgba(20, 184, 166, 0.13);
+      --phase-prepare-glow: rgba(34, 197, 94, 0.27);
+      --phase-work-glow: rgba(22, 163, 74, 0.34);
+      --phase-rest-glow: rgba(20, 184, 166, 0.27);
+      --phase-finished-glow: rgba(34, 197, 94, 0.32);
+      --brand-glow: rgba(34, 197, 94, 0.38);
+      --topbar-glow: rgba(34, 197, 94, 0.09);
+    }
+
+    body.theme-purple {
+      --bg: #100a1f;
+      --panel: rgba(24, 15, 45, 0.94);
+      --panel-2: rgba(40, 28, 75, 0.84);
+      --muted: #c9b8ff;
+      --line: rgba(167, 139, 250, 0.23);
+      --accent: #8b5cf6;
+      --accent-2: #ec4899;
+      --bg-glow-1: rgba(139, 92, 246, 0.22);
+      --bg-glow-2: rgba(236, 72, 153, 0.13);
+      --phase-prepare-glow: rgba(168, 85, 247, 0.28);
+      --phase-work-glow: rgba(147, 51, 234, 0.32);
+      --phase-rest-glow: rgba(124, 58, 237, 0.30);
+      --phase-finished-glow: rgba(217, 70, 239, 0.22);
+      --brand-glow: rgba(139, 92, 246, 0.40);
+      --topbar-glow: rgba(139, 92, 246, 0.10);
+    }
+
+    body.theme-black {
+      --bg: #07090d;
+      --panel: rgba(16, 20, 28, 0.95);
+      --panel-2: rgba(28, 34, 45, 0.84);
+      --muted: #aab4c2;
+      --line: rgba(203, 213, 225, 0.18);
+      --accent: #64748b;
+      --accent-2: #e2e8f0;
+      --bg-glow-1: rgba(148, 163, 184, 0.12);
+      --bg-glow-2: rgba(255, 255, 255, 0.06);
+      --phase-prepare-glow: rgba(148, 163, 184, 0.18);
+      --phase-work-glow: rgba(203, 213, 225, 0.16);
+      --phase-rest-glow: rgba(100, 116, 139, 0.18);
+      --phase-finished-glow: rgba(148, 163, 184, 0.16);
+      --brand-glow: rgba(203, 213, 225, 0.22);
+      --topbar-glow: rgba(255, 255, 255, 0.06);
     }
 
     button, input, select { font: inherit; }
@@ -251,7 +389,7 @@
     .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.28); }
     .btn:active { transform: translateY(1px); }
     .btn.primary {
-      background: linear-gradient(135deg, var(--accent), #dc2626);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
       border-color: transparent;
     }
     .btn.good {
@@ -455,6 +593,51 @@
     .mini-chip.ok { color: #bbf7d0; border-color: rgba(34,197,94,.35); }
     .mini-chip.warn { color: #fde68a; border-color: rgba(245,158,11,.35); }
 
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .theme-btn {
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--panel-2);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 900;
+      text-align: left;
+    }
+
+    .theme-btn.active {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent), 0 0 18px var(--brand-glow);
+    }
+
+    .theme-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+      border: 2px solid rgba(255, 255, 255, 0.36);
+      box-shadow: 0 5px 14px rgba(0,0,0,0.28);
+    }
+
+    .theme-dot.orange { background: linear-gradient(135deg, #f97316, #fb923c); }
+    .theme-dot.yellow { background: linear-gradient(135deg, #ca8a04, #facc15); }
+    .theme-dot.red { background: linear-gradient(135deg, #dc2626, #fb7185); }
+    .theme-dot.blue { background: linear-gradient(135deg, #2563eb, #38bdf8); }
+    .theme-dot.green { background: linear-gradient(135deg, #16a34a, #22c55e); }
+    .theme-dot.purple { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+    .theme-dot.black { background: linear-gradient(135deg, #111827, #e2e8f0); }
+
+
     .settings-toggle {
       display: inline-flex;
     }
@@ -473,8 +656,8 @@
       flex: 1;
       padding: 12px 14px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: linear-gradient(135deg, var(--topbar-glow), rgba(255, 255, 255, 0.045));
+      border: 1px solid var(--line);
     }
 
     .app-icon {
@@ -484,10 +667,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #ff3b30, #ff9500);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: white;
       flex: 0 0 auto;
-      box-shadow: 0 10px 28px rgba(249, 115, 22, 0.34);
+      box-shadow: 0 10px 28px var(--brand-glow);
     }
 
     .brand-svg {
@@ -618,7 +801,7 @@
     }
 
     .save-brand-btn {
-      background: linear-gradient(135deg, var(--accent), #dc2626);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
     }
 
     .cancel-brand-btn {
@@ -719,7 +902,7 @@
 
   </style>
 </head>
-<body class="phase-idle">
+<body class="phase-idle theme-orange">
   <main class="app">
     <header class="topbar">
       <div class="app-brand">
@@ -778,6 +961,34 @@
       </article>
 
       <aside class="settings-card" id="settingsCard">
+        <section class="section">
+          <h2 class="section-title">화면 색상</h2>
+          <div class="field full" style="margin-bottom: 10px;">
+            <label for="themeSelect">배경/포인트 색상 선택</label>
+            <select id="themeSelect">
+              <option value="orange">오렌지 기본</option>
+              <option value="yellow">다크 옐로우</option>
+              <option value="red">레드</option>
+              <option value="blue">블루</option>
+              <option value="green">그린</option>
+              <option value="purple">퍼플</option>
+              <option value="black">블랙/모노</option>
+            </select>
+          </div>
+          <div class="theme-grid" aria-label="색상 빠른 선택">
+            <button class="theme-btn" type="button" data-theme="orange"><span class="theme-dot orange"></span>오렌지</button>
+            <button class="theme-btn" type="button" data-theme="yellow"><span class="theme-dot yellow"></span>다크 옐로우</button>
+            <button class="theme-btn" type="button" data-theme="red"><span class="theme-dot red"></span>레드</button>
+            <button class="theme-btn" type="button" data-theme="blue"><span class="theme-dot blue"></span>블루</button>
+            <button class="theme-btn" type="button" data-theme="green"><span class="theme-dot green"></span>그린</button>
+            <button class="theme-btn" type="button" data-theme="purple"><span class="theme-dot purple"></span>퍼플</button>
+            <button class="theme-btn" type="button" data-theme="black"><span class="theme-dot black"></span>블랙/모노</button>
+          </div>
+          <p class="small-note">
+            색상을 누르면 PC와 모바일 화면 배경, 버튼, 진행바 색상이 바로 바뀌고 저장됩니다.
+          </p>
+        </section>
+
         <section class="section">
           <h2 class="section-title">빠른 프로그램</h2>
           <div class="preset-grid">
@@ -1048,6 +1259,7 @@
       saveBtn: $("saveBtn"),
       settingsToggle: $("settingsToggle"),
       settingsCard: $("settingsCard"),
+      themeSelect: $("themeSelect"),
       prepareSeconds: $("prepareSeconds"),
       workMinutes: $("workMinutes"),
       workSeconds: $("workSeconds"),
@@ -1119,6 +1331,43 @@
 
     const DEFAULT_BRAND_TITLE = "더원 타임벨";
     const DEFAULT_BRAND_SUBTITLE = "격투기 · 크로스핏 · 인터벌 트레이닝";
+
+    const THEME_STORAGE_KEY = "theone-timebell-theme";
+    const THEME_LIST = ["orange", "yellow", "red", "blue", "green", "purple", "black"];
+    const THEME_META_COLORS = {
+      orange: "#090d14",
+      yellow: "#111006",
+      red: "#12080b",
+      blue: "#06111f",
+      green: "#06150e",
+      purple: "#100a1f",
+      black: "#07090d"
+    };
+
+    function applyTheme(themeName, shouldSave = true) {
+      const safeTheme = THEME_LIST.includes(themeName) ? themeName : "orange";
+
+      THEME_LIST.forEach((name) => {
+        document.body.classList.remove(`theme-${name}`);
+      });
+      document.body.classList.add(`theme-${safeTheme}`);
+
+      if (els.themeSelect) els.themeSelect.value = safeTheme;
+
+      document.querySelectorAll(".theme-btn").forEach((button) => {
+        button.classList.toggle("active", button.dataset.theme === safeTheme);
+      });
+
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) metaTheme.setAttribute("content", THEME_META_COLORS[safeTheme] || "#090d14");
+
+      if (shouldSave) localStorage.setItem(THEME_STORAGE_KEY, safeTheme);
+    }
+
+    function loadThemeSettings() {
+      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || "orange";
+      applyTheme(savedTheme, false);
+    }
 
     function loadBrandSettings() {
       const savedTitle = localStorage.getItem("timebell_brand_title");
@@ -1925,6 +2174,7 @@
       saveActivePresetTiming();
 
       const payload = {
+        themeSelect: els.themeSelect?.value || localStorage.getItem(THEME_STORAGE_KEY) || "orange",
         prepareSeconds: els.prepareSeconds.value,
         workMinutes: els.workMinutes.value,
         workSeconds: els.workSeconds.value,
@@ -2028,6 +2278,20 @@
       });
     });
 
+    if (els.themeSelect) {
+      els.themeSelect.addEventListener("change", () => {
+        applyTheme(els.themeSelect.value, true);
+        saveSettings(false);
+      });
+    }
+
+    document.querySelectorAll(".theme-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        applyTheme(button.dataset.theme, true);
+        saveSettings(false);
+      });
+    });
+
     els.volumeRange.addEventListener("input", () => {
       els.volumeValue.textContent = `${els.volumeRange.value}%`;
       saveSettings(false);
@@ -2077,6 +2341,7 @@
     loadBrandSettings();
     loadPresetTimings();
     loadSettings();
+    loadThemeSettings();
     updatePresetNames();
     if (!presets[activePresetName]) activePresetName = "boxing";
 
