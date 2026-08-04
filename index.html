@@ -182,6 +182,11 @@
     }
     .preset-btn small { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; font-weight: 700; }
     .preset-btn.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent); }
+    .preset-btn.time-change-btn {
+      border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, transparent), color-mix(in srgb, var(--accent-2) 13%, transparent));
+    }
+    .preset-btn.time-change-btn span::before { content: "⏱ "; }
 
     .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
     .field { display: flex; flex-direction: column; gap: 6px; }
@@ -230,6 +235,8 @@
     .modal { width: min(520px, 100%); padding: 20px; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); box-shadow: var(--shadow); }
     .modal h2 { margin: 0 0 14px; }
     .modal-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+    .modal-actions.two { grid-template-columns: repeat(2, 1fr); }
+    .time-editor-summary { margin: -5px 0 13px; color: var(--muted); font-size: 12px; line-height: 1.55; }
 
     .toast {
       position: fixed; left: 50%; bottom: calc(22px + var(--safe-bottom)); z-index: 2000;
@@ -275,6 +282,10 @@
     .fs-program-btn span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
     .fs-program-btn small { display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 9px; }
     .fs-program-btn.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, transparent); }
+    .fs-program-btn.time-change-btn {
+      border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 24%, transparent), color-mix(in srgb, var(--accent-2) 14%, transparent));
+    }
 
     @media (max-width: 1050px) {
       .layout { grid-template-columns: 1fr; }
@@ -339,7 +350,6 @@
       </div>
       <div class="top-actions">
         <button class="btn ghost settings-toggle" id="settingsToggle" type="button">⚙️ 설정 열기</button>
-        <button class="btn ghost" id="soundTestBtn" type="button">🔊 소리 확인</button>
         <button class="btn ghost" id="fullscreenBtn" type="button">⛶ 전체화면</button>
       </div>
     </header>
@@ -391,20 +401,19 @@
         </section>
 
         <section class="section">
-          <h2 class="section-title">② 빠른 프로그램 <small>프로그램마다 각각 저장</small></h2>
+          <h2 class="section-title">② 빠른 프로그램 <small>3개 프로그램 + 타임 변경</small></h2>
           <div class="preset-grid" id="presetGrid">
             <button class="preset-btn active" type="button" data-preset="boxing"><span>복싱 3분</span><small>3분 / 1분 · 10R</small></button>
             <button class="preset-btn" type="button" data-preset="kickboxing"><span>킥복싱</span><small>3분 / 1분 · 5R</small></button>
             <button class="preset-btn" type="button" data-preset="tabata"><span>타바타</span><small>20초 / 10초 · 8R</small></button>
-            <button class="preset-btn" type="button" data-preset="crossfit"><span>크로스핏</span><small>1분 / 20초 · 10R</small></button>
+            <button class="preset-btn time-change-btn" id="quickTimeChangeBtn" type="button"><span>타임 변경</span><small>준비·운동·휴식·라운드 바로 설정</small></button>
           </div>
           <div class="name-grid" style="margin-top:10px;">
             <div class="field"><label for="presetNameBoxing">1번 프로그램 이름</label><input id="presetNameBoxing" value="복싱 3분" /></div>
             <div class="field"><label for="presetNameKickboxing">2번 프로그램 이름</label><input id="presetNameKickboxing" value="킥복싱" /></div>
-            <div class="field"><label for="presetNameTabata">3번 프로그램 이름</label><input id="presetNameTabata" value="타바타" /></div>
-            <div class="field"><label for="presetNameCrossfit">4번 프로그램 이름</label><input id="presetNameCrossfit" value="크로스핏" /></div>
+            <div class="field full"><label for="presetNameTabata">3번 프로그램 이름</label><input id="presetNameTabata" value="타바타" /></div>
           </div>
-          <div class="notice">1~4번 빠른 프로그램은 서로 독립적으로 저장됩니다. 프로그램을 선택한 뒤 시간과 소리를 바꾸면 해당 프로그램에만 자동 저장되고, 다음에 다시 선택했을 때 그대로 불러옵니다.</div>
+          <div class="notice">1번·2번·3번 프로그램은 서로 독립적으로 저장됩니다. <b>타임 변경</b>을 누르면 현재 선택한 프로그램의 준비·운동·휴식 시간과 라운드 수를 바로 바꿀 수 있으며, 변경 내용은 자동 저장됩니다.</div>
         </section>
 
         <section class="section">
@@ -493,6 +502,35 @@
     </section>
   </main>
 
+  <div class="modal-backdrop" id="timeModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="timeModalTitle">
+    <div class="modal">
+      <h2 id="timeModalTitle">시간 변경</h2>
+      <p class="time-editor-summary" id="timeModalSummary">현재 선택한 프로그램의 시간을 바로 변경합니다.</p>
+      <div class="field-grid">
+        <div class="field full"><label for="timeEditPrepareSeconds">준비 시간(초)</label><input id="timeEditPrepareSeconds" type="number" min="0" max="600" value="10" inputmode="numeric" /></div>
+        <div class="field full">
+          <label>운동 시간</label>
+          <div class="inline-time">
+            <input id="timeEditWorkMinutes" type="number" min="0" max="99" value="3" inputmode="numeric" /><span>분</span>
+            <input id="timeEditWorkSeconds" type="number" min="0" max="59" value="0" inputmode="numeric" /><span>초</span>
+          </div>
+        </div>
+        <div class="field full">
+          <label>휴식 시간</label>
+          <div class="inline-time">
+            <input id="timeEditRestMinutes" type="number" min="0" max="99" value="1" inputmode="numeric" /><span>분</span>
+            <input id="timeEditRestSeconds" type="number" min="0" max="59" value="0" inputmode="numeric" /><span>초</span>
+          </div>
+        </div>
+        <div class="field full"><label for="timeEditRounds">라운드 수</label><input id="timeEditRounds" type="number" min="1" max="99" value="10" inputmode="numeric" /></div>
+      </div>
+      <div class="modal-actions two">
+        <button class="btn" id="timeEditCloseBtn" type="button">취소</button>
+        <button class="btn primary" id="timeEditApplyBtn" type="button">시간 적용</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-backdrop" id="brandModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="brandModalTitle">
     <div class="modal">
       <h2 id="brandModalTitle">상호 및 설명 수정</h2>
@@ -518,7 +556,7 @@
       timerDisplay: $("timerDisplay"), roundLabel: $("roundLabel"), phaseBadge: $("phaseBadge"),
       mainStatus: $("mainStatus"), nextStatus: $("nextStatus"), progressBar: $("progressBar"),
       startBtn: $("startBtn"), pauseBtn: $("pauseBtn"), resetBtn: $("resetBtn"), addTenBtn: $("addTenBtn"),
-      soundTestBtn: $("soundTestBtn"), fullscreenBtn: $("fullscreenBtn"), saveBtn: $("saveBtn"),
+      fullscreenBtn: $("fullscreenBtn"), saveBtn: $("saveBtn"), quickTimeChangeBtn: $("quickTimeChangeBtn"),
       prepareSeconds: $("prepareSeconds"), workMinutes: $("workMinutes"), workSeconds: $("workSeconds"),
       restMinutes: $("restMinutes"), restSeconds: $("restSeconds"), rounds: $("rounds"),
       voiceEnabled: $("voiceEnabled"), alert30: $("alert30"), alert10: $("alert10"), countdown5: $("countdown5"),
@@ -529,8 +567,13 @@
       alertSoundPreviewBtn: $("alertSoundPreviewBtn"),
       volumeRange: $("volumeRange"), volumeValue: $("volumeValue"), wakeChip: $("wakeChip"), audioChip: $("audioChip"), autoSaveChip: $("autoSaveChip"),
       presetNameBoxing: $("presetNameBoxing"), presetNameKickboxing: $("presetNameKickboxing"),
-      presetNameTabata: $("presetNameTabata"), presetNameCrossfit: $("presetNameCrossfit"),
+      presetNameTabata: $("presetNameTabata"),
       activePresetSoundNotice: $("activePresetSoundNotice"), fullscreenProgramList: $("fullscreenProgramList"),
+      timeModalBackdrop: $("timeModalBackdrop"), timeModalTitle: $("timeModalTitle"), timeModalSummary: $("timeModalSummary"),
+      timeEditPrepareSeconds: $("timeEditPrepareSeconds"), timeEditWorkMinutes: $("timeEditWorkMinutes"),
+      timeEditWorkSeconds: $("timeEditWorkSeconds"), timeEditRestMinutes: $("timeEditRestMinutes"),
+      timeEditRestSeconds: $("timeEditRestSeconds"), timeEditRounds: $("timeEditRounds"),
+      timeEditCloseBtn: $("timeEditCloseBtn"), timeEditApplyBtn: $("timeEditApplyBtn"),
       brandTitle: $("brandTitle"), brandSubtitle: $("brandSubtitle"), brandEditBtn: $("brandEditBtn"),
       brandModalBackdrop: $("brandModalBackdrop"), brandTitleInput: $("brandTitleInput"),
       brandSubtitleInput: $("brandSubtitleInput"), brandSaveBtn: $("brandSaveBtn"),
@@ -545,19 +588,17 @@
     const PRESET_AUDIO_KEY = "theone-timebell-preset-audio-settings";
     const ACTIVE_PRESET_KEY = "theone-timebell-active-preset";
 
-    const PRESET_KEYS = ["boxing", "kickboxing", "tabata", "crossfit"];
+    const PRESET_KEYS = ["boxing", "kickboxing", "tabata"];
     const DEFAULT_PRESETS = {
       boxing: { prepare: 10, work: 180, rest: 60, rounds: 10 },
       kickboxing: { prepare: 10, work: 180, rest: 60, rounds: 5 },
-      tabata: { prepare: 10, work: 20, rest: 10, rounds: 8 },
-      crossfit: { prepare: 10, work: 40, rest: 20, rounds: 10 }
+      tabata: { prepare: 10, work: 20, rest: 10, rounds: 8 }
     };
-    const DEFAULT_NAMES = { boxing: "복싱 3분", kickboxing: "킥복싱", tabata: "타바타", crossfit: "크로스핏" };
+    const DEFAULT_NAMES = { boxing: "복싱 3분", kickboxing: "킥복싱", tabata: "타바타" };
     const DEFAULT_PRESET_AUDIO = {
       boxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "singleBeep" },
       kickboxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
-      tabata: { voiceEnabled: true, alert30: false, alert10: true, countdown5: true, voiceTone: "high", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "fastBeep" },
-      crossfit: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "singleBeep" }
+      tabata: { voiceEnabled: true, alert30: false, alert10: true, countdown5: true, voiceTone: "high", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "fastBeep" }
     };
 
     const PHASE = { IDLE: "idle", PREPARE: "prepare", WORK: "work", REST: "rest", FINISHED: "finished" };
@@ -600,7 +641,7 @@
     }
 
     function getNameInput(key) {
-      return { boxing: els.presetNameBoxing, kickboxing: els.presetNameKickboxing, tabata: els.presetNameTabata, crossfit: els.presetNameCrossfit }[key];
+      return { boxing: els.presetNameBoxing, kickboxing: els.presetNameKickboxing, tabata: els.presetNameTabata }[key];
     }
     function getPresetName(key) { return getNameInput(key)?.value.trim() || DEFAULT_NAMES[key]; }
     function formatSeconds(seconds) {
@@ -709,7 +750,7 @@
     }
 
     function updatePresetUI() {
-      document.querySelectorAll(".preset-btn").forEach((btn) => {
+      document.querySelectorAll(".preset-btn[data-preset]").forEach((btn) => {
         const key = btn.dataset.preset;
         btn.querySelector("span").textContent = getPresetName(key);
         btn.querySelector("small").textContent = presetMeta(presets[key]);
@@ -722,7 +763,10 @@
       els.fullscreenProgramList.innerHTML = PRESET_KEYS.map((key) => `
         <button class="fs-program-btn${key === activePresetName ? " active" : ""}" type="button" data-fs-preset="${key}">
           <span>${escapeHtml(getPresetName(key))}</span><small>${escapeHtml(presetMeta(presets[key]))}</small>
-        </button>`).join("");
+        </button>`).join("") + `
+        <button class="fs-program-btn time-change-btn" type="button" data-open-time-editor="true">
+          <span>⏱ 타임 변경</span><small>바로 설정</small>
+        </button>`;
     }
     function escapeHtml(text) { return String(text).replace(/[&<>'"]/g, (ch) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch])); }
 
@@ -763,7 +807,7 @@
       try {
         const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null");
         if (saved) {
-          ["presetNameBoxing","presetNameKickboxing","presetNameTabata","presetNameCrossfit"].forEach((id) => {
+          ["presetNameBoxing","presetNameKickboxing","presetNameTabata"].forEach((id) => {
             if (typeof saved[id] === "string" && saved[id].trim()) els[id].value = saved[id].trim();
           });
           if (saved.volumeRange != null) els.volumeRange.value = clamp(saved.volumeRange,0,150,110);
@@ -928,6 +972,7 @@
     function startTicker() { clearInterval(state.timerId); state.timerId = setInterval(tick, 100); }
 
     async function startTimer() {
+      closeTimeEditor();
       const s = currentSettings(); if (!s) return;
       await ensureAudio(); await requestWakeLock(); saveActivePresetData();
       if (state.isPaused) { state.isPaused = false; state.isRunning = true; state.endAt = performance.now() + state.remainingMs; startTicker(); return render(); }
@@ -991,7 +1036,7 @@
         prepareSound: els.prepareSound.value, startSound: els.startSound.value, restSound: els.restSound.value,
         finishSound: els.finishSound.value, alertSound: els.alertSound.value, volumeRange: els.volumeRange.value,
         presetNameBoxing: els.presetNameBoxing.value, presetNameKickboxing: els.presetNameKickboxing.value,
-        presetNameTabata: els.presetNameTabata.value, presetNameCrossfit: els.presetNameCrossfit.value
+        presetNameTabata: els.presetNameTabata.value
       };
       localStorage.setItem(SETTINGS_KEY, JSON.stringify(payload));
       markAutoSaved();
@@ -1023,11 +1068,33 @@
       volumeSaveTimer = setTimeout(() => saveSettings(false), 220);
     }
 
-    async function soundTest() {
-      if (!await ensureAudio()) return;
-      const a = readAudioInputs(); playSound(a.startSound);
-      setTimeout(() => speak("소리 확인이 완료되었습니다"), 300);
-      showToast("현재 프로그램의 시작 소리를 재생했습니다.");
+    function openTimeEditor() {
+      if (state.isRunning) { showToast("운동 중에는 시간을 변경할 수 없습니다."); return; }
+      const timing = readTimingInputs() || presets[activePresetName];
+      els.timeModalTitle.textContent = `‘${getPresetName(activePresetName)}’ 시간 변경`;
+      els.timeModalSummary.textContent = "아래 시간을 바꾸고 ‘시간 적용’을 누르면 현재 프로그램에 바로 저장됩니다.";
+      els.timeEditPrepareSeconds.value = timing.prepare;
+      els.timeEditWorkMinutes.value = Math.floor(timing.work / 60);
+      els.timeEditWorkSeconds.value = timing.work % 60;
+      els.timeEditRestMinutes.value = Math.floor(timing.rest / 60);
+      els.timeEditRestSeconds.value = timing.rest % 60;
+      els.timeEditRounds.value = timing.rounds;
+      els.timeModalBackdrop.classList.add("open");
+      setTimeout(() => els.timeEditWorkMinutes.focus(), 30);
+    }
+    function closeTimeEditor() { els.timeModalBackdrop.classList.remove("open"); }
+    function applyTimeEditor() {
+      if (state.isRunning) { showToast("운동 중에는 시간을 변경할 수 없습니다."); return; }
+      const prepare = Math.floor(clamp(els.timeEditPrepareSeconds.value, 0, 600, 10));
+      const work = Math.floor(clamp(els.timeEditWorkMinutes.value, 0, 99, 0)) * 60 + Math.floor(clamp(els.timeEditWorkSeconds.value, 0, 59, 0));
+      const rest = Math.floor(clamp(els.timeEditRestMinutes.value, 0, 99, 0)) * 60 + Math.floor(clamp(els.timeEditRestSeconds.value, 0, 59, 0));
+      const rounds = Math.floor(clamp(els.timeEditRounds.value, 1, 99, 1));
+      if (work < 1) { showToast("운동 시간은 1초 이상이어야 합니다."); return; }
+      putTimingInputs({ prepare, work, rest, rounds });
+      saveSettings(false);
+      resetTimer(false);
+      closeTimeEditor();
+      showToast(`‘${getPresetName(activePresetName)}’ 시간이 변경되었습니다.`);
     }
     async function toggleFullscreen() {
       try {
@@ -1055,11 +1122,14 @@
     }
 
     document.querySelectorAll(".theme-btn").forEach((btn) => btn.addEventListener("click", () => { applyTheme(btn.dataset.theme); saveSettings(false); }));
-    document.querySelectorAll(".preset-btn").forEach((btn) => btn.addEventListener("click", () => applyPreset(btn.dataset.preset)));
+    document.querySelectorAll(".preset-btn[data-preset]").forEach((btn) => btn.addEventListener("click", () => applyPreset(btn.dataset.preset)));
+    els.quickTimeChangeBtn.addEventListener("click", openTimeEditor);
     els.fullscreenProgramList.addEventListener("click", (event) => {
-      const btn = event.target.closest("[data-fs-preset]"); if (btn) applyPreset(btn.dataset.fsPreset);
+      const presetBtn = event.target.closest("[data-fs-preset]");
+      if (presetBtn) { applyPreset(presetBtn.dataset.fsPreset); return; }
+      if (event.target.closest("[data-open-time-editor]")) openTimeEditor();
     });
-    [els.presetNameBoxing,els.presetNameKickboxing,els.presetNameTabata,els.presetNameCrossfit].forEach((input) => input.addEventListener("input", () => { updatePresetUI(); saveSettings(false); }));
+    [els.presetNameBoxing,els.presetNameKickboxing,els.presetNameTabata].forEach((input) => input.addEventListener("input", () => { updatePresetUI(); saveSettings(false); }));
     [els.prepareSeconds,els.workMinutes,els.workSeconds,els.restMinutes,els.restSeconds,els.rounds].forEach((input) => input.addEventListener("change", saveTimeAndRefresh));
     [els.voiceEnabled,els.alert30,els.alert10,els.countdown5,els.voiceTone].forEach((input) => input.addEventListener("change", () => saveSettings(false)));
 
@@ -1078,7 +1148,10 @@
     els.volumeRange.addEventListener("input", () => { updateVolumeLabel(); scheduleVolumeSave(); });
     els.startBtn.addEventListener("click", startTimer); els.pauseBtn.addEventListener("click", pauseTimer);
     els.resetBtn.addEventListener("click", () => resetTimer(true)); els.addTenBtn.addEventListener("click", addTenSeconds);
-    els.soundTestBtn.addEventListener("click", soundTest); els.fullscreenBtn.addEventListener("click", toggleFullscreen);
+    els.fullscreenBtn.addEventListener("click", toggleFullscreen);
+    els.timeEditApplyBtn.addEventListener("click", applyTimeEditor);
+    els.timeEditCloseBtn.addEventListener("click", closeTimeEditor);
+    els.timeModalBackdrop.addEventListener("click", (e) => { if (e.target === els.timeModalBackdrop) closeTimeEditor(); });
     els.settingsToggle.addEventListener("click", toggleSettings); els.saveBtn.addEventListener("click", () => saveSettings(true));
     els.brandEditBtn.addEventListener("click", openBrandModal); els.brandSaveBtn.addEventListener("click", saveBrand);
     els.brandResetBtn.addEventListener("click", resetBrand); els.brandCloseBtn.addEventListener("click", closeBrandModal);
@@ -1090,7 +1163,8 @@
       if (e.code === "Space") { e.preventDefault(); state.isRunning && !state.isPaused ? pauseTimer() : startTimer(); }
       if (e.key.toLowerCase() === "r") resetTimer(true);
       if (e.key.toLowerCase() === "f") toggleFullscreen();
-      if (e.key === "Escape" && els.brandModalBackdrop.classList.contains("open")) closeBrandModal();
+      if (e.key === "Escape" && els.timeModalBackdrop.classList.contains("open")) closeTimeEditor();
+      else if (e.key === "Escape" && els.brandModalBackdrop.classList.contains("open")) closeBrandModal();
     });
 
     window.addEventListener("pagehide", () => {
