@@ -249,6 +249,15 @@
       min-height: 100vh; border: 0; border-radius: 0;
       padding: clamp(16px, 3vh, 34px) clamp(16px, 3vw, 42px) calc(118px + var(--safe-bottom));
     }
+    /* 전체화면에서는 타이머 숫자를 화면 폭에 가깝게 크게 표시 */
+    body.fullscreen-mode .timer-wrap {
+      width: 100%; min-height: 0; overflow: visible;
+    }
+    body.fullscreen-mode .timer {
+      width: 100%; white-space: nowrap; text-align: center;
+      font-size: clamp(160px, min(38vw, 42vh), 430px);
+      line-height: .82; letter-spacing: -.085em;
+    }
     body.fullscreen-mode .control-row { margin-bottom: 0; opacity: .76; }
     body.fullscreen-mode .fullscreen-program-bar {
       position: fixed; left: 50%; bottom: calc(12px + var(--safe-bottom)); z-index: 500;
@@ -293,7 +302,10 @@
       .sound-select-row { grid-template-columns: minmax(0, 1fr) 78px; }
       .sound-preview-btn { min-width: 78px; padding: 7px 6px; font-size: 11px; }
       body.fullscreen-mode .display-card { padding: 16px 14px calc(132px + var(--safe-bottom)); }
-      body.fullscreen-mode .timer { font-size: clamp(90px, 31vw, 180px); }
+      body.fullscreen-mode .timer {
+        font-size: clamp(128px, min(42vw, 40vh), 250px);
+        line-height: .82; letter-spacing: -.09em;
+      }
       body.fullscreen-mode .fullscreen-program-bar { grid-template-columns: 1fr; gap: 5px; }
       body.fullscreen-mode .fs-program-label { display: none; }
       .fs-program-list { grid-template-columns: repeat(4, minmax(0,1fr)); }
