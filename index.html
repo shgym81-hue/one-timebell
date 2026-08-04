@@ -3,78 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#090d14" />
-  <title>더원 타임벨</title>
+  <meta name="theme-color" content="#180824" />
+  <title>모아넥트 타임벨</title>
   <style>
     :root {
-      --bg: #090d14;
-      --panel: rgba(18, 25, 38, 0.94);
-      --panel-2: rgba(30, 41, 59, 0.82);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --line: rgba(148, 163, 184, 0.22);
-      --accent: #f97316;
-      --accent-2: #fb923c;
-      --good: #22c55e;
-      --rest: #2563eb;
-      --prepare: #d97706;
-      --danger: #ef4444;
-      --bg-glow-1: rgba(249, 115, 22, 0.13);
-      --bg-glow-2: rgba(37, 99, 235, 0.13);
-      --phase-prepare-glow: rgba(249, 115, 22, 0.28);
-      --phase-work-glow: rgba(239, 68, 68, 0.26);
-      --phase-rest-glow: rgba(37, 99, 235, 0.28);
-      --phase-finished-glow: rgba(34, 197, 94, 0.24);
-      --brand-glow: rgba(249, 115, 22, 0.34);
-      --surface-glow: rgba(249, 115, 22, 0.14);
-      --button-bg: rgba(30, 41, 59, 0.86);
-      --button-ghost-bg: rgba(15, 23, 42, 0.55);
-      --field-bg: rgba(15, 23, 42, 0.82);
-      --badge-bg: rgba(148, 163, 184, 0.16);
-      --progress-track-bg: rgba(148, 163, 184, 0.16);
-      --active-bg: rgba(249, 115, 22, 0.16);
-      --modal-bg: #181818;
-      --modal-input-bg: #252525;
-      --timer-shadow: 0 15px 55px rgba(0,0,0,0.38);
-      --shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
-    }
-
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% 10%, var(--bg-glow-1), transparent 28%),
-        radial-gradient(circle at 85% 80%, var(--bg-glow-2), transparent 32%),
-        var(--bg);
-      transition: background 0.35s ease;
-      overflow-x: hidden;
-    }
-
-    body.phase-prepare {
-      background:
-        radial-gradient(circle at 50% 30%, var(--phase-prepare-glow), transparent 38%),
-        radial-gradient(circle at 12% 12%, var(--bg-glow-1), transparent 28%),
-        var(--bg);
-    }
-    body.phase-work {
-      background:
-        radial-gradient(circle at 50% 30%, var(--phase-work-glow), transparent 40%),
-        radial-gradient(circle at 12% 12%, var(--bg-glow-1), transparent 28%),
-        var(--bg);
-    }
-    body.phase-rest {
-      background:
-        radial-gradient(circle at 50% 30%, var(--phase-rest-glow), transparent 40%),
-        radial-gradient(circle at 85% 80%, var(--bg-glow-2), transparent 32%),
-        var(--bg);
-    }
-    body.phase-finished {
-      background:
-        radial-gradient(circle at 50% 30%, var(--phase-finished-glow), transparent 40%),
-        radial-gradient(circle at 85% 80%, var(--bg-glow-2), transparent 32%),
-        var(--bg);
+      --bg: #13051f;
+      --panel: rgba(35, 12, 55, 0.94);
+      --panel-2: rgba(49, 18, 74, 0.88);
+      --text: #fff8ff;
+      --muted: #c6a9d5;
+      --line: rgba(230, 199, 245, 0.18);
+      --accent: #be4ce5;
+      --accent-2: #f059a9;
+      --good: #2bd58c;
+      --prepare: #f59e0b;
+      --work: #ef4444;
+      --rest: #3b82f6;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     body.theme-orange {
@@ -86,26 +32,7 @@
       --line: rgba(255, 186, 122, 0.28);
       --accent: #ff6b1a;
       --accent-2: #ff9f3f;
-      --bg-glow-1: rgba(255, 107, 26, 0.34);
-      --bg-glow-2: rgba(255, 159, 63, 0.22);
-      --phase-prepare-glow: rgba(255, 159, 63, 0.36);
-      --phase-work-glow: rgba(255, 76, 51, 0.38);
-      --phase-rest-glow: rgba(255, 132, 40, 0.28);
-      --phase-finished-glow: rgba(34, 197, 94, 0.24);
-      --brand-glow: rgba(255, 107, 26, 0.42);
-      --topbar-glow: rgba(255, 107, 26, 0.16);
-      --surface-glow: rgba(255, 131, 54, 0.16);
-      --button-bg: rgba(76, 42, 18, 0.92);
-      --button-ghost-bg: rgba(46, 24, 10, 0.72);
-      --field-bg: rgba(33, 17, 7, 0.88);
-      --badge-bg: rgba(255, 186, 122, 0.16);
-      --progress-track-bg: rgba(255, 223, 186, 0.16);
-      --active-bg: rgba(255, 107, 26, 0.22);
-      --modal-bg: #241106;
-      --modal-input-bg: rgba(33, 17, 7, 0.92);
-      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.46);
     }
-
     body.theme-yellow {
       --bg: #211b04;
       --panel: rgba(68, 55, 9, 0.96);
@@ -115,26 +42,7 @@
       --line: rgba(250, 204, 21, 0.32);
       --accent: #facc15;
       --accent-2: #f59e0b;
-      --bg-glow-1: rgba(250, 204, 21, 0.34);
-      --bg-glow-2: rgba(245, 158, 11, 0.22);
-      --phase-prepare-glow: rgba(250, 204, 21, 0.38);
-      --phase-work-glow: rgba(245, 158, 11, 0.36);
-      --phase-rest-glow: rgba(202, 138, 4, 0.32);
-      --phase-finished-glow: rgba(132, 204, 22, 0.25);
-      --brand-glow: rgba(250, 204, 21, 0.42);
-      --topbar-glow: rgba(250, 204, 21, 0.16);
-      --surface-glow: rgba(250, 204, 21, 0.17);
-      --button-bg: rgba(78, 64, 12, 0.92);
-      --button-ghost-bg: rgba(46, 37, 7, 0.72);
-      --field-bg: rgba(31, 25, 4, 0.88);
-      --badge-bg: rgba(250, 204, 21, 0.17);
-      --progress-track-bg: rgba(255, 244, 184, 0.16);
-      --active-bg: rgba(250, 204, 21, 0.22);
-      --modal-bg: #292104;
-      --modal-input-bg: rgba(31, 25, 4, 0.92);
-      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.46);
     }
-
     body.theme-red {
       --bg: #23060a;
       --panel: rgba(78, 13, 22, 0.96);
@@ -144,26 +52,7 @@
       --line: rgba(248, 113, 113, 0.32);
       --accent: #ff3b30;
       --accent-2: #fb7185;
-      --bg-glow-1: rgba(255, 59, 48, 0.36);
-      --bg-glow-2: rgba(251, 113, 133, 0.22);
-      --phase-prepare-glow: rgba(251, 113, 133, 0.34);
-      --phase-work-glow: rgba(255, 59, 48, 0.42);
-      --phase-rest-glow: rgba(244, 63, 94, 0.30);
-      --phase-finished-glow: rgba(248, 113, 113, 0.26);
-      --brand-glow: rgba(255, 59, 48, 0.44);
-      --topbar-glow: rgba(255, 59, 48, 0.16);
-      --surface-glow: rgba(255, 59, 48, 0.17);
-      --button-bg: rgba(86, 16, 27, 0.92);
-      --button-ghost-bg: rgba(48, 9, 15, 0.72);
-      --field-bg: rgba(35, 6, 10, 0.88);
-      --badge-bg: rgba(248, 113, 113, 0.17);
-      --progress-track-bg: rgba(255, 220, 220, 0.16);
-      --active-bg: rgba(255, 59, 48, 0.22);
-      --modal-bg: #2c080d;
-      --modal-input-bg: rgba(35, 6, 10, 0.92);
-      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
     }
-
     body.theme-blue {
       --bg: #061c3a;
       --panel: rgba(9, 42, 86, 0.96);
@@ -173,26 +62,7 @@
       --line: rgba(96, 165, 250, 0.34);
       --accent: #2f80ff;
       --accent-2: #38bdf8;
-      --bg-glow-1: rgba(47, 128, 255, 0.35);
-      --bg-glow-2: rgba(56, 189, 248, 0.23);
-      --phase-prepare-glow: rgba(59, 130, 246, 0.34);
-      --phase-work-glow: rgba(47, 128, 255, 0.42);
-      --phase-rest-glow: rgba(14, 165, 233, 0.36);
-      --phase-finished-glow: rgba(45, 212, 191, 0.25);
-      --brand-glow: rgba(47, 128, 255, 0.44);
-      --topbar-glow: rgba(47, 128, 255, 0.16);
-      --surface-glow: rgba(56, 189, 248, 0.16);
-      --button-bg: rgba(11, 51, 102, 0.92);
-      --button-ghost-bg: rgba(6, 27, 56, 0.72);
-      --field-bg: rgba(5, 22, 47, 0.88);
-      --badge-bg: rgba(96, 165, 250, 0.17);
-      --progress-track-bg: rgba(207, 233, 255, 0.15);
-      --active-bg: rgba(47, 128, 255, 0.23);
-      --modal-bg: #071f42;
-      --modal-input-bg: rgba(5, 22, 47, 0.92);
-      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
     }
-
     body.theme-green {
       --bg: #062715;
       --panel: rgba(8, 68, 37, 0.96);
@@ -202,1045 +72,263 @@
       --line: rgba(74, 222, 128, 0.32);
       --accent: #22c55e;
       --accent-2: #4ade80;
-      --bg-glow-1: rgba(34, 197, 94, 0.34);
-      --bg-glow-2: rgba(20, 184, 166, 0.20);
-      --phase-prepare-glow: rgba(34, 197, 94, 0.32);
-      --phase-work-glow: rgba(22, 163, 74, 0.40);
-      --phase-rest-glow: rgba(20, 184, 166, 0.30);
-      --phase-finished-glow: rgba(34, 197, 94, 0.36);
-      --brand-glow: rgba(34, 197, 94, 0.42);
-      --topbar-glow: rgba(34, 197, 94, 0.15);
-      --surface-glow: rgba(34, 197, 94, 0.16);
-      --button-bg: rgba(10, 72, 40, 0.92);
-      --button-ghost-bg: rgba(5, 39, 21, 0.72);
-      --field-bg: rgba(4, 30, 16, 0.88);
-      --badge-bg: rgba(74, 222, 128, 0.16);
-      --progress-track-bg: rgba(210, 255, 226, 0.14);
-      --active-bg: rgba(34, 197, 94, 0.22);
-      --modal-bg: #073016;
-      --modal-input-bg: rgba(4, 30, 16, 0.92);
-      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
     }
-
     body.theme-purple {
-      --bg: #170a34;
-      --panel: rgba(46, 21, 92, 0.96);
-      --panel-2: rgba(64, 34, 119, 0.90);
-      --text: #fbf7ff;
-      --muted: #d7c6ff;
-      --line: rgba(167, 139, 250, 0.33);
-      --accent: #a855f7;
-      --accent-2: #ec4899;
-      --bg-glow-1: rgba(168, 85, 247, 0.34);
-      --bg-glow-2: rgba(236, 72, 153, 0.22);
-      --phase-prepare-glow: rgba(168, 85, 247, 0.34);
-      --phase-work-glow: rgba(147, 51, 234, 0.38);
-      --phase-rest-glow: rgba(124, 58, 237, 0.34);
-      --phase-finished-glow: rgba(217, 70, 239, 0.25);
-      --brand-glow: rgba(168, 85, 247, 0.44);
-      --topbar-glow: rgba(168, 85, 247, 0.16);
-      --surface-glow: rgba(168, 85, 247, 0.16);
-      --button-bg: rgba(52, 25, 101, 0.92);
-      --button-ghost-bg: rgba(28, 11, 61, 0.72);
-      --field-bg: rgba(21, 8, 47, 0.88);
-      --badge-bg: rgba(167, 139, 250, 0.17);
-      --progress-track-bg: rgba(235, 220, 255, 0.15);
-      --active-bg: rgba(168, 85, 247, 0.22);
-      --modal-bg: #1d0c40;
-      --modal-input-bg: rgba(21, 8, 47, 0.92);
-      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.48);
+      --bg: #13051f;
+      --panel: rgba(35, 12, 55, 0.94);
+      --panel-2: rgba(49, 18, 74, 0.88);
+      --text: #fff8ff;
+      --muted: #c6a9d5;
+      --line: rgba(230, 199, 245, 0.18);
+      --accent: #be4ce5;
+      --accent-2: #f059a9;
     }
 
-    body.theme-black {
-      --bg: #050609;
-      --panel: rgba(18, 22, 30, 0.97);
-      --panel-2: rgba(31, 38, 51, 0.92);
-      --text: #f8fafc;
-      --muted: #b9c3d2;
-      --line: rgba(203, 213, 225, 0.22);
-      --accent: #e2e8f0;
-      --accent-2: #94a3b8;
-      --bg-glow-1: rgba(148, 163, 184, 0.16);
-      --bg-glow-2: rgba(255, 255, 255, 0.08);
-      --phase-prepare-glow: rgba(148, 163, 184, 0.18);
-      --phase-work-glow: rgba(203, 213, 225, 0.18);
-      --phase-rest-glow: rgba(100, 116, 139, 0.20);
-      --phase-finished-glow: rgba(148, 163, 184, 0.18);
-      --brand-glow: rgba(203, 213, 225, 0.26);
-      --topbar-glow: rgba(255, 255, 255, 0.08);
-      --surface-glow: rgba(255, 255, 255, 0.07);
-      --button-bg: rgba(31, 38, 51, 0.92);
-      --button-ghost-bg: rgba(10, 12, 16, 0.72);
-      --field-bg: rgba(8, 10, 14, 0.90);
-      --badge-bg: rgba(203, 213, 225, 0.13);
-      --progress-track-bg: rgba(255, 255, 255, 0.12);
-      --active-bg: rgba(226, 232, 240, 0.14);
-      --modal-bg: #0b0d12;
-      --modal-input-bg: rgba(8, 10, 14, 0.92);
-      --timer-shadow: 0 16px 60px rgba(0, 0, 0, 0.52);
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--accent) 25%, transparent), transparent 30%),
+        radial-gradient(circle at 88% 82%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent 34%),
+        var(--bg);
+      overflow-x: hidden;
+      transition: background 0.25s ease;
     }
+    body.phase-prepare { background: radial-gradient(circle at 50% 25%, rgba(245,158,11,.28), transparent 38%), var(--bg); }
+    body.phase-work { background: radial-gradient(circle at 50% 25%, rgba(239,68,68,.30), transparent 42%), var(--bg); }
+    body.phase-rest { background: radial-gradient(circle at 50% 25%, rgba(59,130,246,.30), transparent 42%), var(--bg); }
+    body.phase-finished { background: radial-gradient(circle at 50% 25%, rgba(43,213,140,.28), transparent 42%), var(--bg); }
 
     button, input, select { font: inherit; }
     button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .45; }
 
-    .app {
-      width: min(1500px, 100%);
-      margin: 0 auto;
-      padding: 18px;
-      min-height: 100vh;
-    }
-
+    .app { width: min(1500px, 100%); min-height: 100vh; margin: 0 auto; padding: 14px; }
     .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-size: 24px;
-      background: linear-gradient(145deg, var(--accent), #dc2626);
-      box-shadow: 0 10px 30px var(--brand-glow);
-    }
-
-    .brand h1 {
-      font-size: clamp(20px, 2.2vw, 30px);
-      line-height: 1;
-      margin: 0 0 5px;
-    }
-
-    .brand p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .top-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 360px;
-      gap: 14px;
-      align-items: stretch;
-    }
-
-    .layout.settings-hidden {
-      grid-template-columns: 1fr;
-    }
-
-    .display-card, .settings-card {
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, var(--surface-glow), transparent 48%),
-        var(--panel);
-      backdrop-filter: blur(16px);
-      border-radius: 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      margin-bottom: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 22px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--panel) 96%, transparent), color-mix(in srgb, var(--panel-2) 88%, transparent));
       box-shadow: var(--shadow);
     }
-
-    .display-card {
-      min-height: calc(100vh - 105px);
-      padding: clamp(18px, 3vw, 42px);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
+    .app-brand { min-width: 0; display: flex; align-items: center; gap: 11px; }
+    .app-icon {
+      width: 48px; height: 48px; flex: 0 0 auto; display: grid; place-items: center;
+      border-radius: 14px; color: #fff; background: linear-gradient(145deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 35%, transparent);
     }
-
-    .display-card::before {
-      content: "";
-      position: absolute;
-      inset: -30%;
-      background: radial-gradient(circle, var(--surface-glow), transparent 42%);
-      z-index: -1;
-      transform: translateY(-10%);
+    .app-icon svg { width: 31px; height: 31px; }
+    .brand-text { min-width: 0; }
+    .brand-title { font-size: clamp(17px, 2.5vw, 24px); font-weight: 950; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand-subtitle { margin-top: 2px; color: var(--muted); font-size: clamp(11px, 1.6vw, 14px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand-edit-btn {
+      flex: 0 0 auto; margin-left: 3px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--text); background: rgba(0,0,0,.18); font-size: 12px; font-weight: 850;
     }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .round-label {
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      font-size: clamp(22px, 3vw, 48px);
-    }
-
-    .phase-badge {
-      border-radius: 999px;
-      padding: 10px 20px;
-      font-weight: 900;
-      font-size: clamp(16px, 1.6vw, 25px);
-      background: var(--badge-bg);
-      border: 1px solid var(--line);
-    }
-
-    .timer-wrap {
-      flex: 1;
-      display: grid;
-      place-items: center;
-      padding: 2vh 0;
-    }
-
-    .timer {
-      font-variant-numeric: tabular-nums;
-      font-weight: 1000;
-      letter-spacing: -0.07em;
-      line-height: 0.86;
-      font-size: clamp(118px, 25vw, 390px);
-      color: var(--text);
-      text-shadow: var(--timer-shadow);
-      transform-origin: center;
-    }
-
-    .timer.warning {
-      animation: pulse 0.9s infinite;
-      color: #fecaca;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.035); }
-    }
-
-    .sub-status {
-      text-align: center;
-      margin-top: -1vh;
-      margin-bottom: 22px;
-    }
-
-    .sub-status strong {
-      display: block;
-      font-size: clamp(24px, 3.5vw, 54px);
-      margin-bottom: 8px;
-    }
-
-    .sub-status span {
-      color: var(--muted);
-      font-size: clamp(14px, 1.5vw, 22px);
-    }
-
-    .progress-track {
-      height: clamp(10px, 1.3vw, 18px);
-      background: var(--progress-track-bg);
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: width 0.16s linear;
-    }
-
-    .control-row {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 18px;
-    }
+    .top-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 
     .btn {
-      border: 1px solid var(--line);
-      color: var(--text);
-      background: var(--button-bg);
-      border-radius: 14px;
-      min-height: 52px;
-      padding: 12px 14px;
-      font-weight: 850;
-      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+      min-height: 48px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 14px;
+      color: var(--text); background: color-mix(in srgb, var(--panel-2) 86%, transparent); font-weight: 900;
+      transition: transform .15s ease, filter .15s ease, opacity .15s ease;
     }
+    .btn:active:not(:disabled) { transform: scale(.98); }
+    .btn.primary { border-color: transparent; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    .btn.good { border-color: transparent; background: linear-gradient(135deg, #16a66d, var(--good)); color: #fff; }
+    .btn.ghost { min-height: 44px; background: rgba(0,0,0,.18); }
+    .settings-toggle { display: none; }
 
-    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.28); }
-    .btn:active { transform: translateY(1px); }
-    .btn.primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      border-color: transparent;
+    .layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(360px, .72fr); gap: 12px; }
+    .layout.settings-hidden { grid-template-columns: 1fr; }
+    .display-card, .settings-card {
+      border: 1px solid var(--line); border-radius: 24px;
+      background: linear-gradient(160deg, color-mix(in srgb, var(--panel) 97%, transparent), color-mix(in srgb, var(--panel-2) 82%, transparent));
+      box-shadow: var(--shadow);
     }
-    .btn.good {
-      background: linear-gradient(135deg, #16a34a, #15803d);
-      border-color: transparent;
+    .display-card {
+      min-height: calc(100vh - 105px); padding: clamp(18px, 3vw, 38px);
+      display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;
     }
-    .btn.ghost { background: var(--button-ghost-bg); }
-    .btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none; }
+    .settings-card { max-height: calc(100vh - 105px); padding: 16px; overflow-y: auto; }
+    .settings-card.collapsed { display: none; }
 
-    .settings-card {
-      padding: 18px;
-      overflow-y: auto;
-      max-height: calc(100vh - 105px);
+    .status-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .round-label { color: var(--muted); font-size: clamp(20px, 2.2vw, 32px); font-weight: 950; letter-spacing: .03em; }
+    .phase-badge {
+      padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--text); background: rgba(255,255,255,.06); font-weight: 950;
     }
-
-    .section + .section {
-      border-top: 1px solid var(--line);
-      margin-top: 18px;
-      padding-top: 18px;
+    .timer-wrap { flex: 1; display: grid; place-items: center; min-height: 240px; }
+    .timer {
+      font-variant-numeric: tabular-nums; font-size: clamp(96px, 15vw, 260px); line-height: .88;
+      font-weight: 1000; letter-spacing: -.075em; text-shadow: 0 15px 55px rgba(0,0,0,.38);
     }
+    .sub-status { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    .sub-status strong { font-size: clamp(22px, 3vw, 42px); }
+    .sub-status span { max-width: 52%; color: var(--muted); text-align: right; font-size: clamp(13px, 1.5vw, 17px); }
+    .progress-track { height: 12px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.09); }
+    .progress-bar { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .12s linear; }
+    .control-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
 
-    .section-title {
-      font-size: 15px;
-      font-weight: 900;
-      margin: 0 0 12px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-
-
-    /* 설정 카테고리 정리 UI */
-    .settings-card {
-      scroll-behavior: smooth;
-    }
-
-    .settings-intro {
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, var(--panel-2), rgba(255,255,255,0.035));
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-
-    .settings-intro-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin: 0 0 10px;
-      font-size: 16px;
-      font-weight: 1000;
-      color: var(--text);
-    }
-
-    .settings-intro-title small {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .settings-nav-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .settings-jump {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      min-height: 54px;
-      background: var(--field-bg);
-      color: var(--text);
-      padding: 10px;
-      text-align: left;
-      font-weight: 950;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .settings-jump span {
-      display: block;
-      font-size: 13px;
-      line-height: 1.15;
-    }
-
-    .settings-jump small {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .settings-jump:hover {
-      border-color: var(--accent);
-      background: var(--active-bg);
-      transform: translateY(-1px);
-    }
-
-    .settings-group {
-      border: 1px solid var(--line);
-      border-radius: 19px;
-      background: rgba(255,255,255,0.035);
-      margin-top: 12px;
-      overflow: hidden;
-    }
-
-    .settings-group[open] {
-      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
-      box-shadow: 0 12px 34px rgba(0,0,0,0.16);
-    }
-
-    .settings-group > summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 14px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      user-select: none;
-    }
-
-    .settings-group > summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .settings-summary-main {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .settings-num {
-      width: 31px;
-      height: 31px;
-      border-radius: 11px;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
-      font-size: 14px;
-      font-weight: 1000;
-      box-shadow: 0 8px 20px var(--brand-glow);
-    }
-
-    .settings-title-wrap {
-      min-width: 0;
-    }
-
-    .settings-title-wrap strong {
-      display: block;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 1000;
-      line-height: 1.2;
-    }
-
-    .settings-title-wrap small {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 750;
-      margin-top: 3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .settings-chevron {
-      color: var(--muted);
-      font-size: 18px;
-      font-weight: 1000;
-      transition: transform 0.18s ease;
-    }
-
-    .settings-group[open] .settings-chevron {
-      transform: rotate(180deg);
-      color: var(--accent-2);
-    }
-
-    .settings-body {
-      padding: 0 14px 15px;
-      border-top: 1px solid rgba(148, 163, 184, 0.14);
-    }
-
-    .settings-subcard {
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      border-radius: 15px;
-      background: rgba(0,0,0,0.12);
-      padding: 12px;
-      margin-top: 12px;
-    }
-
-    .settings-subtitle {
-      margin: 0 0 10px;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 1000;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .settings-subtitle small {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .settings-mini-guide {
-      margin: 0 0 12px;
-      padding: 10px 12px;
-      border-radius: 13px;
-      color: var(--muted);
-      background: var(--field-bg);
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .save-zone {
-      margin-top: 12px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      padding: 14px;
-      background: linear-gradient(135deg, var(--panel-2), rgba(255,255,255,0.025));
-    }
-
-    .preset-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
+    .section { padding: 15px; border: 1px solid var(--line); border-radius: 18px; background: rgba(0,0,0,.14); }
+    .section + .section { margin-top: 12px; }
+    .section-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 12px; font-size: 18px; }
+    .section-title small { color: var(--muted); font-size: 11px; font-weight: 650; }
+    .preset-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
     .preset-btn {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 11px 9px;
-      background: var(--panel-2);
-      color: var(--text);
-      font-weight: 800;
-      text-align: left;
+      min-height: 67px; padding: 10px; border: 1px solid var(--line); border-radius: 13px;
+      color: var(--text); background: rgba(255,255,255,.04); text-align: left; font-weight: 950;
     }
+    .preset-btn small { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .preset-btn.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent); }
 
-    .preset-title {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .preset-btn small {
-      display: block;
-      color: var(--muted);
-      margin-top: 4px;
-      font-weight: 600;
-    }
-
-    .preset-btn.active {
-      border-color: var(--accent);
-      box-shadow: inset 0 0 0 1px var(--accent);
-      background: var(--active-bg);
-    }
-
-    .field-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
     .field.full { grid-column: 1 / -1; }
-
-    .field label {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 750;
+    .field label { color: var(--muted); font-size: 12px; font-weight: 850; }
+    input, select {
+      width: 100%; min-height: 43px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 11px;
+      color: var(--text); background: color-mix(in srgb, var(--bg) 70%, #000 10%); outline: none;
     }
-
-    .field input, .field select {
-      width: 100%;
-      min-height: 44px;
-      border-radius: 11px;
-      border: 1px solid var(--line);
-      background: var(--field-bg);
-      color: var(--text);
-      padding: 9px 11px;
-      outline: none;
+    select option { color: #111; background: #fff; }
+    input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+    .inline-time { display: grid; grid-template-columns: 1fr auto 1fr auto; align-items: center; gap: 6px; }
+    .switch-list { display: grid; gap: 8px; }
+    .switch-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+    .switch-line:last-child { border-bottom: 0; }
+    .switch { position: relative; width: 46px; height: 26px; flex: 0 0 auto; }
+    .switch input { position: absolute; opacity: 0; pointer-events: none; }
+    .slider { position: absolute; inset: 0; border-radius: 999px; background: rgba(255,255,255,.16); transition: .2s; }
+    .slider::before { content: ""; position: absolute; width: 20px; height: 20px; top: 3px; left: 3px; border-radius: 50%; background: #fff; transition: .2s; }
+    .switch input:checked + .slider { background: var(--accent); }
+    .switch input:checked + .slider::before { transform: translateX(20px); }
+    .volume-row { display: grid; grid-template-columns: 1fr 48px; align-items: center; gap: 10px; }
+    .small-note { margin: 10px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .notice {
+      margin-top: 10px; padding: 10px 11px; border: 1px solid var(--line); border-radius: 12px;
+      color: var(--muted); background: rgba(255,255,255,.035); font-size: 11px; line-height: 1.55;
     }
+    .name-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+    .theme-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; }
+    .theme-btn { min-height: 40px; padding: 6px; border: 1px solid var(--line); border-radius: 10px; color: var(--text); background: rgba(255,255,255,.04); font-weight: 850; }
+    .theme-btn.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+    .footer-status { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .mini-chip { padding: 7px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: rgba(255,255,255,.04); font-size: 11px; }
 
-    .field input:focus, .field select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--surface-glow);
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center;
+      padding: 18px; background: rgba(0,0,0,.72); backdrop-filter: blur(8px);
     }
+    .modal-backdrop.open { display: flex; }
+    .modal { width: min(520px, 100%); padding: 20px; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); box-shadow: var(--shadow); }
+    .modal h2 { margin: 0 0 14px; }
+    .modal-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
 
-    .inline-time {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 7px;
+    .toast {
+      position: fixed; left: 50%; bottom: calc(22px + var(--safe-bottom)); z-index: 2000;
+      max-width: calc(100vw - 28px); transform: translate(-50%, 25px); opacity: 0; pointer-events: none;
+      padding: 11px 15px; border: 1px solid var(--line); border-radius: 999px; color: #fff;
+      background: rgba(17, 17, 20, .92); box-shadow: 0 14px 35px rgba(0,0,0,.42); font-size: 13px; font-weight: 850;
+      transition: opacity .2s, transform .2s;
     }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-    .inline-time span {
-      color: var(--muted);
-      font-weight: 800;
-    }
-
-    .switch-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .switch-line {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 720;
-    }
-
-    .switch {
-      position: relative;
-      width: 48px;
-      height: 28px;
-      flex: 0 0 auto;
-    }
-
-    .switch input { opacity: 0; width: 0; height: 0; }
-
-    .slider {
-      position: absolute;
-      inset: 0;
-      border-radius: 999px;
-      background: var(--button-bg);
-      transition: 0.2s;
-    }
-
-    .slider::before {
-      content: "";
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      left: 3px;
-      top: 3px;
-      border-radius: 50%;
-      background: white;
-      transition: 0.2s;
-    }
-
-    .switch input:checked + .slider {
-      background: var(--accent);
-    }
-
-    .switch input:checked + .slider::before {
-      transform: translateX(20px);
-    }
-
-    .volume-row {
-      display: grid;
-      grid-template-columns: 1fr 52px;
-      gap: 10px;
-      align-items: center;
-    }
-
-    input[type="range"] { accent-color: var(--accent); }
-
-    .small-note {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .preset-sound-note {
-      margin: 0 0 12px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(249, 115, 22, 0.32);
-      background: rgba(249, 115, 22, 0.09);
-      color: #fed7aa;
-      font-weight: 800;
-    }
-
-    .footer-status {
-      margin-top: 10px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .mini-chip {
-      padding: 6px 9px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--muted);
-      border: 1px solid var(--line);
-      background: var(--button-ghost-bg);
-    }
-
-    .mini-chip.ok { color: #bbf7d0; border-color: rgba(34,197,94,.35); }
-    .mini-chip.warn { color: #fde68a; border-color: rgba(245,158,11,.35); }
-
-
-    .theme-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .theme-btn {
-      min-height: 46px;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      background: var(--panel-2);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 10px;
-      font-size: 13px;
-      font-weight: 900;
-      text-align: left;
-    }
-
-    .theme-btn.active {
-      border-color: var(--accent);
-      box-shadow: inset 0 0 0 1px var(--accent), 0 0 18px var(--brand-glow);
-    }
-
-    .theme-dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      flex: 0 0 auto;
-      border: 2px solid rgba(255, 255, 255, 0.36);
-      box-shadow: 0 5px 14px rgba(0,0,0,0.28);
-    }
-
-    .theme-dot.orange { background: linear-gradient(135deg, #1a0d05, #ff6b1a); }
-    .theme-dot.yellow { background: linear-gradient(135deg, #211b04, #facc15); }
-    .theme-dot.red { background: linear-gradient(135deg, #23060a, #ff3b30); }
-    .theme-dot.blue { background: linear-gradient(135deg, #061c3a, #2f80ff); }
-    .theme-dot.green { background: linear-gradient(135deg, #062715, #22c55e); }
-    .theme-dot.purple { background: linear-gradient(135deg, #170a34, #a855f7); }
-    .theme-dot.black { background: linear-gradient(135deg, #050609, #64748b); }
-
-
-    .settings-toggle {
-      display: inline-flex;
-    }
-
-    .settings-card.collapsed {
-      display: none;
-    }
-
-    .hidden { display: none !important; }
-
-    .app-brand {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      min-width: 0;
-      flex: 1;
-      padding: 12px 14px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--topbar-glow), rgba(255, 255, 255, 0.045));
-      border: 1px solid var(--line);
-    }
-
-    .app-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: white;
-      flex: 0 0 auto;
-      box-shadow: 0 10px 28px var(--brand-glow);
-    }
-
-    .brand-svg {
-      width: 35px;
-      height: 35px;
-      display: block;
-    }
-
-    .brand-text {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .brand-title {
-      font-size: clamp(20px, 2.1vw, 30px);
-      line-height: 1.1;
-      font-weight: 1000;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .brand-subtitle {
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.3;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .brand-edit-btn {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 999px;
-      padding: 9px 12px;
-      background: var(--button-ghost-bg);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 900;
-      flex: 0 0 auto;
-    }
-
-    .brand-edit-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .brand-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      background: rgba(0, 0, 0, 0.68);
-    }
-
-    .brand-modal-backdrop.open {
-      display: flex;
-    }
-
-    .brand-modal {
-      width: min(430px, 100%);
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.26);
-      background: var(--button-ghost-bg);
-      color: var(--text);
-      padding: 22px;
-      box-shadow: 0 24px 90px rgba(0, 0, 0, 0.58);
-    }
-
-    .brand-modal h2 {
-      margin: 0 0 8px;
-      font-size: 22px;
-      font-weight: 1000;
-    }
-
-    .brand-modal-desc {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .brand-modal label {
-      display: block;
-      margin: 14px 0 7px;
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 900;
-    }
-
-    .brand-modal input {
-      width: 100%;
-      min-height: 48px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(15, 23, 42, 0.88);
-      color: var(--text);
-      padding: 11px 13px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .brand-modal input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--surface-glow);
-    }
-
-    .brand-modal-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-top: 18px;
-    }
-
-    .brand-modal-actions button {
-      min-height: 48px;
-      border: 0;
-      border-radius: 14px;
-      color: white;
-      font-weight: 1000;
-    }
-
-    .save-brand-btn {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    }
-
-    .cancel-brand-btn {
-      background: rgba(51, 65, 85, 0.92);
-    }
-
-    .reset-brand-btn {
-      grid-column: 1 / -1;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid var(--line) !important;
-      color: var(--muted) !important;
-    }
-
-    body.fullscreen-mode .topbar,
-    body.fullscreen-mode .settings-card {
-      display: none;
-    }
+    /* 전체화면에서만 보이는 작은 프로그램 선택 바 */
+    .fullscreen-program-bar { display: none; }
+    body.fullscreen-mode .topbar, body.fullscreen-mode .settings-card { display: none !important; }
     body.fullscreen-mode .app { width: 100%; padding: 0; }
     body.fullscreen-mode .layout { display: block; }
     body.fullscreen-mode .display-card {
-      min-height: 100vh;
-      border-radius: 0;
-      border: 0;
-      padding: 3vh 3vw;
+      min-height: 100vh; border: 0; border-radius: 0;
+      padding: clamp(16px, 3vh, 34px) clamp(16px, 3vw, 42px) calc(118px + var(--safe-bottom));
     }
-    body.fullscreen-mode .control-row {
-      opacity: 0.12;
-      transition: opacity 0.2s;
+    body.fullscreen-mode .control-row { margin-bottom: 0; opacity: .76; }
+    body.fullscreen-mode .fullscreen-program-bar {
+      position: fixed; left: 50%; bottom: calc(12px + var(--safe-bottom)); z-index: 500;
+      width: min(820px, calc(100vw - 24px)); transform: translateX(-50%);
+      display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 9px;
+      padding: 8px; border: 1px solid var(--line); border-radius: 16px;
+      background: color-mix(in srgb, var(--panel) 88%, transparent); box-shadow: 0 14px 38px rgba(0,0,0,.42); backdrop-filter: blur(14px);
     }
-    body.fullscreen-mode .control-row:hover { opacity: 1; }
+    .fs-program-label { padding: 0 8px; color: var(--muted); font-size: 11px; font-weight: 900; white-space: nowrap; }
+    .fs-program-list { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; }
+    .fs-program-btn {
+      min-width: 0; min-height: 43px; padding: 6px 7px; border: 1px solid var(--line); border-radius: 10px;
+      color: var(--text); background: rgba(255,255,255,.055); overflow: hidden; font-weight: 900;
+    }
+    .fs-program-btn span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+    .fs-program-btn small { display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 9px; }
+    .fs-program-btn.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, transparent); }
 
     @media (max-width: 1050px) {
       .layout { grid-template-columns: 1fr; }
       .display-card { min-height: 68vh; }
       .settings-card { max-height: none; }
       .settings-toggle { display: inline-flex; }
-      .settings-card.collapsed { display: none; }
     }
-
     @media (max-width: 650px) {
-      .app { padding: 10px; }
-      .topbar { align-items: flex-start; }
-      .brand p { display: none; }
-      .logo { width: 40px; height: 40px; border-radius: 12px; }
-      .display-card { border-radius: 18px; min-height: 63vh; padding: 16px; }
-      .settings-card { border-radius: 18px; padding: 14px; }
-      .control-row { grid-template-columns: repeat(3, 1fr); }
-      .control-row .btn:nth-child(4),
-      .control-row .btn:nth-child(5) { grid-column: span 1; }
-      .timer { font-size: clamp(92px, 29vw, 190px); }
-      .status-row { align-items: flex-start; }
-      .phase-badge { padding: 8px 13px; }
+      .app { padding: 8px; }
+      .topbar { align-items: flex-start; padding: 10px; border-radius: 18px; }
+      .app-icon { width: 42px; height: 42px; border-radius: 12px; }
+      .app-icon svg { width: 27px; height: 27px; }
+      .brand-edit-btn { padding: 7px 8px; font-size: 10px; }
+      .top-actions { gap: 6px; }
+      .top-actions .btn { min-height: 42px; padding: 8px 10px; font-size: 12px; }
+      .display-card { min-height: 63vh; padding: 16px; border-radius: 18px; }
+      .settings-card { padding: 10px; border-radius: 18px; }
+      .timer { font-size: clamp(82px, 28vw, 170px); }
+      .timer-wrap { min-height: 200px; }
+      .sub-status { align-items: flex-start; flex-direction: column; }
+      .sub-status span { max-width: none; text-align: left; }
+      .control-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .field-grid, .name-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      body.fullscreen-mode .display-card { padding: 16px 14px calc(132px + var(--safe-bottom)); }
+      body.fullscreen-mode .timer { font-size: clamp(90px, 31vw, 180px); }
+      body.fullscreen-mode .fullscreen-program-bar { grid-template-columns: 1fr; gap: 5px; }
+      body.fullscreen-mode .fs-program-label { display: none; }
+      .fs-program-list { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .fs-program-btn { min-height: 40px; padding: 5px 4px; }
+      .fs-program-btn small { display: none; }
     }
-
-    @media (max-width: 650px) {
-      .topbar {
-        flex-direction: column;
-      }
-
-      .app-brand {
-        width: 100%;
-        gap: 10px;
-        padding: 11px;
-      }
-
-      .app-icon {
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
-      }
-
-      .brand-svg {
-        width: 30px;
-        height: 30px;
-      }
-
-      .brand-title {
-        font-size: 20px;
-      }
-
-      .brand-subtitle {
-        font-size: 12px;
-      }
-
-      .brand-edit-btn {
-        padding: 8px 10px;
-        font-size: 12px;
-      }
-
-      .top-actions {
-        width: 100%;
-      }
-
-      .top-actions .btn {
-        flex: 1;
-      }
+    @media (max-width: 390px) {
+      .brand-subtitle { display: none; }
+      .brand-edit-btn { display: none; }
+      .theme-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
-
   </style>
 </head>
-<body class="phase-idle theme-orange">
+<body class="theme-purple phase-idle">
   <main class="app">
     <header class="topbar">
       <div class="app-brand">
         <div class="app-icon" aria-hidden="true">
-          <svg viewBox="0 0 64 64" class="brand-svg">
-            <circle cx="32" cy="32" r="25" fill="none" stroke="currentColor" stroke-width="4"/>
-            <path d="M32 14v18l11 7" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M23 7h18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-            <path d="M18 51l28-30" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-            <path d="M43 18l-4 14h11L29 57l5-18H24L43 18z" fill="currentColor"/>
+          <svg viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="4" opacity=".82"/>
+            <path d="M32 17v16l11 7" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 10h24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+            <path d="M43 19l-4 13h10L29 56l5-18H24l19-19Z" fill="currentColor"/>
           </svg>
         </div>
-
         <div class="brand-text">
-          <div id="brandTitle" class="brand-title">더원 타임벨</div>
+          <div id="brandTitle" class="brand-title">모아넥트 타임벨</div>
           <div id="brandSubtitle" class="brand-subtitle">격투기 · 크로스핏 · 인터벌 트레이닝</div>
         </div>
-
-        <button class="brand-edit-btn" type="button" onclick="openBrandSettings()">상호 수정</button>
+        <button class="brand-edit-btn" type="button" id="brandEditBtn">상호 수정</button>
       </div>
-
       <div class="top-actions">
-        <button class="btn ghost settings-toggle" id="settingsToggle">⚙️ 설정</button>
-        <button class="btn ghost" id="soundTestBtn">🔊 소리 확인</button>
-        <button class="btn ghost" id="fullscreenBtn">⛶ 전체화면</button>
+        <button class="btn ghost settings-toggle" id="settingsToggle" type="button">⚙️ 설정 열기</button>
+        <button class="btn ghost" id="soundTestBtn" type="button">🔊 소리 확인</button>
+        <button class="btn ghost" id="fullscreenBtn" type="button">⛶ 전체화면</button>
       </div>
     </header>
 
-    <section class="layout">
+    <section class="layout" id="layout">
       <article class="display-card" id="displayCard">
         <div class="status-row">
           <div class="round-label" id="roundLabel">ROUND 1 / 10</div>
-          <div class="phase-badge" id="phaseBadge">대기</div>
+          <div class="phase-badge" id="phaseBadge">준비</div>
         </div>
 
         <div class="timer-wrap">
@@ -1257,1710 +345,668 @@
         </div>
 
         <div class="control-row">
-          <button class="btn primary" id="startBtn">▶ 시작</button>
-          <button class="btn" id="pauseBtn" disabled>⏸ 일시정지</button>
-          <button class="btn" id="resetBtn">↺ 초기화</button>
-          <button class="btn" id="skipBtn" disabled>⏭ 다음 구간</button>
-          <button class="btn" id="addTenBtn" disabled>＋10초</button>
+          <button class="btn primary" id="startBtn" type="button">▶ 시작</button>
+          <button class="btn" id="pauseBtn" type="button" disabled>⏸ 일시정지</button>
+          <button class="btn" id="resetBtn" type="button">↺ 초기화</button>
+          <button class="btn" id="addTenBtn" type="button" disabled>＋10초</button>
+        </div>
+
+        <div class="fullscreen-program-bar" id="fullscreenProgramBar" aria-label="전체화면 프로그램 선택">
+          <span class="fs-program-label">프로그램 선택</span>
+          <div class="fs-program-list" id="fullscreenProgramList"></div>
         </div>
       </article>
 
       <aside class="settings-card" id="settingsCard">
-        <div class="settings-intro">
-          <div class="settings-intro-title">
-            <span>⚙️ 설정 메뉴</span>
-            <small>원하는 항목을 눌러 이동</small>
+        <section class="section">
+          <h2 class="section-title">① 화면 디자인 <small>배경색 / 전체 색감</small></h2>
+          <div class="theme-grid" id="themeGrid">
+            <button class="theme-btn" type="button" data-theme="orange">주황</button>
+            <button class="theme-btn" type="button" data-theme="yellow">노랑</button>
+            <button class="theme-btn" type="button" data-theme="red">빨강</button>
+            <button class="theme-btn" type="button" data-theme="blue">파랑</button>
+            <button class="theme-btn" type="button" data-theme="green">초록</button>
+            <button class="theme-btn active" type="button" data-theme="purple">보라</button>
           </div>
-          <div class="settings-nav-grid">
-            <button class="settings-jump" type="button" onclick="document.getElementById('settingsTheme').scrollIntoView({behavior:'smooth', block:'start'});">
-              <span>① 화면 디자인</span>
-              <small>배경색 / 전체 색감</small>
-            </button>
-            <button class="settings-jump" type="button" onclick="document.getElementById('settingsPreset').scrollIntoView({behavior:'smooth', block:'start'});">
-              <span>② 빠른 프로그램</span>
-              <small>버튼 선택 / 이름 변경</small>
-            </button>
-            <button class="settings-jump" type="button" onclick="document.getElementById('settingsTime').scrollIntoView({behavior:'smooth', block:'start'});">
-              <span>③ 시간 설정</span>
-              <small>준비 / 운동 / 휴식 / 라운드</small>
-            </button>
-            <button class="settings-jump" type="button" onclick="document.getElementById('settingsSound').scrollIntoView({behavior:'smooth', block:'start'});">
-              <span>④ 소리 설정</span>
-              <small>시작음 / 휴식음 / 종료음</small>
-            </button>
-          </div>
-        </div>
+        </section>
 
-        <details class="settings-group" id="settingsTheme" open>
-          <summary>
-            <span class="settings-summary-main">
-              <span class="settings-num">1</span>
-              <span class="settings-title-wrap">
-                <strong>화면 디자인</strong>
-                <small>전체 배경색과 타이머 화면 분위기를 바꿉니다</small>
-              </span>
-            </span>
-            <span class="settings-chevron">⌄</span>
-          </summary>
-          <div class="settings-body">
-            <p class="settings-mini-guide">포인트 색상만 바뀌는 것이 아니라, 바깥 배경·큰 타이머 화면·설정창 배경이 같이 바뀝니다.</p>
-            <div class="field full" style="margin-bottom: 10px;">
-              <label for="themeSelect">전체 백그라운드 선택</label>
-              <select id="themeSelect">
-                <option value="orange">다크 오렌지 배경</option>
-                <option value="yellow">다크 옐로우 배경</option>
-                <option value="red">레드 배경</option>
-                <option value="blue">블루 배경</option>
-                <option value="green">그린 배경</option>
-                <option value="purple">퍼플 배경</option>
-                <option value="black">차콜 블랙 배경</option>
+        <section class="section">
+          <h2 class="section-title">② 빠른 프로그램 <small>버튼 선택 / 이름 변경</small></h2>
+          <div class="preset-grid" id="presetGrid">
+            <button class="preset-btn active" type="button" data-preset="boxing"><span>복싱 3분</span><small>3분 / 1분 · 10R</small></button>
+            <button class="preset-btn" type="button" data-preset="kickboxing"><span>킥복싱</span><small>3분 / 1분 · 5R</small></button>
+            <button class="preset-btn" type="button" data-preset="tabata"><span>타바타</span><small>20초 / 10초 · 8R</small></button>
+            <button class="preset-btn" type="button" data-preset="crossfit"><span>크로스핏</span><small>1분 / 20초 · 10R</small></button>
+          </div>
+          <div class="name-grid" style="margin-top:10px;">
+            <div class="field"><label for="presetNameBoxing">1번 프로그램 이름</label><input id="presetNameBoxing" value="복싱 3분" /></div>
+            <div class="field"><label for="presetNameKickboxing">2번 프로그램 이름</label><input id="presetNameKickboxing" value="킥복싱" /></div>
+            <div class="field"><label for="presetNameTabata">3번 프로그램 이름</label><input id="presetNameTabata" value="타바타" /></div>
+            <div class="field"><label for="presetNameCrossfit">4번 프로그램 이름</label><input id="presetNameCrossfit" value="크로스핏" /></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">③ 시간 설정 <small>선택 프로그램에 저장</small></h2>
+          <div class="field-grid">
+            <div class="field"><label for="prepareSeconds">준비 시간(초)</label><input id="prepareSeconds" type="number" min="0" max="600" value="10" /></div>
+            <div class="field"><label for="rounds">라운드 수</label><input id="rounds" type="number" min="1" max="99" value="10" /></div>
+            <div class="field full"><label>운동 시간</label><div class="inline-time"><input id="workMinutes" type="number" min="0" max="99" value="3" aria-label="운동 분" /><span>분</span><input id="workSeconds" type="number" min="0" max="59" value="0" aria-label="운동 초" /><span>초</span></div></div>
+            <div class="field full"><label>휴식 시간</label><div class="inline-time"><input id="restMinutes" type="number" min="0" max="99" value="1" aria-label="휴식 분" /><span>분</span><input id="restSeconds" type="number" min="0" max="59" value="0" aria-label="휴식 초" /><span>초</span></div></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">④ 구간별 소리 <small>내 MP3 + 내장 소리</small></h2>
+          <div class="field-grid">
+            <div class="field full">
+              <label for="prepareSound">준비 시작 소리</label>
+              <select id="prepareSound">
+                                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="doubleBeep">삐삐 2번</option><option value="singleBeep">삐 1번</option><option value="longBeep">긴 삐</option><option value="powerBeep">강한 삐</option><option value="lowBuzzer">낮은 부저</option><option value="none">소리 없음</option>
               </select>
             </div>
-            <div class="theme-grid">
-              <button class="theme-btn active" type="button" data-theme="orange"><span class="theme-dot orange"></span>오렌지 배경</button>
-              <button class="theme-btn" type="button" data-theme="yellow"><span class="theme-dot yellow"></span>옐로우 배경</button>
-              <button class="theme-btn" type="button" data-theme="red"><span class="theme-dot red"></span>레드 배경</button>
-              <button class="theme-btn" type="button" data-theme="blue"><span class="theme-dot blue"></span>블루 배경</button>
-              <button class="theme-btn" type="button" data-theme="green"><span class="theme-dot green"></span>그린 배경</button>
-              <button class="theme-btn" type="button" data-theme="purple"><span class="theme-dot purple"></span>퍼플 배경</button>
-              <button class="theme-btn" type="button" data-theme="black"><span class="theme-dot black"></span>차콜 배경</button>
+            <div class="field full">
+              <label for="startSound">운동 시작 소리</label>
+              <select id="startSound">
+                                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="fightBellStrong">강한 경기 벨</option><option value="boxingDing">복싱 딩 1번</option><option value="boxingDingDing">복싱 딩딩</option><option value="boxingDingDingDing">복싱 딩딩딩</option><option value="gong">공 소리</option><option value="powerBeep">강한 삐</option><option value="siren">사이렌</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="restSound">휴식 시작 소리</label>
+              <select id="restSound">
+                                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="fightBellSoft">부드러운 경기 벨</option><option value="boxingDing">복싱 딩 1번</option><option value="singleBeep">삐 1번</option><option value="doubleBeep">삐삐 2번</option><option value="longBeep">긴 삐</option><option value="lowBuzzer">낮은 부저</option><option value="softChime">부드러운 차임</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="finishSound">운동 완료 소리</label>
+              <select id="finishSound">
+                                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="tripleBell">벨 3번</option><option value="boxingDingDingDing">복싱 딩딩딩</option><option value="longBuzzer">긴 부저</option><option value="gongTriple">공 3번</option><option value="victory">완료 멜로디</option><option value="sirenLong">긴 사이렌</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="alertSound">30초·10초 알림 소리</label>
+              <select id="alertSound">
+                                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="singleBeep">삐 1번</option><option value="doubleBeep">삐삐 2번</option><option value="fastBeep">빠른 삐</option><option value="longBeep">긴 삐</option><option value="lowBeep">낮은 삐</option><option value="powerBeep">강한 삐</option><option value="none">소리 없음</option>
+              </select>
             </div>
           </div>
-        </details>
+          <div class="notice" id="activePresetSoundNotice">현재 선택한 프로그램의 소리·음성 설정을 편집 중입니다.</div>
+          <p class="small-note"><b>prepare.mp3, start.mp3, rest.mp3, finish.mp3</b>는 모든 구간의 소리 선택창에서 그대로 사용할 수 있습니다. 재생되지 않는 <b>ALERT 파일 항목만 삭제</b>했으며, GitHub의 <b>sounds</b> 폴더 안 파일 이름은 영문 소문자까지 정확히 맞아야 합니다.</p>
+        </section>
 
-        <details class="settings-group" id="settingsPreset" open>
-          <summary>
-            <span class="settings-summary-main">
-              <span class="settings-num">2</span>
-              <span class="settings-title-wrap">
-                <strong>빠른 프로그램</strong>
-                <small>자주 쓰는 훈련 4개를 선택하고 이름을 바꿉니다</small>
-              </span>
-            </span>
-            <span class="settings-chevron">⌄</span>
-          </summary>
-          <div class="settings-body">
-            <div class="settings-subcard">
-              <h3 class="settings-subtitle">A. 프로그램 선택 <small>누르면 해당 시간으로 변경</small></h3>
-              <div class="preset-grid">
-                <button class="preset-btn active" data-preset="boxing">
-                  <span class="preset-title" id="presetTitleBoxing">복싱 3분</span>
-                  <small id="presetMetaBoxing">3분 / 1분 · 10R</small>
-                </button>
-                <button class="preset-btn" data-preset="kickboxing">
-                  <span class="preset-title" id="presetTitleKickboxing">킥복싱</span>
-                  <small id="presetMetaKickboxing">3분 / 1분 · 5R</small>
-                </button>
-                <button class="preset-btn" data-preset="tabata">
-                  <span class="preset-title" id="presetTitleTabata">타바타</span>
-                  <small id="presetMetaTabata">20초 / 10초 · 8R</small>
-                </button>
-                <button class="preset-btn" data-preset="crossfit">
-                  <span class="preset-title" id="presetTitleCrossfit">크로스핏</span>
-                  <small id="presetMetaCrossfit">40초 / 20초 · 10R</small>
-                </button>
-              </div>
-            </div>
-
-            <div class="settings-subcard">
-              <h3 class="settings-subtitle">B. 버튼 이름 수정 <small>체육관 스타일에 맞게 변경</small></h3>
-              <div class="field-grid">
-                <div class="field">
-                  <label for="presetNameBoxing">1번 이름</label>
-                  <input id="presetNameBoxing" type="text" maxlength="16" value="복싱 3분" />
-                </div>
-                <div class="field">
-                  <label for="presetNameKickboxing">2번 이름</label>
-                  <input id="presetNameKickboxing" type="text" maxlength="16" value="킥복싱" />
-                </div>
-                <div class="field">
-                  <label for="presetNameTabata">3번 이름</label>
-                  <input id="presetNameTabata" type="text" maxlength="16" value="타바타" />
-                </div>
-                <div class="field">
-                  <label for="presetNameCrossfit">4번 이름</label>
-                  <input id="presetNameCrossfit" type="text" maxlength="16" value="크로스핏" />
-                </div>
-              </div>
-              <p class="small-note">빠른 프로그램을 누른 뒤 시간 설정을 바꾸면 해당 버튼의 시간 표시도 함께 바뀌고 저장됩니다. 소리/음성 설정도 프로그램별로 따로 저장됩니다.</p>
-            </div>
+        <section class="section">
+          <h2 class="section-title">⑤ 음성·알림</h2>
+          <div class="switch-list">
+            <div class="switch-line"><span>한국어 음성 안내</span><label class="switch"><input id="voiceEnabled" type="checkbox" checked /><span class="slider"></span></label></div>
+            <div class="switch-line"><span>30초 남음 알림</span><label class="switch"><input id="alert30" type="checkbox" checked /><span class="slider"></span></label></div>
+            <div class="switch-line"><span>10초 남음 알림</span><label class="switch"><input id="alert10" type="checkbox" checked /><span class="slider"></span></label></div>
+            <div class="switch-line"><span>마지막 5초 삐 소리</span><label class="switch"><input id="countdown5" type="checkbox" checked /><span class="slider"></span></label></div>
           </div>
-        </details>
-
-        <details class="settings-group" id="settingsTime" open>
-          <summary>
-            <span class="settings-summary-main">
-              <span class="settings-num">3</span>
-              <span class="settings-title-wrap">
-                <strong>시간 설정</strong>
-                <small>준비 시간, 운동 시간, 휴식 시간, 라운드 수를 정합니다</small>
-              </span>
-            </span>
-            <span class="settings-chevron">⌄</span>
-          </summary>
-          <div class="settings-body">
-            <div class="field-grid" style="margin-top: 12px;">
-              <div class="field">
-                <label for="prepareSeconds">준비 시간(초)</label>
-                <input id="prepareSeconds" type="number" min="0" max="600" value="10" />
-              </div>
-
-              <div class="field">
-                <label for="rounds">전체 라운드</label>
-                <input id="rounds" type="number" min="1" max="99" value="10" />
-              </div>
-
-              <div class="field full">
-                <label>운동 시간</label>
-                <div class="inline-time">
-                  <input id="workMinutes" type="number" min="0" max="99" value="3" aria-label="운동 분" />
-                  <span>분</span>
-                  <input id="workSeconds" type="number" min="0" max="59" value="0" aria-label="운동 초" />
-                </div>
-              </div>
-
-              <div class="field full">
-                <label>휴식 시간</label>
-                <div class="inline-time">
-                  <input id="restMinutes" type="number" min="0" max="99" value="1" aria-label="휴식 분" />
-                  <span>분</span>
-                  <input id="restSeconds" type="number" min="0" max="59" value="0" aria-label="휴식 초" />
-                </div>
-              </div>
-            </div>
+          <div class="field-grid" style="margin-top:12px;">
+            <div class="field full"><label for="voiceTone">음성 톤</label><select id="voiceTone"><option value="normal">기본 음성</option><option value="low">낮은 음성</option><option value="high">높은 음성</option></select></div>
+            <div class="field full"><label for="volumeRange">전체 음량</label><div class="volume-row"><input id="volumeRange" type="range" min="0" max="150" value="110" /><strong id="volumeValue">110%</strong></div></div>
           </div>
-        </details>
+        </section>
 
-        <details class="settings-group" id="settingsSound" open>
-          <summary>
-            <span class="settings-summary-main">
-              <span class="settings-num">4</span>
-              <span class="settings-title-wrap">
-                <strong>소리 / 음성 설정</strong>
-                <small>프로그램마다 음성 안내, 시작음, 휴식음, 종료음, 알림음을 따로 저장합니다</small>
-              </span>
-            </span>
-            <span class="settings-chevron">⌄</span>
-          </summary>
-          <div class="settings-body">
-            <div class="settings-subcard">
-              <h3 class="settings-subtitle">A. 음성 안내</h3>
-              <p class="small-note preset-sound-note" id="activePresetSoundNotice">현재 선택한 프로그램의 소리/음성 설정을 편집 중입니다.</p>
-              <div class="switch-list">
-                <div class="switch-line">
-                  <span>한국어 음성 안내</span>
-                  <label class="switch">
-                    <input id="voiceEnabled" type="checkbox" checked />
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="switch-line">
-                  <span>30초 남음 알림</span>
-                  <label class="switch">
-                    <input id="alert30" type="checkbox" checked />
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="switch-line">
-                  <span>10초 남음 알림</span>
-                  <label class="switch">
-                    <input id="alert10" type="checkbox" checked />
-                    <span class="slider"></span>
-                  </label>
-                </div>
-                <div class="switch-line">
-                  <span>마지막 5초 삐 소리</span>
-                  <label class="switch">
-                    <input id="countdown5" type="checkbox" checked />
-                    <span class="slider"></span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="field full" style="margin-top: 12px;">
-                <label for="voiceTone">음성 톤</label>
-                <select id="voiceTone">
-                  <option value="normal">기본 음성</option>
-                  <option value="low">낮은 음성</option>
-                  <option value="high">높은 음성</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="settings-subcard">
-              <h3 class="settings-subtitle">B. 구간별 소리 <small>선택하면 바로 재생</small></h3>
-              <div class="field-grid">
-                <div class="field full">
-                  <label for="prepareSound">준비 시작 소리</label>
-                  <select id="prepareSound" data-preview-sound="true">
-                    <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option>
-                    <option value="file:sounds/start.mp3">내 MP3: start.mp3</option>
-                    <option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option>
-                    <option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option>
-                    <option value="file:sounds/alert.mp3">내 MP3: alert.mp3</option>
-                    <option value="doubleBeep">삐삐 2번</option>
-                    <option value="singleBeep">삐 1번</option>
-                    <option value="longBeep">삐 길게 1번</option>
-                    <option value="doubleLongBeep">삐 길게 2번</option>
-                    <option value="powerBeep">강한 삐삐</option>
-                    <option value="lowBuzzer">낮은 부저</option>
-                    <option value="none">소리 없음</option>
-                  </select>
-                </div>
-
-                <div class="field full">
-                  <label for="startSound">운동 시작 소리</label>
-                  <select id="startSound" data-preview-sound="true">
-                    <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option>
-                    <option value="file:sounds/start.mp3">내 MP3: start.mp3</option>
-                    <option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option>
-                    <option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option>
-                    <option value="file:sounds/alert.mp3">내 MP3: alert.mp3</option>
-                    <option value="fightBellStrong">강한 경기 벨</option>
-                    <option value="boxingDing">복싱장 땡</option>
-                    <option value="boxingDingDing">땡땡 2번</option>
-                    <option value="boxingDingDingDing">땡땡땡 3번</option>
-                    <option value="gong">징 소리</option>
-                    <option value="powerBeep">강한 삐삐</option>
-                    <option value="longBeep">삐 길게 1번</option>
-                    <option value="siren">짧은 사이렌</option>
-                  </select>
-                </div>
-
-                <div class="field full">
-                  <label for="restSound">휴식 시작 소리</label>
-                  <select id="restSound" data-preview-sound="true">
-                    <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option>
-                    <option value="file:sounds/start.mp3">내 MP3: start.mp3</option>
-                    <option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option>
-                    <option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option>
-                    <option value="file:sounds/alert.mp3">내 MP3: alert.mp3</option>
-                    <option value="fightBellSoft">짧은 벨</option>
-                    <option value="boxingDing">복싱장 땡</option>
-                    <option value="singleBeep">삐 1번</option>
-                    <option value="doubleBeep">삐삐 2번</option>
-                    <option value="longBeep">삐 길게 1번</option>
-                    <option value="lowBuzzer">낮은 부저</option>
-                    <option value="softChime">부드러운 알림</option>
-                  </select>
-                </div>
-
-                <div class="field full">
-                  <label for="finishSound">전체 종료 소리</label>
-                  <select id="finishSound" data-preview-sound="true">
-                    <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option>
-                    <option value="file:sounds/start.mp3">내 MP3: start.mp3</option>
-                    <option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option>
-                    <option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option>
-                    <option value="file:sounds/alert.mp3">내 MP3: alert.mp3</option>
-                    <option value="tripleBell">경기 벨 3번</option>
-                    <option value="boxingDingDingDing">땡땡땡 3번</option>
-                    <option value="longBuzzer">길게 종료음</option>
-                    <option value="gongTriple">징 소리 3번</option>
-                    <option value="victory">승리 팡파르</option>
-                    <option value="sirenLong">긴 사이렌</option>
-                  </select>
-                </div>
-
-                <div class="field full">
-                  <label for="alertSound">10초/5초 알림 소리</label>
-                  <select id="alertSound" data-preview-sound="true">
-                    <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option>
-                    <option value="file:sounds/start.mp3">내 MP3: start.mp3</option>
-                    <option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option>
-                    <option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option>
-                    <option value="file:sounds/alert.mp3">내 MP3: alert.mp3</option>
-                    <option value="singleBeep">기본 삐</option>
-                    <option value="doubleBeep">삐삐 2번</option>
-                    <option value="fastBeep">빠른 삐삐</option>
-                    <option value="longBeep">삐 길게 1번</option>
-                    <option value="lowBeep">낮은 삐</option>
-                    <option value="powerBeep">강한 삐삐</option>
-                    <option value="none">소리 없음</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="settings-subcard">
-              <h3 class="settings-subtitle">C. 내 MP3 소리 파일 사용법</h3>
-              <p class="small-note">
-                내가 올린 정상 MP3 파일들이 <b>준비 시작 / 운동 시작 / 휴식 시작 / 전체 종료 / 알림 소리</b> 선택창에 모두 같이 보입니다.<br>
-                예: <b>start.mp3</b>를 준비 시작 소리에도 쓸 수 있고, 휴식 시작 소리나 전체 종료 소리에도 똑같이 선택할 수 있습니다.<br>
-                파일 이름은 앞으로 <b>prepare.mp3</b>, <b>start.mp3</b>, <b>rest.mp3</b>, <b>finish.mp3</b>, <b>alert.mp3</b>처럼 짧게 올리는 것을 추천합니다.
-              </p>
-            </div>
-
-            <div class="settings-subcard">
-              <h3 class="settings-subtitle">D. 전체 음량</h3>
-              <div class="field full">
-                <label for="volumeRange">전체 음량</label>
-                <div class="volume-row">
-                  <input id="volumeRange" type="range" min="0" max="150" value="110" />
-                  <strong id="volumeValue">110%</strong>
-                </div>
-              </div>
-              <p class="small-note">소리 종류를 바꾸면 선택한 소리가 바로 재생됩니다. 처음 한 번은 위쪽의 <b>‘소리 확인’</b> 버튼을 먼저 눌러주세요.</p>
-            </div>
-          </div>
-        </details>
-
-        <div class="save-zone" id="settingsSave">
-          <button class="btn good" id="saveBtn" style="width:100%;">💾 현재 설정 저장</button>
-          <div class="footer-status">
-            <span class="mini-chip" id="wakeChip">화면 유지: 대기</span>
-            <span class="mini-chip" id="audioChip">소리: 확인 필요</span>
-          </div>
-          <p class="small-note">
-            단축키: 스페이스바 시작/정지 · R 초기화 · N 다음 구간 · F 전체화면
-          </p>
-        </div>
+        <section class="section">
+          <button class="btn good" id="saveBtn" type="button" style="width:100%;">💾 현재 설정 저장</button>
+          <div class="footer-status"><span class="mini-chip" id="wakeChip">화면 유지: 대기</span><span class="mini-chip" id="audioChip">소리: 확인 필요</span></div>
+          <p class="small-note">단축키: 스페이스바 시작/일시정지 · R 초기화 · F 전체화면</p>
+        </section>
       </aside>
     </section>
   </main>
 
-  <div id="brandModalBackdrop" class="brand-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="brandModalTitle">
-    <div class="brand-modal">
-      <h2 id="brandModalTitle">상단 문구 수정</h2>
-      <p class="brand-modal-desc">
-        체육관 이름이나 설명 문구를 직접 바꿀 수 있습니다. 저장하면 다음에 열어도 그대로 유지됩니다.
-      </p>
-
-      <label for="brandTitleInput">앱 이름 / 체육관 이름</label>
-      <input
-        id="brandTitleInput"
-        type="text"
-        placeholder="예: 더원 체육관, 스카이 체육관"
-        maxlength="30"
-      />
-
-      <label for="brandSubtitleInput">설명 문구</label>
-      <input
-        id="brandSubtitleInput"
-        type="text"
-        placeholder="예: 격투기 · 크로스핏 · 인터벌 트레이닝"
-        maxlength="60"
-      />
-
-      <div class="brand-modal-actions">
-        <button class="cancel-brand-btn" type="button" onclick="closeBrandSettings()">취소</button>
-        <button class="save-brand-btn" type="button" onclick="saveBrandSettings()">저장</button>
-        <button class="reset-brand-btn" type="button" onclick="resetBrandSettings()">기본값으로 되돌리기</button>
+  <div class="modal-backdrop" id="brandModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="brandModalTitle">
+    <div class="modal">
+      <h2 id="brandModalTitle">상호 및 설명 수정</h2>
+      <div class="field-grid">
+        <div class="field full"><label for="brandTitleInput">상호·타이머 이름</label><input id="brandTitleInput" maxlength="40" /></div>
+        <div class="field full"><label for="brandSubtitleInput">하단 설명</label><input id="brandSubtitleInput" maxlength="80" /></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="brandResetBtn" type="button">기본값</button>
+        <button class="btn" id="brandCloseBtn" type="button">닫기</button>
+        <button class="btn primary" id="brandSaveBtn" type="button">저장</button>
       </div>
     </div>
   </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     "use strict";
 
     const $ = (id) => document.getElementById(id);
-
     const els = {
-      timerDisplay: $("timerDisplay"),
-      roundLabel: $("roundLabel"),
-      phaseBadge: $("phaseBadge"),
-      mainStatus: $("mainStatus"),
-      nextStatus: $("nextStatus"),
-      progressBar: $("progressBar"),
-      startBtn: $("startBtn"),
-      pauseBtn: $("pauseBtn"),
-      resetBtn: $("resetBtn"),
-      skipBtn: $("skipBtn"),
-      addTenBtn: $("addTenBtn"),
-      fullscreenBtn: $("fullscreenBtn"),
-      soundTestBtn: $("soundTestBtn"),
-      saveBtn: $("saveBtn"),
-      settingsToggle: $("settingsToggle"),
-      settingsCard: $("settingsCard"),
-      themeSelect: $("themeSelect"),
-      prepareSeconds: $("prepareSeconds"),
-      workMinutes: $("workMinutes"),
-      workSeconds: $("workSeconds"),
-      restMinutes: $("restMinutes"),
-      restSeconds: $("restSeconds"),
-      rounds: $("rounds"),
-      voiceEnabled: $("voiceEnabled"),
-      alert30: $("alert30"),
-      alert10: $("alert10"),
-      countdown5: $("countdown5"),
-      voiceTone: $("voiceTone"),
-      prepareSound: $("prepareSound"),
-      startSound: $("startSound"),
-      restSound: $("restSound"),
-      finishSound: $("finishSound"),
-      alertSound: $("alertSound"),
-      volumeRange: $("volumeRange"),
-      volumeValue: $("volumeValue"),
-      wakeChip: $("wakeChip"),
-      audioChip: $("audioChip"),
-      presetNameBoxing: $("presetNameBoxing"),
-      presetNameKickboxing: $("presetNameKickboxing"),
-      presetNameTabata: $("presetNameTabata"),
-      presetNameCrossfit: $("presetNameCrossfit"),
-      presetTitleBoxing: $("presetTitleBoxing"),
-      presetTitleKickboxing: $("presetTitleKickboxing"),
-      presetTitleTabata: $("presetTitleTabata"),
-      presetTitleCrossfit: $("presetTitleCrossfit"),
-      presetMetaBoxing: $("presetMetaBoxing"),
-      presetMetaKickboxing: $("presetMetaKickboxing"),
-      presetMetaTabata: $("presetMetaTabata"),
-      presetMetaCrossfit: $("presetMetaCrossfit"),
-      activePresetSoundNotice: $("activePresetSoundNotice")
+      layout: $("layout"), settingsCard: $("settingsCard"), settingsToggle: $("settingsToggle"),
+      timerDisplay: $("timerDisplay"), roundLabel: $("roundLabel"), phaseBadge: $("phaseBadge"),
+      mainStatus: $("mainStatus"), nextStatus: $("nextStatus"), progressBar: $("progressBar"),
+      startBtn: $("startBtn"), pauseBtn: $("pauseBtn"), resetBtn: $("resetBtn"), addTenBtn: $("addTenBtn"),
+      soundTestBtn: $("soundTestBtn"), fullscreenBtn: $("fullscreenBtn"), saveBtn: $("saveBtn"),
+      prepareSeconds: $("prepareSeconds"), workMinutes: $("workMinutes"), workSeconds: $("workSeconds"),
+      restMinutes: $("restMinutes"), restSeconds: $("restSeconds"), rounds: $("rounds"),
+      voiceEnabled: $("voiceEnabled"), alert30: $("alert30"), alert10: $("alert10"), countdown5: $("countdown5"),
+      voiceTone: $("voiceTone"), prepareSound: $("prepareSound"), startSound: $("startSound"),
+      restSound: $("restSound"), finishSound: $("finishSound"), alertSound: $("alertSound"),
+      volumeRange: $("volumeRange"), volumeValue: $("volumeValue"), wakeChip: $("wakeChip"), audioChip: $("audioChip"),
+      presetNameBoxing: $("presetNameBoxing"), presetNameKickboxing: $("presetNameKickboxing"),
+      presetNameTabata: $("presetNameTabata"), presetNameCrossfit: $("presetNameCrossfit"),
+      activePresetSoundNotice: $("activePresetSoundNotice"), fullscreenProgramList: $("fullscreenProgramList"),
+      brandTitle: $("brandTitle"), brandSubtitle: $("brandSubtitle"), brandEditBtn: $("brandEditBtn"),
+      brandModalBackdrop: $("brandModalBackdrop"), brandTitleInput: $("brandTitleInput"),
+      brandSubtitleInput: $("brandSubtitleInput"), brandSaveBtn: $("brandSaveBtn"),
+      brandResetBtn: $("brandResetBtn"), brandCloseBtn: $("brandCloseBtn"), toast: $("toast")
     };
 
+    const DEFAULT_BRAND_TITLE = "모아넥트 타임벨";
+    const DEFAULT_BRAND_SUBTITLE = "격투기 · 크로스핏 · 인터벌 트레이닝";
+    const THEME_STORAGE_KEY = "theone-timebell-theme";
+    const SETTINGS_KEY = "theone-timebell-settings";
+    const PRESETS_KEY = "theone-timebell-presets";
+    const PRESET_AUDIO_KEY = "theone-timebell-preset-audio-settings";
+    const ACTIVE_PRESET_KEY = "theone-timebell-active-preset";
+
+    const PRESET_KEYS = ["boxing", "kickboxing", "tabata", "crossfit"];
     const DEFAULT_PRESETS = {
-      boxing:     { prepare: 10, work: 180, rest: 60, rounds: 10 },
+      boxing: { prepare: 10, work: 180, rest: 60, rounds: 10 },
       kickboxing: { prepare: 10, work: 180, rest: 60, rounds: 5 },
-      tabata:     { prepare: 10, work: 20,  rest: 10, rounds: 8 },
-      crossfit:   { prepare: 10, work: 40,  rest: 20, rounds: 10 }
+      tabata: { prepare: 10, work: 20, rest: 10, rounds: 8 },
+      crossfit: { prepare: 10, work: 40, rest: 20, rounds: 10 }
     };
-
+    const DEFAULT_NAMES = { boxing: "복싱 3분", kickboxing: "킥복싱", tabata: "타바타", crossfit: "크로스핏" };
     const DEFAULT_PRESET_AUDIO = {
-      boxing: {
-        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
-        prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3",
-        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
-      },
-      kickboxing: {
-        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
-        prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3",
-        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
-      },
-      tabata: {
-        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
-        prepareSound: "file:sounds/alert.mp3", startSound: "file:sounds/start.mp3",
-        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
-      },
-      crossfit: {
-        voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal",
-        prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3",
-        restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "file:sounds/alert.mp3"
-      }
+      boxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "singleBeep" },
+      kickboxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
+      tabata: { voiceEnabled: true, alert30: false, alert10: true, countdown5: true, voiceTone: "high", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "fastBeep" },
+      crossfit: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "singleBeep" }
     };
 
-    let presets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
-    let presetAudioSettings = JSON.parse(JSON.stringify(DEFAULT_PRESET_AUDIO));
-    let activePresetName = localStorage.getItem("theone-timebell-active-preset") || "boxing";
-    let hasSavedPresetTimings = false;
-
-    const PHASE = {
-      IDLE: "idle",
-      PREPARE: "prepare",
-      WORK: "work",
-      REST: "rest",
-      FINISHED: "finished"
-    };
+    const PHASE = { IDLE: "idle", PREPARE: "prepare", WORK: "work", REST: "rest", FINISHED: "finished" };
+    let presets = structuredClone(DEFAULT_PRESETS);
+    let presetAudioSettings = structuredClone(DEFAULT_PRESET_AUDIO);
+    let activePresetName = localStorage.getItem(ACTIVE_PRESET_KEY) || "boxing";
+    if (!PRESET_KEYS.includes(activePresetName)) activePresetName = "boxing";
 
     let state = {
-      phase: PHASE.IDLE,
-      round: 1,
-      totalRounds: 10,
-      isRunning: false,
-      isPaused: false,
-      remainingMs: 180000,
-      phaseDurationMs: 180000,
-      endAt: 0,
-      timerId: null,
-      notified: new Set()
+      phase: PHASE.IDLE, round: 1, totalRounds: presets[activePresetName].rounds,
+      isRunning: false, isPaused: false, remainingMs: presets[activePresetName].work * 1000,
+      phaseDurationMs: presets[activePresetName].work * 1000, endAt: 0, timerId: null, notified: new Set()
     };
-
     let audioContext = null;
-    let wakeLock = null;
-    const customSoundBuffers = {};
+    let masterGain = null;
+    const customSoundBuffers = Object.create(null);
     let customSoundErrorShown = false;
+    let wakeLock = null;
+    let toastTimer = null;
 
-    const DEFAULT_BRAND_TITLE = "더원 타임벨";
-    const DEFAULT_BRAND_SUBTITLE = "격투기 · 크로스핏 · 인터벌 트레이닝";
-
-    const THEME_STORAGE_KEY = "theone-timebell-theme";
-    const THEME_LIST = ["orange", "yellow", "red", "blue", "green", "purple", "black"];
-    const THEME_META_COLORS = {
-      orange: "#1a0d05",
-      yellow: "#211b04",
-      red: "#23060a",
-      blue: "#061c3a",
-      green: "#062715",
-      purple: "#170a34",
-      black: "#050609"
-    };
-
-    function applyTheme(themeName, shouldSave = true) {
-      const safeTheme = THEME_LIST.includes(themeName) ? themeName : "orange";
-
-      THEME_LIST.forEach((name) => {
-        document.body.classList.remove(`theme-${name}`);
-      });
-      document.body.classList.add(`theme-${safeTheme}`);
-
-      if (els.themeSelect) els.themeSelect.value = safeTheme;
-
-      document.querySelectorAll(".theme-btn").forEach((button) => {
-        button.classList.toggle("active", button.dataset.theme === safeTheme);
-      });
-
-      const metaTheme = document.querySelector('meta[name="theme-color"]');
-      if (metaTheme) metaTheme.setAttribute("content", THEME_META_COLORS[safeTheme] || "#090d14");
-
-      if (shouldSave) localStorage.setItem(THEME_STORAGE_KEY, safeTheme);
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => els.toast.classList.remove("show"), 1800);
     }
 
-    function loadThemeSettings() {
-      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || "orange";
-      applyTheme(savedTheme, false);
+    function clamp(value, min, max, fallback) {
+      const n = Number(value);
+      return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
     }
 
-    function loadBrandSettings() {
-      const savedTitle = localStorage.getItem("timebell_brand_title");
-      const savedSubtitle = localStorage.getItem("timebell_brand_subtitle");
+    function getNameInput(key) {
+      return { boxing: els.presetNameBoxing, kickboxing: els.presetNameKickboxing, tabata: els.presetNameTabata, crossfit: els.presetNameCrossfit }[key];
+    }
+    function getPresetName(key) { return getNameInput(key)?.value.trim() || DEFAULT_NAMES[key]; }
+    function formatSeconds(seconds) {
+      const s = Math.max(0, Math.round(seconds));
+      const m = Math.floor(s / 60);
+      const r = s % 60;
+      return m > 0 ? `${m}분${r ? ` ${r}초` : ""}` : `${r}초`;
+    }
+    function formatClock(ms) {
+      const total = Math.max(0, Math.ceil(ms / 1000));
+      return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
+    }
+    function presetMeta(p) { return `${formatSeconds(p.work)} / ${formatSeconds(p.rest)} · ${p.rounds}R`; }
 
-      const title = savedTitle || DEFAULT_BRAND_TITLE;
-      const subtitle = savedSubtitle || DEFAULT_BRAND_SUBTITLE;
+    function applyTheme(theme, save = true) {
+      const safe = ["orange","yellow","red","blue","green","purple"].includes(theme) ? theme : "purple";
+      document.body.classList.remove("theme-orange","theme-yellow","theme-red","theme-blue","theme-green","theme-purple");
+      document.body.classList.add(`theme-${safe}`);
+      document.querySelectorAll(".theme-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.theme === safe));
+      const metaColors = { orange: "#1a0d05", yellow: "#211b04", red: "#23060a", blue: "#061c3a", green: "#062715", purple: "#13051f" };
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", metaColors[safe]);
+      if (save) localStorage.setItem(THEME_STORAGE_KEY, safe);
+    }
 
-      const brandTitle = document.getElementById("brandTitle");
-      const brandSubtitle = document.getElementById("brandSubtitle");
-
-      if (brandTitle) brandTitle.textContent = title;
-      if (brandSubtitle) brandSubtitle.textContent = subtitle;
+    function loadBrand() {
+      const title = localStorage.getItem("timebell_brand_title") || DEFAULT_BRAND_TITLE;
+      const subtitle = localStorage.getItem("timebell_brand_subtitle") || DEFAULT_BRAND_SUBTITLE;
+      els.brandTitle.textContent = title;
+      els.brandSubtitle.textContent = subtitle;
       document.title = title;
     }
-
-    function openBrandSettings() {
-      const modal = document.getElementById("brandModalBackdrop");
-      const titleInput = document.getElementById("brandTitleInput");
-      const subtitleInput = document.getElementById("brandSubtitleInput");
-
-      if (!modal || !titleInput || !subtitleInput) return;
-
-      titleInput.value = localStorage.getItem("timebell_brand_title") || DEFAULT_BRAND_TITLE;
-      subtitleInput.value = localStorage.getItem("timebell_brand_subtitle") || DEFAULT_BRAND_SUBTITLE;
-
-      modal.classList.add("open");
-      setTimeout(() => titleInput.focus(), 50);
+    function openBrandModal() {
+      els.brandTitleInput.value = localStorage.getItem("timebell_brand_title") || DEFAULT_BRAND_TITLE;
+      els.brandSubtitleInput.value = localStorage.getItem("timebell_brand_subtitle") || DEFAULT_BRAND_SUBTITLE;
+      els.brandModalBackdrop.classList.add("open");
+      setTimeout(() => els.brandTitleInput.focus(), 30);
+    }
+    function closeBrandModal() { els.brandModalBackdrop.classList.remove("open"); }
+    function saveBrand() {
+      localStorage.setItem("timebell_brand_title", els.brandTitleInput.value.trim() || DEFAULT_BRAND_TITLE);
+      localStorage.setItem("timebell_brand_subtitle", els.brandSubtitleInput.value.trim() || DEFAULT_BRAND_SUBTITLE);
+      loadBrand(); closeBrandModal(); showToast("상호가 저장되었습니다.");
+    }
+    function resetBrand() {
+      localStorage.removeItem("timebell_brand_title"); localStorage.removeItem("timebell_brand_subtitle");
+      els.brandTitleInput.value = DEFAULT_BRAND_TITLE; els.brandSubtitleInput.value = DEFAULT_BRAND_SUBTITLE;
+      loadBrand(); showToast("기본 상호로 되돌렸습니다.");
     }
 
-    function closeBrandSettings() {
-      const modal = document.getElementById("brandModalBackdrop");
-      if (modal) modal.classList.remove("open");
+    function readTimingInputs() {
+      const prepare = Math.floor(clamp(els.prepareSeconds.value, 0, 600, 10));
+      const work = Math.floor(clamp(els.workMinutes.value, 0, 99, 3)) * 60 + Math.floor(clamp(els.workSeconds.value, 0, 59, 0));
+      const rest = Math.floor(clamp(els.restMinutes.value, 0, 99, 1)) * 60 + Math.floor(clamp(els.restSeconds.value, 0, 59, 0));
+      const rounds = Math.floor(clamp(els.rounds.value, 1, 99, 10));
+      if (work < 1) { showToast("운동 시간은 1초 이상이어야 합니다."); return null; }
+      return { prepare, work, rest, rounds };
     }
-
-    function saveBrandSettings() {
-      const titleInput = document.getElementById("brandTitleInput");
-      const subtitleInput = document.getElementById("brandSubtitleInput");
-
-      if (!titleInput || !subtitleInput) return;
-
-      const title = titleInput.value.trim() || DEFAULT_BRAND_TITLE;
-      const subtitle = subtitleInput.value.trim() || DEFAULT_BRAND_SUBTITLE;
-
-      localStorage.setItem("timebell_brand_title", title);
-      localStorage.setItem("timebell_brand_subtitle", subtitle);
-
-      loadBrandSettings();
-      closeBrandSettings();
+    function putTimingInputs(p) {
+      els.prepareSeconds.value = p.prepare;
+      els.workMinutes.value = Math.floor(p.work / 60); els.workSeconds.value = p.work % 60;
+      els.restMinutes.value = Math.floor(p.rest / 60); els.restSeconds.value = p.rest % 60;
+      els.rounds.value = p.rounds;
     }
-
-    function resetBrandSettings() {
-      localStorage.removeItem("timebell_brand_title");
-      localStorage.removeItem("timebell_brand_subtitle");
-
-      const titleInput = document.getElementById("brandTitleInput");
-      const subtitleInput = document.getElementById("brandSubtitleInput");
-
-      if (titleInput) titleInput.value = DEFAULT_BRAND_TITLE;
-      if (subtitleInput) subtitleInput.value = DEFAULT_BRAND_SUBTITLE;
-
-      loadBrandSettings();
-    }
-
-    document.addEventListener("click", (event) => {
-      const modal = document.getElementById("brandModalBackdrop");
-      if (modal && event.target === modal) closeBrandSettings();
-    });
-
-
-    function clampNumber(value, min, max, fallback) {
-      const number = Number(value);
-      if (!Number.isFinite(number)) return fallback;
-      return Math.min(max, Math.max(min, number));
-    }
-
-    function readSettings() {
-      const prepare = clampNumber(els.prepareSeconds.value, 0, 600, 10);
-      const workMin = clampNumber(els.workMinutes.value, 0, 99, 3);
-      const workSec = clampNumber(els.workSeconds.value, 0, 59, 0);
-      const restMin = clampNumber(els.restMinutes.value, 0, 99, 1);
-      const restSec = clampNumber(els.restSeconds.value, 0, 59, 0);
-      const rounds = Math.floor(clampNumber(els.rounds.value, 1, 99, 10));
-
-      const work = workMin * 60 + workSec;
-      const rest = restMin * 60 + restSec;
-
-      if (work <= 0) {
-        alert("운동 시간은 1초 이상으로 설정해주세요.");
-        return null;
-      }
-
+    function readAudioInputs() {
       return {
-        prepare,
-        work,
-        rest,
-        rounds,
-        voiceEnabled: els.voiceEnabled.checked,
-        alert30: els.alert30.checked,
-        alert10: els.alert10.checked,
-        countdown5: els.countdown5.checked,
-        voiceTone: els.voiceTone.value,
-        prepareSound: els.prepareSound.value,
-        startSound: els.startSound.value,
-        restSound: els.restSound.value,
-        finishSound: els.finishSound.value,
-        alertSound: els.alertSound.value,
-        volume: clampNumber(els.volumeRange.value, 0, 150, 110) / 100
+        voiceEnabled: els.voiceEnabled.checked, alert30: els.alert30.checked, alert10: els.alert10.checked,
+        countdown5: els.countdown5.checked, voiceTone: els.voiceTone.value,
+        prepareSound: els.prepareSound.value, startSound: els.startSound.value, restSound: els.restSound.value,
+        finishSound: els.finishSound.value, alertSound: els.alertSound.value
       };
     }
-
-    function applyPreset(name) {
-      const p = presets[name];
-      if (!p || state.isRunning) return;
-
-      if (activePresetName && activePresetName !== name) {
-        saveActivePresetTiming();
-        saveActivePresetAudio();
-      }
-
-      activePresetName = name;
-      localStorage.setItem("theone-timebell-active-preset", name);
-
-      els.prepareSeconds.value = p.prepare;
-      els.workMinutes.value = Math.floor(p.work / 60);
-      els.workSeconds.value = p.work % 60;
-      els.restMinutes.value = Math.floor(p.rest / 60);
-      els.restSeconds.value = p.rest % 60;
-      els.rounds.value = p.rounds;
-
-      applyPresetAudioToInputs(name);
-
-      document.querySelectorAll(".preset-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.preset === name);
-      });
-
-      updatePresetMetaLabels();
-      updateActivePresetSoundNotice();
-      updateIdlePreview();
-      saveSettings(false);
+    function validSelectValue(select, value, fallback) {
+      const values = Array.from(select.options).map((o) => o.value);
+      return values.includes(value) ? value : fallback;
     }
-
-    function getPhaseSeconds(settings, phase) {
-      if (phase === PHASE.PREPARE) return settings.prepare;
-      if (phase === PHASE.WORK) return settings.work;
-      if (phase === PHASE.REST) return settings.rest;
-      return 0;
-    }
-
-    function formatTimeFromMs(ms) {
-      const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
-      const minutes = Math.floor(totalSeconds / 60);
-      const seconds = totalSeconds % 60;
-      return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-    }
-
-    function setBodyPhase(phase) {
-      document.body.classList.remove(
-        "phase-idle", "phase-prepare", "phase-work", "phase-rest", "phase-finished"
-      );
-      document.body.classList.add(`phase-${phase}`);
-    }
-
-    function phaseText(phase) {
+    function normalizeAudio(key, item = {}) {
+      const d = DEFAULT_PRESET_AUDIO[key];
       return {
-        [PHASE.IDLE]: "대기",
-        [PHASE.PREPARE]: "준비",
-        [PHASE.WORK]: "운동",
-        [PHASE.REST]: "휴식",
-        [PHASE.FINISHED]: "완료"
-      }[phase] || "";
+        voiceEnabled: item.voiceEnabled ?? d.voiceEnabled,
+        alert30: item.alert30 ?? d.alert30,
+        alert10: item.alert10 ?? d.alert10,
+        countdown5: item.countdown5 ?? d.countdown5,
+        voiceTone: ["normal","low","high"].includes(item.voiceTone) ? item.voiceTone : d.voiceTone,
+        prepareSound: validSelectValue(els.prepareSound, item.prepareSound, d.prepareSound),
+        startSound: validSelectValue(els.startSound, item.startSound, d.startSound),
+        restSound: validSelectValue(els.restSound, item.restSound, d.restSound),
+        finishSound: validSelectValue(els.finishSound, item.finishSound, d.finishSound),
+        alertSound: validSelectValue(els.alertSound, item.alertSound, d.alertSound)
+      };
     }
-
-    function nextPhaseText() {
-      if (state.phase === PHASE.IDLE) return "시작 버튼을 눌러주세요";
-      if (state.phase === PHASE.PREPARE) return "다음: 운동 시작";
-      if (state.phase === PHASE.WORK) {
-        return state.round >= state.totalRounds ? "마지막 라운드" : "다음: 휴식";
-      }
-      if (state.phase === PHASE.REST) return `다음: ROUND ${state.round + 1}`;
-      return "모든 운동이 끝났습니다";
+    function putAudioInputs(key) {
+      const a = normalizeAudio(key, presetAudioSettings[key]);
+      presetAudioSettings[key] = a;
+      els.voiceEnabled.checked = a.voiceEnabled; els.alert30.checked = a.alert30; els.alert10.checked = a.alert10;
+      els.countdown5.checked = a.countdown5; els.voiceTone.value = a.voiceTone;
+      els.prepareSound.value = a.prepareSound; els.startSound.value = a.startSound; els.restSound.value = a.restSound;
+      els.finishSound.value = a.finishSound; els.alertSound.value = a.alertSound;
     }
-
-    function render() {
-      els.timerDisplay.textContent = formatTimeFromMs(state.remainingMs);
-      els.roundLabel.textContent = `ROUND ${state.round} / ${state.totalRounds}`;
-      els.phaseBadge.textContent = phaseText(state.phase);
-      els.mainStatus.textContent =
-        state.phase === PHASE.IDLE ? "운동 준비" :
-        state.phase === PHASE.PREPARE ? "준비하세요" :
-        state.phase === PHASE.WORK ? "운동 중" :
-        state.phase === PHASE.REST ? "휴식" :
-        "운동 완료";
-      els.nextStatus.textContent = state.isPaused ? "일시정지됨" : nextPhaseText();
-
-      const elapsed = Math.max(0, state.phaseDurationMs - state.remainingMs);
-      const progress = state.phaseDurationMs > 0
-        ? Math.min(100, (elapsed / state.phaseDurationMs) * 100)
-        : 0;
-      els.progressBar.style.width = `${progress}%`;
-
-      const remainingSeconds = Math.ceil(state.remainingMs / 1000);
-      els.timerDisplay.classList.toggle(
-        "warning",
-        state.isRunning && !state.isPaused && remainingSeconds <= 10 && state.phase !== PHASE.FINISHED
-      );
-
-      els.startBtn.textContent = state.isPaused ? "▶ 계속" : state.isRunning ? "● 진행 중" : "▶ 시작";
-      els.startBtn.disabled = state.isRunning && !state.isPaused;
-      els.pauseBtn.disabled = !state.isRunning || state.isPaused;
-      els.skipBtn.disabled = !state.isRunning;
-      els.addTenBtn.disabled = !state.isRunning || state.phase === PHASE.FINISHED;
-
-      setBodyPhase(state.phase);
-    }
-
-    function updateIdlePreview() {
+    function saveActivePresetData() {
       if (state.isRunning) return;
-      const settings = readSettings();
-      if (!settings) return;
+      const timing = readTimingInputs();
+      if (timing) presets[activePresetName] = timing;
+      presetAudioSettings[activePresetName] = normalizeAudio(activePresetName, readAudioInputs());
+      localStorage.setItem(PRESETS_KEY, JSON.stringify(presets));
+      localStorage.setItem(PRESET_AUDIO_KEY, JSON.stringify(presetAudioSettings));
+    }
 
-      state.phase = PHASE.IDLE;
-      state.round = 1;
-      state.totalRounds = settings.rounds;
-      state.remainingMs = settings.work * 1000;
-      state.phaseDurationMs = settings.work * 1000;
-      render();
+    function updatePresetUI() {
+      document.querySelectorAll(".preset-btn").forEach((btn) => {
+        const key = btn.dataset.preset;
+        btn.querySelector("span").textContent = getPresetName(key);
+        btn.querySelector("small").textContent = presetMeta(presets[key]);
+        btn.classList.toggle("active", key === activePresetName);
+      });
+      renderFullscreenPrograms();
+      els.activePresetSoundNotice.textContent = `현재 ‘${getPresetName(activePresetName)}’의 시간·소리·음성 설정을 편집 중입니다.`;
+    }
+    function renderFullscreenPrograms() {
+      els.fullscreenProgramList.innerHTML = PRESET_KEYS.map((key) => `
+        <button class="fs-program-btn${key === activePresetName ? " active" : ""}" type="button" data-fs-preset="${key}">
+          <span>${escapeHtml(getPresetName(key))}</span><small>${escapeHtml(presetMeta(presets[key]))}</small>
+        </button>`).join("");
+    }
+    function escapeHtml(text) { return String(text).replace(/[&<>'"]/g, (ch) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch])); }
+
+    function applyPreset(key) {
+      if (!PRESET_KEYS.includes(key)) return;
+      if (state.isRunning) { showToast("운동 중에는 프로그램을 바꿀 수 없습니다."); return; }
+      saveActivePresetData();
+      activePresetName = key;
+      localStorage.setItem(ACTIVE_PRESET_KEY, key);
+      putTimingInputs(presets[key]);
+      putAudioInputs(key);
+      updatePresetUI();
+      resetTimer(false);
+    }
+
+    function loadSavedData() {
+      applyTheme(localStorage.getItem(THEME_STORAGE_KEY) || "purple", false);
+      loadBrand();
+      try {
+        const raw = JSON.parse(localStorage.getItem(PRESETS_KEY) || "null");
+        if (raw) PRESET_KEYS.forEach((key) => {
+          const x = raw[key]; if (!x) return;
+          presets[key] = {
+            prepare: Math.floor(clamp(x.prepare,0,600,DEFAULT_PRESETS[key].prepare)),
+            work: Math.floor(clamp(x.work,1,5999,DEFAULT_PRESETS[key].work)),
+            rest: Math.floor(clamp(x.rest,0,5999,DEFAULT_PRESETS[key].rest)),
+            rounds: Math.floor(clamp(x.rounds,1,99,DEFAULT_PRESETS[key].rounds))
+          };
+        });
+      } catch (_) {}
+      try {
+        const raw = JSON.parse(localStorage.getItem(PRESET_AUDIO_KEY) || "null");
+        PRESET_KEYS.forEach((key) => { presetAudioSettings[key] = normalizeAudio(key, raw?.[key] || DEFAULT_PRESET_AUDIO[key]); });
+      } catch (_) { presetAudioSettings = structuredClone(DEFAULT_PRESET_AUDIO); }
+
+      /* 선택창에 없는 예전 소리 값은 normalizeAudio에서 안전한 기본 소리로 자동 복원 */
+      try {
+        const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null");
+        if (saved) {
+          ["presetNameBoxing","presetNameKickboxing","presetNameTabata","presetNameCrossfit"].forEach((id) => {
+            if (typeof saved[id] === "string" && saved[id].trim()) els[id].value = saved[id].trim();
+          });
+          if (saved.volumeRange != null) els.volumeRange.value = clamp(saved.volumeRange,0,150,110);
+        }
+      } catch (_) {}
+      localStorage.setItem(PRESET_AUDIO_KEY, JSON.stringify(presetAudioSettings));
+      putTimingInputs(presets[activePresetName]);
+      putAudioInputs(activePresetName);
+      updateVolumeLabel(); updatePresetUI(); resetTimer(false);
+    }
+
+    function currentSettings() {
+      const timing = readTimingInputs(); if (!timing) return null;
+      return { ...timing, ...readAudioInputs(), volume: clamp(els.volumeRange.value, 0, 150, 110) / 100 };
     }
 
     async function ensureAudio() {
-      if (!audioContext) {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) {
-          els.audioChip.textContent = "소리: 미지원";
-          els.audioChip.className = "mini-chip warn";
-          return false;
+      try {
+        if (!audioContext) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (!Ctx) throw new Error("AudioContext unavailable");
+          audioContext = new Ctx();
+          masterGain = audioContext.createGain(); masterGain.connect(audioContext.destination);
         }
-        audioContext = new AudioCtx();
-      }
-
-      if (audioContext.state === "suspended") {
-        await audioContext.resume();
-      }
-
-      els.audioChip.textContent = "소리: 준비 완료";
-      els.audioChip.className = "mini-chip ok";
-      return true;
-    }
-
-    function currentVolume() {
-      return clampNumber(els.volumeRange.value, 0, 150, 110) / 100;
-    }
-
-    function tone(frequency = 880, duration = 0.12, volume = 0.38, type = "sine", delay = 0) {
-      if (!audioContext) return;
-
-      const start = audioContext.currentTime + delay;
-      const oscillator = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      const targetVolume = Math.min(0.95, Math.max(0.0001, volume * currentVolume() * 1.25));
-
-      oscillator.type = type;
-      oscillator.frequency.setValueAtTime(frequency, start);
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(targetVolume, start + 0.01);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-
-      oscillator.connect(gain);
-      gain.connect(audioContext.destination);
-      oscillator.start(start);
-      oscillator.stop(start + duration + 0.05);
-    }
-
-    function beep(times = 1, frequency = 980, gap = 0.16, duration = 0.09, volume = 0.46) {
-      for (let i = 0; i < times; i++) {
-        tone(frequency, duration, volume, "square", i * gap);
+        if (audioContext.state === "suspended") await audioContext.resume();
+        updateMasterVolume();
+        els.audioChip.textContent = "소리: 사용 가능";
+        return true;
+      } catch (_) {
+        els.audioChip.textContent = "소리: 사용 불가";
+        showToast("브라우저에서 소리를 허용해주세요.");
+        return false;
       }
     }
+    function updateMasterVolume() { if (masterGain) masterGain.gain.value = clamp(els.volumeRange.value,0,150,110) / 100; }
+    function updateVolumeLabel() { els.volumeValue.textContent = `${Math.round(clamp(els.volumeRange.value,0,150,110))}%`; updateMasterVolume(); }
 
-    function longBeep(times = 1, frequency = 900, gap = 0.46) {
-      for (let i = 0; i < times; i++) {
-        tone(frequency, 0.36, 0.62, "square", i * gap);
-        tone(frequency * 1.5, 0.34, 0.26, "sine", i * gap + 0.01);
-      }
+    function tone(freq, duration = .12, type = "sine", start = 0, gain = .45, endFreq = null) {
+      if (!audioContext || !masterGain) return;
+      const t = audioContext.currentTime + start;
+      const osc = audioContext.createOscillator(); const g = audioContext.createGain();
+      osc.type = type; osc.frequency.setValueAtTime(freq, t);
+      if (endFreq) osc.frequency.exponentialRampToValueAtTime(Math.max(20,endFreq), t + duration);
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(Math.max(.001,gain), t + .012);
+      g.gain.exponentialRampToValueAtTime(.0001, t + duration);
+      osc.connect(g); g.connect(masterGain); osc.start(t); osc.stop(t + duration + .025);
     }
-
-    function powerBeep() {
-      beep(2, 1180, 0.18, 0.13, 0.72);
-      tone(620, 0.26, 0.5, "sawtooth", 0.39);
+    function metallicBell(start = 0, soft = false) {
+      const gain = soft ? .18 : .34;
+      [[620,1],[930,.6],[1280,.35],[1740,.18]].forEach(([f,m]) => tone(f, .75, "sine", start, gain*m, f*.72));
     }
-
-    function bell(strong = false) {
-      const baseVolume = strong ? 0.58 : 0.42;
-      tone(520, 0.9, baseVolume, "sine", 0);
-      tone(780, 0.78, baseVolume * 0.78, "sine", 0.01);
-      tone(1040, 0.58, baseVolume * 0.52, "sine", 0.02);
-      if (strong) {
-        tone(430, 1.08, baseVolume * 0.76, "triangle", 0.03);
-      }
-    }
-
-    function boxingDing() {
-      tone(920, 0.07, 0.9, "square", 0);
-      tone(1380, 0.18, 0.58, "triangle", 0.01);
-      tone(1840, 0.45, 0.28, "sine", 0.02);
-      tone(460, 0.62, 0.24, "sine", 0.03);
-    }
-
-    function dingRepeat(times = 1, gap = 0.42) {
-      for (let i = 0; i < times; i++) {
-        setTimeout(() => boxingDing(), i * gap * 1000);
-      }
-    }
-
-    function lowBuzzer(duration = 0.35) {
-      tone(145, duration, 0.72, "sawtooth", 0);
-      tone(92, duration * 0.92, 0.42, "square", 0.01);
-    }
-
-    function siren() {
-      tone(520, 0.18, 0.48, "sawtooth", 0);
-      tone(760, 0.18, 0.48, "sawtooth", 0.2);
-      tone(520, 0.18, 0.48, "sawtooth", 0.4);
-    }
-
-    function sirenLong() {
-      siren();
-      setTimeout(() => siren(), 670);
-    }
-
-    function gong() {
-      tone(190, 1.35, 0.68, "triangle", 0);
-      tone(285, 1.18, 0.42, "sine", 0.02);
-      tone(420, 0.95, 0.28, "sine", 0.04);
-      tone(95, 1.1, 0.28, "sine", 0.05);
-    }
-
-    function softChime() {
-      tone(660, 0.18, 0.32, "sine", 0);
-      tone(880, 0.28, 0.28, "sine", 0.17);
-    }
-
-    function victory() {
-      tone(523, 0.16, 0.45, "square", 0);
-      tone(659, 0.16, 0.45, "square", 0.18);
-      tone(784, 0.28, 0.45, "square", 0.36);
-      tone(1046, 0.58, 0.36, "triangle", 0.62);
-    }
-
     async function playCustomSound(src) {
       try {
         const ok = await ensureAudio();
         if (!ok) return;
-
         if (!customSoundBuffers[src]) {
-          const response = await fetch(src);
-          if (!response.ok) throw new Error("file not found");
+          const response = await fetch(src, { cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const arrayBuffer = await response.arrayBuffer();
           customSoundBuffers[src] = await audioContext.decodeAudioData(arrayBuffer);
         }
-
         const source = audioContext.createBufferSource();
-        const gain = audioContext.createGain();
-        gain.gain.setValueAtTime(Math.max(0.0001, currentVolume()), audioContext.currentTime);
         source.buffer = customSoundBuffers[src];
-        source.connect(gain);
-        gain.connect(audioContext.destination);
+        source.connect(masterGain);
         source.start();
       } catch (error) {
-        console.warn("사용자 소리 파일을 재생하지 못했습니다:", src, error);
+        console.warn("사용자 MP3 파일을 재생하지 못했습니다:", src, error);
         if (!customSoundErrorShown) {
           customSoundErrorShown = true;
-          alert("사용자 소리 파일을 찾지 못했습니다. GitHub에 sounds 폴더와 MP3 파일 이름을 확인해주세요. 예: sounds/start.mp3");
+          alert(`사용자 소리 파일을 찾지 못했습니다.\nGitHub의 sounds 폴더와 파일 이름을 확인해주세요.\n예: ${src}`);
           setTimeout(() => { customSoundErrorShown = false; }, 4000);
         }
       }
     }
-
     function playSound(name) {
       if (!name || name === "none") return;
-      if (name.startsWith("file:")) {
-        playCustomSound(name.replace("file:", ""));
+      if (String(name).startsWith("file:")) {
+        playCustomSound(String(name).slice(5));
         return;
       }
-
+      if (!audioContext) return;
+      const seq = (freqs, gap, dur=.1, type="square", gain=.23) => freqs.forEach((f,i) => tone(f,dur,type,i*gap,gain));
       switch (name) {
-        case "singleBeep":
-          beep(1);
-          break;
-        case "doubleBeep":
-          beep(2);
-          break;
-        case "tripleBeep":
-          beep(3);
-          break;
-        case "fastBeep":
-          beep(3, 1120, 0.105, 0.08, 0.58);
-          break;
-        case "lowBeep":
-          beep(1, 520, 0.16, 0.12, 0.52);
-          break;
-        case "lowDoubleBeep":
-          beep(2, 520, 0.2, 0.13, 0.52);
-          break;
-        case "longBeep":
-          longBeep(1);
-          break;
-        case "doubleLongBeep":
-          longBeep(2);
-          break;
-        case "powerBeep":
-          powerBeep();
-          break;
-        case "lowBuzzer":
-          lowBuzzer(0.46);
-          break;
-        case "longBuzzer":
-          lowBuzzer(1.1);
-          break;
-        case "fightBellSoft":
-          bell(false);
-          break;
-        case "fightBellStrong":
-          bell(true);
-          break;
-        case "boxingDing":
-          dingRepeat(1);
-          break;
-        case "boxingDingDing":
-          dingRepeat(2);
-          break;
-        case "boxingDingDingDing":
-          dingRepeat(3);
-          break;
-        case "tripleBell":
-          bell(true);
-          setTimeout(() => bell(true), 620);
-          setTimeout(() => bell(true), 1240);
-          break;
-        case "siren":
-          siren();
-          break;
-        case "sirenLong":
-          sirenLong();
-          break;
-        case "gong":
-          gong();
-          break;
-        case "gongTriple":
-          gong();
-          setTimeout(() => gong(), 750);
-          setTimeout(() => gong(), 1500);
-          break;
-        case "softChime":
-          softChime();
-          break;
-        case "victory":
-          victory();
-          break;
-        default:
-          bell(false);
+        case "singleBeep": tone(900,.12,"square",0,.25); break;
+        case "doubleBeep": seq([880,880],.18,.11,"square",.25); break;
+        case "fastBeep": seq([1050,1050,1050],.11,.07,"square",.22); break;
+        case "longBeep": tone(850,.45,"square",0,.24); break;
+        case "lowBeep": tone(430,.16,"square",0,.26); break;
+        case "powerBeep": tone(1080,.24,"sawtooth",0,.30,740); break;
+        case "lowBuzzer": tone(170,.48,"sawtooth",0,.24,120); break;
+        case "longBuzzer": tone(150,1.05,"sawtooth",0,.27,90); break;
+        case "fightBellSoft": metallicBell(0,true); break;
+        case "fightBellStrong": metallicBell(0,false); metallicBell(.13,false); break;
+        case "boxingDing": metallicBell(0,false); break;
+        case "boxingDingDing": metallicBell(0,false); metallicBell(.42,false); break;
+        case "boxingDingDingDing": metallicBell(0,false); metallicBell(.36,false); metallicBell(.72,false); break;
+        case "tripleBell": metallicBell(0,false); metallicBell(.48,false); metallicBell(.96,false); break;
+        case "gong": tone(190,1.35,"sine",0,.42,70); tone(380,.9,"sine",0,.18,120); break;
+        case "gongTriple": [0,.55,1.10].forEach((s) => { tone(190,1.15,"sine",s,.35,70); tone(380,.8,"sine",s,.14,120); }); break;
+        case "softChime": seq([660,880,1100],.16,.42,"sine",.14); break;
+        case "victory": seq([523,659,784,1047],.18,.28,"sine",.22); break;
+        case "siren": tone(450,.8,"sawtooth",0,.18,1050); break;
+        case "sirenLong": tone(380,1.8,"sawtooth",0,.20,1200); break;
+        default: tone(900,.12,"square",0,.22);
       }
     }
-
-    function pickKoreanVoice() {
-      const voices = window.speechSynthesis?.getVoices?.() || [];
-      return voices.find(v => v.lang?.toLowerCase().startsWith("ko")) || voices[0] || null;
-    }
-
     function speak(text) {
-      if (!els.voiceEnabled.checked || !("speechSynthesis" in window)) return;
+      const s = currentSettings();
+      if (!s?.voiceEnabled || !window.speechSynthesis) return;
       window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      const voice = pickKoreanVoice();
-      if (voice) utterance.voice = voice;
-      utterance.lang = voice?.lang || "ko-KR";
-      utterance.rate = 1.05;
-      utterance.volume = currentVolume();
-
-      if (els.voiceTone.value === "low") utterance.pitch = 0.72;
-      else if (els.voiceTone.value === "high") utterance.pitch = 1.28;
-      else utterance.pitch = 1.0;
-
-      window.speechSynthesis.speak(utterance);
+      const utter = new SpeechSynthesisUtterance(text); utter.lang = "ko-KR";
+      utter.rate = s.voiceTone === "low" ? .88 : s.voiceTone === "high" ? 1.12 : 1;
+      utter.pitch = s.voiceTone === "low" ? .72 : s.voiceTone === "high" ? 1.32 : 1;
+      utter.volume = Math.min(1, s.volume);
+      window.speechSynthesis.speak(utter);
     }
 
     async function requestWakeLock() {
-      if (!("wakeLock" in navigator)) {
-        els.wakeChip.textContent = "화면 유지: 기기 미지원";
-        els.wakeChip.className = "mini-chip warn";
-        return;
-      }
-
-      try {
-        wakeLock = await navigator.wakeLock.request("screen");
-        els.wakeChip.textContent = "화면 유지: 작동 중";
-        els.wakeChip.className = "mini-chip ok";
-
-        wakeLock.addEventListener("release", () => {
-          els.wakeChip.textContent = "화면 유지: 해제됨";
-          els.wakeChip.className = "mini-chip warn";
-        });
-      } catch (error) {
-        els.wakeChip.textContent = "화면 유지: 허용 필요";
-        els.wakeChip.className = "mini-chip warn";
-      }
+      try { if ("wakeLock" in navigator) { wakeLock = await navigator.wakeLock.request("screen"); els.wakeChip.textContent = "화면 유지: 켜짐"; } }
+      catch (_) { els.wakeChip.textContent = "화면 유지: 제한됨"; }
     }
-
     async function releaseWakeLock() {
-      try {
-        if (wakeLock) await wakeLock.release();
-      } catch (_) {}
-      wakeLock = null;
-      els.wakeChip.textContent = "화면 유지: 대기";
-      els.wakeChip.className = "mini-chip";
+      try { await wakeLock?.release(); } catch (_) {}
+      wakeLock = null; els.wakeChip.textContent = "화면 유지: 대기";
     }
 
-    function enterPhase(phase, seconds, announce = true) {
-      clearInterval(state.timerId);
-      state.phase = phase;
-      state.isRunning = phase !== PHASE.FINISHED;
-      state.isPaused = false;
-      state.phaseDurationMs = Math.max(0, seconds * 1000);
-      state.remainingMs = state.phaseDurationMs;
-      state.endAt = performance.now() + state.remainingMs;
-      state.notified = new Set();
-
-      const settings = readSettings();
-      if (!settings) return;
-
-      if (phase === PHASE.PREPARE) {
-        playSound(settings.prepareSound);
-        if (announce) speak("운동을 준비하세요.");
-      } else if (phase === PHASE.WORK) {
-        playSound(settings.startSound);
-        if (announce) {
-          speak(state.round === state.totalRounds ? "마지막 라운드, 운동을 시작합니다." : "운동을 시작합니다.");
-        }
-      } else if (phase === PHASE.REST) {
-        playSound(settings.restSound);
-        if (announce) speak("휴식입니다.");
-      } else if (phase === PHASE.FINISHED) {
-        state.remainingMs = 0;
-        state.phaseDurationMs = 1;
-        playSound(settings.finishSound);
-        if (announce) speak("모든 운동이 종료되었습니다.");
-        releaseWakeLock();
-        render();
-        return;
-      }
-
+    function enterPhase(phase, seconds) {
+      const s = currentSettings(); if (!s) return;
+      state.phase = phase; state.isRunning = phase !== PHASE.FINISHED; state.isPaused = false;
+      state.remainingMs = Math.max(0, seconds * 1000); state.phaseDurationMs = Math.max(1, seconds * 1000);
+      state.endAt = performance.now() + state.remainingMs; state.notified = new Set();
+      if (phase === PHASE.PREPARE) { playSound(s.prepareSound); speak("준비 시작"); }
+      if (phase === PHASE.WORK) { playSound(s.startSound); speak(`${state.round} 라운드 시작`); }
+      if (phase === PHASE.REST) { playSound(s.restSound); speak("휴식"); }
+      if (phase === PHASE.FINISHED) { playSound(s.finishSound); speak("운동이 완료되었습니다"); releaseWakeLock(); }
+      if (state.isRunning) startTicker(); else clearInterval(state.timerId);
       render();
-      startTicker();
     }
-
-    function startTicker() {
-      clearInterval(state.timerId);
-      state.timerId = setInterval(tick, 100);
-      tick();
+    function advancePhase() {
+      const s = currentSettings(); if (!s) return;
+      if (state.phase === PHASE.PREPARE) return enterPhase(PHASE.WORK, s.work);
+      if (state.phase === PHASE.WORK) {
+        if (state.round >= s.rounds) return enterPhase(PHASE.FINISHED, 0);
+        if (s.rest > 0) return enterPhase(PHASE.REST, s.rest);
+        state.round += 1; return enterPhase(PHASE.WORK, s.work);
+      }
+      if (state.phase === PHASE.REST) { state.round += 1; return enterPhase(PHASE.WORK, s.work); }
     }
-
+    function notifyRemaining(seconds) {
+      const s = currentSettings(); if (!s || state.phase === PHASE.FINISHED || state.phase === PHASE.IDLE) return;
+      const whole = Math.ceil(seconds);
+      if (s.alert30 && whole === 30 && !state.notified.has("30")) { state.notified.add("30"); playSound(s.alertSound); speak("30초 남았습니다"); }
+      if (s.alert10 && whole === 10 && !state.notified.has("10")) { state.notified.add("10"); playSound(s.alertSound); speak("10초 남았습니다"); }
+      if (s.countdown5 && whole <= 5 && whole >= 1 && !state.notified.has(`c${whole}`)) { state.notified.add(`c${whole}`); playSound("singleBeep"); }
+    }
     function tick() {
       if (!state.isRunning || state.isPaused) return;
-
       state.remainingMs = Math.max(0, state.endAt - performance.now());
-      handleAlerts();
-      render();
-
-      if (state.remainingMs <= 0) {
-        advancePhase();
-      }
+      notifyRemaining(state.remainingMs / 1000); render();
+      if (state.remainingMs <= 0) advancePhase();
     }
-
-    function handleAlerts() {
-      const settings = readSettings();
-      if (!settings) return;
-
-      const seconds = Math.ceil(state.remainingMs / 1000);
-      const relevantPhase = state.phase === PHASE.WORK || state.phase === PHASE.REST;
-      if (!relevantPhase) return;
-
-      const key = `${state.phase}-${state.round}-${seconds}`;
-      if (state.notified.has(key)) return;
-
-      if (seconds === 30 && settings.alert30 && state.phaseDurationMs >= 31000) {
-        state.notified.add(key);
-        playSound(settings.alertSound);
-        speak("30초 남았습니다.");
-      } else if (seconds === 10 && settings.alert10 && state.phaseDurationMs >= 11000) {
-        state.notified.add(key);
-        playSound(settings.alertSound);
-        speak("10초 남았습니다.");
-      } else if (seconds >= 1 && seconds <= 5 && settings.countdown5) {
-        state.notified.add(key);
-        playSound(settings.alertSound);
-      }
-    }
-
-    function advancePhase() {
-      const settings = readSettings();
-      if (!settings) {
-        resetTimer();
-        return;
-      }
-
-      if (state.phase === PHASE.PREPARE) {
-        enterPhase(PHASE.WORK, settings.work);
-        return;
-      }
-
-      if (state.phase === PHASE.WORK) {
-        if (state.round >= state.totalRounds) {
-          enterPhase(PHASE.FINISHED, 0);
-        } else if (settings.rest > 0) {
-          enterPhase(PHASE.REST, settings.rest);
-        } else {
-          state.round += 1;
-          enterPhase(PHASE.WORK, settings.work);
-        }
-        return;
-      }
-
-      if (state.phase === PHASE.REST) {
-        state.round += 1;
-        enterPhase(PHASE.WORK, settings.work);
-      }
-    }
+    function startTicker() { clearInterval(state.timerId); state.timerId = setInterval(tick, 100); }
 
     async function startTimer() {
-      const settings = readSettings();
-      if (!settings) return;
-
-      await ensureAudio();
-      await requestWakeLock();
-
-      if (state.isPaused) {
-        state.isPaused = false;
-        state.isRunning = true;
-        state.endAt = performance.now() + state.remainingMs;
-        startTicker();
-        render();
-        return;
-      }
-
+      const s = currentSettings(); if (!s) return;
+      await ensureAudio(); await requestWakeLock(); saveActivePresetData();
+      if (state.isPaused) { state.isPaused = false; state.isRunning = true; state.endAt = performance.now() + state.remainingMs; startTicker(); return render(); }
       if (state.phase === PHASE.FINISHED) resetTimer(false);
-
-      state.round = 1;
-      state.totalRounds = settings.rounds;
-      saveSettings(false);
-
-      if (settings.prepare > 0) {
-        enterPhase(PHASE.PREPARE, settings.prepare);
-      } else {
-        enterPhase(PHASE.WORK, settings.work);
-      }
+      state.round = 1; state.totalRounds = s.rounds;
+      if (s.prepare > 0) enterPhase(PHASE.PREPARE, s.prepare); else enterPhase(PHASE.WORK, s.work);
     }
-
     function pauseTimer() {
       if (!state.isRunning || state.isPaused) return;
-
-      state.remainingMs = Math.max(0, state.endAt - performance.now());
-      state.isPaused = true;
-      clearInterval(state.timerId);
-      window.speechSynthesis?.cancel?.();
-      render();
+      state.remainingMs = Math.max(0, state.endAt - performance.now()); state.isPaused = true;
+      clearInterval(state.timerId); window.speechSynthesis?.cancel(); render();
     }
-
     function resetTimer(withSound = false) {
-      clearInterval(state.timerId);
-      window.speechSynthesis?.cancel?.();
-
-      const settings = readSettings();
-      if (!settings) return;
-
-      state = {
-        phase: PHASE.IDLE,
-        round: 1,
-        totalRounds: settings.rounds,
-        isRunning: false,
-        isPaused: false,
-        remainingMs: settings.work * 1000,
-        phaseDurationMs: settings.work * 1000,
-        endAt: 0,
-        timerId: null,
-        notified: new Set()
-      };
-
-      if (withSound && audioContext) beep(1);
-      releaseWakeLock();
-      render();
+      clearInterval(state.timerId); window.speechSynthesis?.cancel();
+      const s = currentSettings() || { work: presets[activePresetName].work, rounds: presets[activePresetName].rounds };
+      state = { phase: PHASE.IDLE, round: 1, totalRounds: s.rounds, isRunning: false, isPaused: false,
+        remainingMs: s.work * 1000, phaseDurationMs: s.work * 1000, endAt: 0, timerId: null, notified: new Set() };
+      if (withSound && audioContext) playSound("singleBeep"); releaseWakeLock(); render();
     }
-
-    function skipPhase() {
-      if (!state.isRunning) return;
-      advancePhase();
-    }
-
     function addTenSeconds() {
       if (!state.isRunning || state.phase === PHASE.FINISHED) return;
-      state.remainingMs += 10000;
-      state.phaseDurationMs += 10000;
-      if (!state.isPaused) state.endAt += 10000;
-      render();
+      state.remainingMs += 10000; state.phaseDurationMs += 10000; if (!state.isPaused) state.endAt += 10000; render();
     }
 
-    async function previewSelectedSound(selectElement) {
-      saveSettings(false);
-      const ok = await ensureAudio();
-      if (!ok) return;
-      window.speechSynthesis?.cancel?.();
-      playSound(selectElement.value);
-    }
-
-    async function soundTest() {
-      const ok = await ensureAudio();
-      if (!ok) return;
-      const settings = readSettings();
-      if (!settings) return;
-      playSound(settings.prepareSound);
-      setTimeout(() => playSound(settings.startSound), 800);
-      setTimeout(() => playSound(settings.restSound), 1650);
-      setTimeout(() => playSound(settings.finishSound), 2500);
-      setTimeout(() => speak("소리 확인이 완료되었습니다."), 3600);
-    }
-
-    async function toggleFullscreen() {
-      try {
-        if (!document.fullscreenElement) {
-          await document.documentElement.requestFullscreen();
-        } else {
-          await document.exitFullscreen();
-        }
-      } catch (error) {
-        alert("이 기기에서는 전체화면을 사용할 수 없습니다.");
-      }
-    }
-
-    function syncFullscreenClass() {
-      document.body.classList.toggle("fullscreen-mode", Boolean(document.fullscreenElement));
-      els.fullscreenBtn.textContent = document.fullscreenElement ? "⤢ 전체화면 종료" : "⛶ 전체화면";
-    }
-
-    function syncSettingsToggleLabel() {
-      if (!els.settingsToggle || !els.settingsCard) return;
-      const isCollapsed = els.settingsCard.classList.contains("collapsed");
-      els.settingsToggle.textContent = isCollapsed ? "⚙️ 설정 열기" : "⚙️ 설정 닫기";
-
-      const layout = document.querySelector(".layout");
-      if (layout) layout.classList.toggle("settings-hidden", isCollapsed);
-    }
-
-    function setupInitialSettingsVisibility() {
-      if (!els.settingsCard) return;
-
-      // 모바일/태블릿에서는 처음에 설정을 접어두고,
-      // PC 화면에서는 처음부터 설정 패널이 보이게 합니다.
-      const isSmallScreen = window.matchMedia("(max-width: 1050px)").matches;
-      els.settingsCard.classList.toggle("collapsed", isSmallScreen);
-      syncSettingsToggleLabel();
-    }
-
-    function safePresetNumber(value, min, max, fallback) {
-      const number = Number(value);
-      if (!Number.isFinite(number)) return fallback;
-      return Math.min(max, Math.max(min, number));
-    }
-
-    function readPresetTimingFromInputs() {
-      const prepare = Math.floor(safePresetNumber(els.prepareSeconds.value, 0, 600, 10));
-      const workMin = Math.floor(safePresetNumber(els.workMinutes.value, 0, 99, 0));
-      const workSec = Math.floor(safePresetNumber(els.workSeconds.value, 0, 59, 0));
-      const restMin = Math.floor(safePresetNumber(els.restMinutes.value, 0, 99, 0));
-      const restSec = Math.floor(safePresetNumber(els.restSeconds.value, 0, 59, 0));
-      const rounds = Math.floor(safePresetNumber(els.rounds.value, 1, 99, 10));
-      const work = workMin * 60 + workSec;
-      const rest = restMin * 60 + restSec;
-
-      if (work <= 0) return null;
-      return { prepare, work, rest, rounds };
-    }
-
-    function saveActivePresetTiming() {
-      if (!activePresetName || !presets[activePresetName] || state.isRunning) return;
-      const timing = readPresetTimingFromInputs();
-      if (!timing) return;
-      presets[activePresetName] = timing;
-      savePresetTimings();
-      updatePresetMetaLabels();
-    }
-
-    function savePresetTimings() {
-      localStorage.setItem("theone-timebell-presets", JSON.stringify(presets));
-    }
-
-    function loadPresetTimings() {
-      try {
-        const raw = localStorage.getItem("theone-timebell-presets");
-        if (!raw) return;
-        hasSavedPresetTimings = true;
-        const saved = JSON.parse(raw);
-        Object.keys(DEFAULT_PRESETS).forEach((key) => {
-          const item = saved?.[key];
-          if (!item) return;
-          const prepare = Math.floor(safePresetNumber(item.prepare, 0, 600, DEFAULT_PRESETS[key].prepare));
-          const work = Math.floor(safePresetNumber(item.work, 1, 5999, DEFAULT_PRESETS[key].work));
-          const rest = Math.floor(safePresetNumber(item.rest, 0, 5999, DEFAULT_PRESETS[key].rest));
-          const rounds = Math.floor(safePresetNumber(item.rounds, 1, 99, DEFAULT_PRESETS[key].rounds));
-          presets[key] = { prepare, work, rest, rounds };
-        });
-      } catch (_) {
-        presets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
-      }
-    }
-
-    function formatPresetSeconds(seconds) {
-      const total = Math.max(0, Math.floor(Number(seconds) || 0));
-      const minutes = Math.floor(total / 60);
-      const sec = total % 60;
-
-      if (minutes > 0 && sec > 0) return `${minutes}분 ${sec}초`;
-      if (minutes > 0) return `${minutes}분`;
-      return `${sec}초`;
-    }
-
-    function updatePresetMetaLabels() {
-      const map = {
-        boxing: els.presetMetaBoxing,
-        kickboxing: els.presetMetaKickboxing,
-        tabata: els.presetMetaTabata,
-        crossfit: els.presetMetaCrossfit
-      };
-
-      Object.entries(map).forEach(([key, element]) => {
-        const p = presets[key] || DEFAULT_PRESETS[key];
-        if (!element || !p) return;
-        element.textContent = `${formatPresetSeconds(p.work)} / ${formatPresetSeconds(p.rest)} · ${p.rounds}R`;
+    function render() {
+      const s = currentSettings() || { work: presets[activePresetName].work, rounds: presets[activePresetName].rounds };
+      document.body.classList.remove("phase-idle","phase-prepare","phase-work","phase-rest","phase-finished");
+      document.body.classList.add(`phase-${state.phase}`);
+      els.timerDisplay.textContent = formatClock(state.remainingMs);
+      els.roundLabel.textContent = `ROUND ${state.round} / ${state.totalRounds || s.rounds}`;
+      const labels = {
+        idle: ["준비", "운동 준비", "시작 버튼을 눌러주세요"],
+        prepare: ["준비", "곧 시작합니다", `다음: ${state.round} 라운드`],
+        work: ["운동", `${state.round} 라운드`, state.round < state.totalRounds ? "다음: 휴식" : "마지막 라운드"],
+        rest: ["휴식", "호흡을 정리하세요", `다음: ${state.round + 1} 라운드`],
+        finished: ["완료", "운동 완료", "수고하셨습니다"]
+      }[state.phase];
+      els.phaseBadge.textContent = state.isPaused ? "일시정지" : labels[0];
+      els.mainStatus.textContent = labels[1]; els.nextStatus.textContent = labels[2];
+      const progress = state.phaseDurationMs > 0 ? 100 * (1 - state.remainingMs / state.phaseDurationMs) : 0;
+      els.progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+      els.startBtn.disabled = state.isRunning && !state.isPaused;
+      els.startBtn.textContent = state.isPaused ? "▶ 계속" : state.phase === PHASE.FINISHED ? "▶ 다시 시작" : "▶ 시작";
+      els.pauseBtn.disabled = !state.isRunning || state.isPaused;
+      els.addTenBtn.disabled = !state.isRunning;
+      document.querySelectorAll("input, select, .preset-btn, .theme-btn").forEach((el) => {
+        if ([els.volumeRange, els.voiceEnabled, els.alert30, els.alert10, els.countdown5].includes(el)) return;
+        el.disabled = state.isRunning;
       });
-    }
-
-    function readPresetAudioFromInputs() {
-      return {
-        voiceEnabled: Boolean(els.voiceEnabled.checked),
-        alert30: Boolean(els.alert30.checked),
-        alert10: Boolean(els.alert10.checked),
-        countdown5: Boolean(els.countdown5.checked),
-        voiceTone: els.voiceTone.value,
-        prepareSound: els.prepareSound.value,
-        startSound: els.startSound.value,
-        restSound: els.restSound.value,
-        finishSound: els.finishSound.value,
-        alertSound: els.alertSound.value
-      };
-    }
-
-    function normalizePresetAudio(key, item = {}) {
-      const defaults = DEFAULT_PRESET_AUDIO[key] || DEFAULT_PRESET_AUDIO.boxing;
-      return {
-        voiceEnabled: item.voiceEnabled ?? defaults.voiceEnabled,
-        alert30: item.alert30 ?? defaults.alert30,
-        alert10: item.alert10 ?? defaults.alert10,
-        countdown5: item.countdown5 ?? defaults.countdown5,
-        voiceTone: item.voiceTone || defaults.voiceTone,
-        prepareSound: item.prepareSound || defaults.prepareSound,
-        startSound: item.startSound || defaults.startSound,
-        restSound: item.restSound || defaults.restSound,
-        finishSound: item.finishSound || defaults.finishSound,
-        alertSound: item.alertSound || defaults.alertSound
-      };
-    }
-
-    function applyPresetAudioToInputs(name) {
-      const audio = normalizePresetAudio(name, presetAudioSettings[name]);
-      els.voiceEnabled.checked = Boolean(audio.voiceEnabled);
-      els.alert30.checked = Boolean(audio.alert30);
-      els.alert10.checked = Boolean(audio.alert10);
-      els.countdown5.checked = Boolean(audio.countdown5);
-      els.voiceTone.value = audio.voiceTone;
-      els.prepareSound.value = audio.prepareSound;
-      els.startSound.value = audio.startSound;
-      els.restSound.value = audio.restSound;
-      els.finishSound.value = audio.finishSound;
-      els.alertSound.value = audio.alertSound;
-      cleanInvalidSoundSelections();
-    }
-
-    function saveActivePresetAudio() {
-      if (!activePresetName || !presetAudioSettings[activePresetName] || state.isRunning) return;
-      presetAudioSettings[activePresetName] = readPresetAudioFromInputs();
-      savePresetAudioSettings();
-      updateActivePresetSoundNotice();
-    }
-
-    function savePresetAudioSettings() {
-      localStorage.setItem("theone-timebell-preset-audio-settings", JSON.stringify(presetAudioSettings));
-    }
-
-    function loadPresetAudioSettings() {
-      try {
-        const raw = localStorage.getItem("theone-timebell-preset-audio-settings");
-        if (!raw) return;
-        const saved = JSON.parse(raw);
-        Object.keys(DEFAULT_PRESET_AUDIO).forEach((key) => {
-          presetAudioSettings[key] = normalizePresetAudio(key, saved?.[key]);
-        });
-      } catch (_) {
-        presetAudioSettings = JSON.parse(JSON.stringify(DEFAULT_PRESET_AUDIO));
-      }
-    }
-
-    function getPresetDisplayName(key) {
-      const fallback = {
-        boxing: "복싱 3분",
-        kickboxing: "킥복싱",
-        tabata: "타바타",
-        crossfit: "크로스핏"
-      };
-      const inputMap = {
-        boxing: els.presetNameBoxing,
-        kickboxing: els.presetNameKickboxing,
-        tabata: els.presetNameTabata,
-        crossfit: els.presetNameCrossfit
-      };
-      return inputMap[key]?.value?.trim() || fallback[key] || "선택한 프로그램";
-    }
-
-    function updateActivePresetSoundNotice() {
-      if (!els.activePresetSoundNotice) return;
-      els.activePresetSoundNotice.textContent = `현재 ${getPresetDisplayName(activePresetName)}의 소리/음성 설정을 편집 중입니다. 다른 프로그램을 누르면 그 프로그램의 소리 설정으로 바뀝니다.`;
     }
 
     function saveSettings(showMessage = true) {
-      const settings = readSettings();
-      if (!settings) return;
-
-      saveActivePresetTiming();
-      saveActivePresetAudio();
-
+      saveActivePresetData();
       const payload = {
-        themeSelect: els.themeSelect?.value || localStorage.getItem(THEME_STORAGE_KEY) || "orange",
-        prepareSeconds: els.prepareSeconds.value,
-        workMinutes: els.workMinutes.value,
-        workSeconds: els.workSeconds.value,
-        restMinutes: els.restMinutes.value,
-        restSeconds: els.restSeconds.value,
-        rounds: els.rounds.value,
-        voiceEnabled: els.voiceEnabled.checked,
-        alert30: els.alert30.checked,
-        alert10: els.alert10.checked,
-        countdown5: els.countdown5.checked,
-        voiceTone: els.voiceTone.value,
-        prepareSound: els.prepareSound.value,
-        startSound: els.startSound.value,
-        restSound: els.restSound.value,
-        finishSound: els.finishSound.value,
-        alertSound: els.alertSound.value,
-        volumeRange: els.volumeRange.value,
-        presetNameBoxing: els.presetNameBoxing.value,
-        presetNameKickboxing: els.presetNameKickboxing.value,
-        presetNameTabata: els.presetNameTabata.value,
-        presetNameCrossfit: els.presetNameCrossfit.value
+        themeSelect: localStorage.getItem(THEME_STORAGE_KEY) || "purple",
+        prepareSeconds: els.prepareSeconds.value, workMinutes: els.workMinutes.value, workSeconds: els.workSeconds.value,
+        restMinutes: els.restMinutes.value, restSeconds: els.restSeconds.value, rounds: els.rounds.value,
+        voiceEnabled: els.voiceEnabled.checked, alert30: els.alert30.checked, alert10: els.alert10.checked,
+        countdown5: els.countdown5.checked, voiceTone: els.voiceTone.value,
+        prepareSound: els.prepareSound.value, startSound: els.startSound.value, restSound: els.restSound.value,
+        finishSound: els.finishSound.value, alertSound: els.alertSound.value, volumeRange: els.volumeRange.value,
+        presetNameBoxing: els.presetNameBoxing.value, presetNameKickboxing: els.presetNameKickboxing.value,
+        presetNameTabata: els.presetNameTabata.value, presetNameCrossfit: els.presetNameCrossfit.value
       };
-
-      localStorage.setItem("theone-timebell-settings", JSON.stringify(payload));
-      if (showMessage) {
-        const original = els.saveBtn.textContent;
-        els.saveBtn.textContent = "✅ 저장 완료";
-        setTimeout(() => els.saveBtn.textContent = original, 1200);
-      }
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(payload));
+      if (showMessage) showToast("현재 프로그램 설정을 저장했습니다.");
+      updatePresetUI();
     }
 
-    function loadSettings() {
+    async function soundTest() {
+      if (!await ensureAudio()) return;
+      const a = readAudioInputs(); playSound(a.startSound);
+      setTimeout(() => speak("소리 확인이 완료되었습니다"), 300);
+      showToast("현재 프로그램의 시작 소리를 재생했습니다.");
+    }
+    async function toggleFullscreen() {
       try {
-        const raw = localStorage.getItem("theone-timebell-settings");
-        if (!raw) return;
-        const saved = JSON.parse(raw);
-
-        Object.entries(saved).forEach(([key, value]) => {
-          const element = els[key];
-          if (!element) return;
-          if (element.type === "checkbox") element.checked = Boolean(value);
-          else element.value = value;
-        });
-      } catch (_) {}
+        if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+        else await document.exitFullscreen();
+      } catch (_) { showToast("브라우저 메뉴에서 전체화면을 허용해주세요."); }
     }
-
-    function cleanInvalidSoundSelections() {
-      const soundDefaults = {
-        prepareSound: "file:sounds/prepare.mp3",
-        startSound: "file:sounds/start.mp3",
-        restSound: "file:sounds/rest.mp3",
-        finishSound: "file:sounds/finish.mp3",
-        alertSound: "file:sounds/alert.mp3"
-      };
-
-      Object.entries(soundDefaults).forEach(([key, fallback]) => {
-        const select = els[key];
-        if (!select) return;
-        const optionValues = Array.from(select.options).map(option => option.value);
-        if (!optionValues.includes(select.value)) {
-          select.value = fallback;
-        }
-      });
+    function syncFullscreen() {
+      const on = Boolean(document.fullscreenElement);
+      document.body.classList.toggle("fullscreen-mode", on);
+      els.fullscreenBtn.textContent = on ? "⤢ 전체화면 종료" : "⛶ 전체화면";
+      renderFullscreenPrograms();
     }
-
-
-    function updatePresetNames() {
-      const fallback = {
-        boxing: "복싱 3분",
-        kickboxing: "킥복싱",
-        tabata: "타바타",
-        crossfit: "크로스핏"
-      };
-
-      els.presetTitleBoxing.textContent = els.presetNameBoxing.value.trim() || fallback.boxing;
-      els.presetTitleKickboxing.textContent = els.presetNameKickboxing.value.trim() || fallback.kickboxing;
-      els.presetTitleTabata.textContent = els.presetNameTabata.value.trim() || fallback.tabata;
-      els.presetTitleCrossfit.textContent = els.presetNameCrossfit.value.trim() || fallback.crossfit;
-      updateActivePresetSoundNotice();
-    }
-
-    function markActivePresetButton() {
-      document.querySelectorAll(".preset-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.preset === activePresetName);
-      });
-    }
-
-    document.querySelectorAll(".preset-btn").forEach(button => {
-      button.addEventListener("click", () => applyPreset(button.dataset.preset));
-    });
-
-    [
-      els.prepareSeconds, els.workMinutes, els.workSeconds,
-      els.restMinutes, els.restSeconds, els.rounds
-    ].forEach(input => {
-      input.addEventListener("input", () => {
-        saveActivePresetTiming();
-        markActivePresetButton();
-        updateIdlePreview();
-        saveSettings(false);
-      });
-    });
-
-    [
-      els.voiceEnabled, els.alert30, els.alert10,
-      els.countdown5, els.voiceTone
-    ].forEach(input => input.addEventListener("change", () => {
-      saveActivePresetAudio();
-      saveSettings(false);
-    }));
-
-    [
-      els.prepareSound, els.startSound, els.restSound, els.finishSound, els.alertSound
-    ].forEach(select => {
-      select.addEventListener("change", () => {
-        saveActivePresetAudio();
-        previewSelectedSound(select);
-      });
-    });
-
-    [
-      els.presetNameBoxing, els.presetNameKickboxing,
-      els.presetNameTabata, els.presetNameCrossfit
-    ].forEach(input => {
-      input.addEventListener("input", () => {
-        updatePresetNames();
-        saveSettings(false);
-      });
-    });
-
-    if (els.themeSelect) {
-      els.themeSelect.addEventListener("change", () => {
-        applyTheme(els.themeSelect.value, true);
-        saveSettings(false);
-      });
-    }
-
-    document.querySelectorAll(".theme-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        applyTheme(button.dataset.theme, true);
-        saveSettings(false);
-      });
-    });
-
-    els.volumeRange.addEventListener("input", () => {
-      els.volumeValue.textContent = `${els.volumeRange.value}%`;
-      saveSettings(false);
-    });
-
-    els.startBtn.addEventListener("click", startTimer);
-    els.pauseBtn.addEventListener("click", pauseTimer);
-    els.resetBtn.addEventListener("click", () => resetTimer(true));
-    els.skipBtn.addEventListener("click", skipPhase);
-    els.addTenBtn.addEventListener("click", addTenSeconds);
-    els.soundTestBtn.addEventListener("click", soundTest);
-    els.fullscreenBtn.addEventListener("click", toggleFullscreen);
-    els.saveBtn.addEventListener("click", () => saveSettings(true));
-    els.settingsToggle.addEventListener("click", () => {
+    function toggleSettings() {
       els.settingsCard.classList.toggle("collapsed");
-      syncSettingsToggleLabel();
-    });
-
-    document.addEventListener("fullscreenchange", syncFullscreenClass);
-
-    document.addEventListener("visibilitychange", async () => {
-      if (document.visibilityState === "visible" && state.isRunning && !state.isPaused) {
-        await requestWakeLock();
-        state.endAt = performance.now() + state.remainingMs;
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
-
-      if (event.code === "Space") {
-        event.preventDefault();
-        if (state.isRunning && !state.isPaused) pauseTimer();
-        else startTimer();
-      } else if (event.key.toLowerCase() === "r") {
-        resetTimer(true);
-      } else if (event.key.toLowerCase() === "n") {
-        skipPhase();
-      } else if (event.key.toLowerCase() === "f") {
-        toggleFullscreen();
-      }
-    });
-
-    window.speechSynthesis?.getVoices?.();
-    window.speechSynthesis?.addEventListener?.("voiceschanged", () => pickKoreanVoice());
-
-    loadBrandSettings();
-    loadPresetTimings();
-    loadPresetAudioSettings();
-    loadSettings();
-    cleanInvalidSoundSelections();
-    loadThemeSettings();
-    updatePresetNames();
-    if (!presets[activePresetName]) activePresetName = "boxing";
-
-    if (!hasSavedPresetTimings) {
-      const currentTiming = readPresetTimingFromInputs();
-      if (currentTiming && presets[activePresetName]) {
-        presets[activePresetName] = currentTiming;
-        savePresetTimings();
-      }
+      const hidden = els.settingsCard.classList.contains("collapsed");
+      els.layout.classList.toggle("settings-hidden", hidden);
+      els.settingsToggle.textContent = hidden ? "⚙️ 설정 열기" : "⚙️ 설정 닫기";
+    }
+    function initialSettingsVisibility() {
+      const small = matchMedia("(max-width: 1050px)").matches;
+      els.settingsCard.classList.toggle("collapsed", small);
+      els.layout.classList.toggle("settings-hidden", small);
+      els.settingsToggle.textContent = small ? "⚙️ 설정 열기" : "⚙️ 설정 닫기";
     }
 
-    updatePresetMetaLabels();
-    applyPreset(activePresetName);
-    markActivePresetButton();
-    setupInitialSettingsVisibility();
-    els.volumeValue.textContent = `${els.volumeRange.value}%`;
-    resetTimer(false);
+    document.querySelectorAll(".theme-btn").forEach((btn) => btn.addEventListener("click", () => applyTheme(btn.dataset.theme)));
+    document.querySelectorAll(".preset-btn").forEach((btn) => btn.addEventListener("click", () => applyPreset(btn.dataset.preset)));
+    els.fullscreenProgramList.addEventListener("click", (event) => {
+      const btn = event.target.closest("[data-fs-preset]"); if (btn) applyPreset(btn.dataset.fsPreset);
+    });
+    [els.presetNameBoxing,els.presetNameKickboxing,els.presetNameTabata,els.presetNameCrossfit].forEach((input) => input.addEventListener("input", () => { updatePresetUI(); saveSettings(false); }));
+    [els.prepareSeconds,els.workMinutes,els.workSeconds,els.restMinutes,els.restSeconds,els.rounds].forEach((input) => input.addEventListener("change", () => { saveActivePresetData(); updatePresetUI(); if (!state.isRunning) resetTimer(false); }));
+    [els.voiceEnabled,els.alert30,els.alert10,els.countdown5,els.voiceTone,els.prepareSound,els.startSound,els.restSound,els.finishSound,els.alertSound].forEach((input) => input.addEventListener("change", () => saveActivePresetData()));
+    els.volumeRange.addEventListener("input", updateVolumeLabel);
+    els.startBtn.addEventListener("click", startTimer); els.pauseBtn.addEventListener("click", pauseTimer);
+    els.resetBtn.addEventListener("click", () => resetTimer(true)); els.addTenBtn.addEventListener("click", addTenSeconds);
+    els.soundTestBtn.addEventListener("click", soundTest); els.fullscreenBtn.addEventListener("click", toggleFullscreen);
+    els.settingsToggle.addEventListener("click", toggleSettings); els.saveBtn.addEventListener("click", () => saveSettings(true));
+    els.brandEditBtn.addEventListener("click", openBrandModal); els.brandSaveBtn.addEventListener("click", saveBrand);
+    els.brandResetBtn.addEventListener("click", resetBrand); els.brandCloseBtn.addEventListener("click", closeBrandModal);
+    els.brandModalBackdrop.addEventListener("click", (e) => { if (e.target === els.brandModalBackdrop) closeBrandModal(); });
+    document.addEventListener("fullscreenchange", syncFullscreen);
+    document.addEventListener("visibilitychange", async () => { if (document.visibilityState === "visible" && state.isRunning) await requestWakeLock(); });
+    document.addEventListener("keydown", (e) => {
+      if (["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName)) return;
+      if (e.code === "Space") { e.preventDefault(); state.isRunning && !state.isPaused ? pauseTimer() : startTimer(); }
+      if (e.key.toLowerCase() === "r") resetTimer(true);
+      if (e.key.toLowerCase() === "f") toggleFullscreen();
+      if (e.key === "Escape" && els.brandModalBackdrop.classList.contains("open")) closeBrandModal();
+    });
+
+    initialSettingsVisibility();
+    loadSavedData();
   </script>
 </body>
 </html>
