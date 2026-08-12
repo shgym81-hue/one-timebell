@@ -1,75 +1,48 @@
-const CACHE_NAME = "one-timebell-pwa-v2-20260804-new-bell-logo";
+"use strict";
 
-const APP_SHELL = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./icon-192.png",
-  "./icon-512.png",
-  "./apple-touch-icon.png",
-  "./maskable-icon-512.png",
-  "./header-logo.png",
-  "./sounds/prepare.mp3",
-  "./sounds/start.mp3",
-  "./sounds/rest.mp3",
-  "./sounds/finish.mp3"
-];
+// 원타임벨 캐시 갱신용 서비스워커 - 2026-08-12 soundpack v2
+const CACHE_NAME = "one-timebell-20260812-soundpack-v2";
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {
-      // 파일 하나가 누락돼도 서비스 워커 전체 설치가 실패하지 않도록 개별 저장합니다.
-      await Promise.allSettled(
-        APP_SHELL.map((url) => cache.add(new Request(url, { cache: "reload" })))
-      );
-    })
-  );
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
-    ).then(() => self.clients.claim())
-  );
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)));
+    await self.clients.claim();
+  })());
 });
 
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
 
-  const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
-
-  // 화면 문서는 새 버전을 우선 확인하고, 인터넷이 없으면 저장본을 사용합니다.
-  if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put("./index.html", copy));
-          return response;
-        })
-        .catch(async () =>
-          (await caches.match(request)) ||
-          (await caches.match("./index.html")) ||
-          (await caches.match("./"))
-        )
-    );
+  // HTML/페이지 이동은 항상 네트워크를 먼저 확인해서 업데이트가 즉시 보이게 합니다.
+  if (request.mode === "navigate" || request.destination === "document") {
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(request, { cache: "no-store" });
+        const cache = await caches.open(CACHE_NAME);
+        cache.put(request, fresh.clone());
+        return fresh;
+      } catch (_) {
+        return (await caches.match(request)) || (await caches.match("./index.html"));
+      }
+    })());
     return;
   }
 
-  // MP3·아이콘 같은 파일은 저장본을 먼저 사용하고, 없으면 인터넷에서 받아 저장합니다.
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
-      return fetch(request).then((response) => {
-        if (!response || response.status !== 200 || response.type === "opaque") return response;
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-        return response;
-      });
-    })
-  );
+  // MP3 등 정적 파일도 새 파일을 우선 확인하고, 오프라인일 때만 캐시를 사용합니다.
+  event.respondWith((async () => {
+    try {
+      const fresh = await fetch(request, { cache: "no-store" });
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, fresh.clone());
+      return fresh;
+    } catch (_) {
+      return caches.match(request);
+    }
+  })());
 });
