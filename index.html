@@ -341,6 +341,7 @@
     }
   </style>
 </head>
+  <!-- 원타임벨 소리 확장 버전: 기존 4개 + 새 MP3 6개 = 총 10개 -->
 <body class="theme-purple phase-idle">
   <main class="app">
     <header class="topbar">
@@ -439,7 +440,17 @@
               <label for="prepareSound">준비 시작 소리</label>
               <div class="sound-select-row">
               <select id="prepareSound">
-                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="none">소리 없음</option>
+                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
+                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
+                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
+                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
+                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
+                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
+                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
+                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
+                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="prepareSoundPreviewBtn" type="button">▶ 다시 듣기</button>
               </div>
@@ -448,7 +459,17 @@
               <label for="startSound">운동 시작 소리</label>
               <div class="sound-select-row">
               <select id="startSound">
-                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="none">소리 없음</option>
+                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
+                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
+                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
+                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
+                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
+                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
+                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
+                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
+                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="startSoundPreviewBtn" type="button">▶ 다시 듣기</button>
               </div>
@@ -457,7 +478,17 @@
               <label for="restSound">휴식 시작 소리</label>
               <div class="sound-select-row">
               <select id="restSound">
-                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="none">소리 없음</option>
+                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
+                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
+                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
+                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
+                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
+                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
+                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
+                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
+                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="restSoundPreviewBtn" type="button">▶ 다시 듣기</button>
               </div>
@@ -466,7 +497,17 @@
               <label for="finishSound">운동 완료 소리</label>
               <div class="sound-select-row">
               <select id="finishSound">
-                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="none">소리 없음</option>
+                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
+                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
+                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
+                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
+                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
+                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
+                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
+                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
+                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="finishSoundPreviewBtn" type="button">▶ 다시 듣기</button>
               </div>
@@ -475,14 +516,26 @@
               <label for="alertSound">30초·10초 알림 소리</label>
               <div class="sound-select-row">
               <select id="alertSound">
-                <option value="file:sounds/prepare.mp3">내 MP3: prepare.mp3</option><option value="file:sounds/start.mp3">내 MP3: start.mp3</option><option value="file:sounds/rest.mp3">내 MP3: rest.mp3</option><option value="file:sounds/finish.mp3">내 MP3: finish.mp3</option><option value="doubleBeep">삐삐 2번</option><option value="fastBeep">빠른 삐</option><option value="none">소리 없음</option>
+                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
+                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
+                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
+                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
+                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
+                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
+                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
+                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
+                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="doubleBeep">기본 삐삐 2번</option>
+                <option value="fastBeep">기본 빠른 삐</option>
+                <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="alertSoundPreviewBtn" type="button">▶ 다시 듣기</button>
               </div>
             </div>
           </div>
           <div class="notice" id="activePresetSoundNotice">현재 선택한 프로그램의 시간·소리·음성 설정을 편집 중입니다.</div>
-          <p class="small-note">소리를 선택하면 즉시 한 번 재생되며 동시에 현재 프로그램에 자동 저장됩니다. 준비·운동 시작·휴식·완료 소리는 <b>MP3 4개와 소리 없음</b>만 표시됩니다. 30초·10초 알림은 <b>MP3 4개, 삐삐 2번, 빠른 삐, 소리 없음</b>만 표시됩니다.</p>
+          <p class="small-note">소리를 선택하면 즉시 한 번 재생되며 동시에 현재 프로그램에 자동 저장됩니다. 준비·운동 시작·휴식·완료 소리는 <b>MP3 10개와 소리 없음</b>을 선택할 수 있습니다. 30초·10초 알림은 <b>MP3 10개, 기본 삐삐 2번, 기본 빠른 삐, 소리 없음</b>을 선택할 수 있습니다.</p>
         </section>
 
         <section class="section">
