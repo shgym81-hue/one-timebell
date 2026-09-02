@@ -171,11 +171,30 @@
       padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px;
       color: var(--text); background: rgba(255,255,255,.06); font-weight: 950;
     }
-    .timer-wrap { flex: 1; display: grid; place-items: center; min-height: 240px; }
-    .timer {
-      font-variant-numeric: tabular-nums; font-size: clamp(96px, 15vw, 260px); line-height: .88;
-      font-weight: 1000; letter-spacing: -.075em; text-shadow: 0 15px 55px rgba(0,0,0,.38);
+    .phase-panels { flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 390px; margin: 16px 0; }
+    .phase-time-panel {
+      order: 2; min-height: 112px; padding: clamp(14px, 2vw, 22px); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 22px;
+      background: rgba(255,255,255,.045); overflow: hidden;
+      transition: min-height .35s ease, background .35s ease, border-color .35s ease, transform .35s ease;
     }
+    .phase-time-panel.active {
+      order: 1; flex: 1; min-height: 270px; border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+      background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 20%, transparent), rgba(255,255,255,.045));
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    body.phase-rest .phase-time-panel.active {
+      border-color: color-mix(in srgb, #60a5fa 68%, var(--line));
+      background: linear-gradient(145deg, rgba(59,130,246,.25), rgba(255,255,255,.045));
+    }
+    .phase-time-label { color: var(--muted); font-size: clamp(16px, 2vw, 25px); font-weight: 950; }
+    .phase-time-panel.active .phase-time-label { color: var(--text); font-size: clamp(22px, 3vw, 38px); }
+    .phase-time {
+      margin-top: 5px; font-variant-numeric: tabular-nums; font-size: clamp(50px, 7vw, 104px); line-height: .95;
+      font-weight: 1000; letter-spacing: -.065em; text-shadow: 0 10px 34px rgba(0,0,0,.28);
+    }
+    .phase-time-panel.active .phase-time { font-size: clamp(96px, 15vw, 250px); line-height: .86; }
+    .phase-time-note { margin-top: 8px; color: var(--muted); font-size: 12px; font-weight: 800; }
     .sub-status { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
     .sub-status strong { font-size: clamp(22px, 3vw, 42px); }
     .sub-status span { max-width: 52%; color: var(--muted); text-align: right; font-size: clamp(13px, 1.5vw, 17px); }
@@ -291,15 +310,14 @@
       min-height: 100vh; border: 0; border-radius: 0;
       padding: clamp(16px, 3vh, 34px) clamp(16px, 3vw, 42px) calc(118px + var(--safe-bottom));
     }
-    /* 전체화면에서는 타이머 숫자를 화면 폭에 가깝게 크게 표시 */
-    body.fullscreen-mode .timer-wrap {
-      width: 100%; min-height: 0; overflow: visible;
-    }
-    body.fullscreen-mode .timer {
+    /* 전체화면에서도 현재 구간은 크게, 다음 구간은 작게 함께 표시 */
+    body.fullscreen-mode .phase-panels { min-height: 0; margin: 10px 0; }
+    body.fullscreen-mode .phase-time-panel.active { min-height: min(56vh, 560px); }
+    body.fullscreen-mode .phase-time-panel.active .phase-time {
       width: 100%; white-space: nowrap; text-align: center;
-      font-size: clamp(160px, min(38vw, 42vh), 430px);
-      line-height: .82; letter-spacing: -.085em;
+      font-size: clamp(150px, min(34vw, 38vh), 400px); line-height: .82;
     }
+    body.fullscreen-mode .phase-time-panel:not(.active) { min-height: min(18vh, 160px); }
     body.fullscreen-mode .control-row { margin-bottom: 0; opacity: .76; }
     body.fullscreen-mode .fullscreen-program-bar {
       position: fixed; left: 50%; bottom: calc(12px + var(--safe-bottom)); z-index: 500;
@@ -338,8 +356,11 @@
       .top-actions .btn { min-height: 42px; padding: 8px 10px; font-size: 12px; }
       .display-card { min-height: 63vh; padding: 16px; border-radius: 18px; }
       .settings-card { padding: 10px; border-radius: 18px; }
-      .timer { font-size: clamp(82px, 28vw, 170px); }
-      .timer-wrap { min-height: 200px; }
+      .phase-panels { min-height: 350px; gap: 9px; margin: 12px 0; }
+      .phase-time-panel { min-height: 98px; padding: 12px; border-radius: 17px; }
+      .phase-time-panel.active { min-height: 225px; }
+      .phase-time { font-size: clamp(45px, 15vw, 72px); }
+      .phase-time-panel.active .phase-time { font-size: clamp(88px, 29vw, 150px); }
       .sub-status { align-items: flex-start; flex-direction: column; }
       .sub-status span { max-width: none; text-align: left; }
       .control-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -391,8 +412,17 @@
           <div class="phase-badge" id="phaseBadge">준비</div>
         </div>
 
-        <div class="timer-wrap">
-          <div class="timer" id="timerDisplay">03:00</div>
+        <div class="phase-panels" id="phasePanels">
+          <section class="phase-time-panel active" id="workPanel" aria-label="운동 시간">
+            <span class="phase-time-label" id="workTimeLabel">운동 시간</span>
+            <strong class="phase-time" id="workTimerDisplay">03:00</strong>
+            <small class="phase-time-note" id="workTimeNote">현재 진행 구간</small>
+          </section>
+          <section class="phase-time-panel" id="restPanel" aria-label="휴식 시간">
+            <span class="phase-time-label">휴식 시간</span>
+            <strong class="phase-time" id="restTimerDisplay">01:00</strong>
+            <small class="phase-time-note" id="restTimeNote">다음 구간</small>
+          </section>
         </div>
 
         <div class="sub-status">
@@ -652,7 +682,10 @@
     const $ = (id) => document.getElementById(id);
     const els = {
       layout: $("layout"), settingsCard: $("settingsCard"), settingsToggle: $("settingsToggle"),
-      timerDisplay: $("timerDisplay"), roundLabel: $("roundLabel"), phaseBadge: $("phaseBadge"),
+      phasePanels: $("phasePanels"), workPanel: $("workPanel"), restPanel: $("restPanel"),
+      workTimerDisplay: $("workTimerDisplay"), restTimerDisplay: $("restTimerDisplay"),
+      workTimeLabel: $("workTimeLabel"), workTimeNote: $("workTimeNote"), restTimeNote: $("restTimeNote"),
+      roundLabel: $("roundLabel"), phaseBadge: $("phaseBadge"),
       mainStatus: $("mainStatus"), nextStatus: $("nextStatus"), progressBar: $("progressBar"),
       startBtn: $("startBtn"), pauseBtn: $("pauseBtn"), resetBtn: $("resetBtn"), addTenBtn: $("addTenBtn"),
       fullscreenBtn: $("fullscreenBtn"), saveBtn: $("saveBtn"), quickTimeChangeBtn: $("quickTimeChangeBtn"),
@@ -1207,7 +1240,7 @@
     }
     function resetTimer(withSound = false) {
       clearInterval(state.timerId); window.speechSynthesis?.cancel();
-      const s = currentSettings() || { work: presets[activePresetName].work, rounds: presets[activePresetName].rounds };
+      const s = currentSettings() || { work: presets[activePresetName].work, rest: presets[activePresetName].rest, rounds: presets[activePresetName].rounds };
       state = { phase: PHASE.IDLE, round: 1, totalRounds: s.rounds, isRunning: false, isPaused: false,
         remainingMs: s.work * 1000, phaseDurationMs: s.work * 1000, endAt: 0, timerId: null, notified: new Set() };
       if (withSound && audioContext) playSound("singleBeep"); releaseWakeLock(); render();
@@ -1218,10 +1251,21 @@
     }
 
     function render() {
-      const s = currentSettings() || { work: presets[activePresetName].work, rounds: presets[activePresetName].rounds };
+      const s = currentSettings() || { work: presets[activePresetName].work, rest: presets[activePresetName].rest, rounds: presets[activePresetName].rounds };
       document.body.classList.remove("phase-idle","phase-prepare","phase-work","phase-rest","phase-finished");
       document.body.classList.add(`phase-${state.phase}`);
-      els.timerDisplay.textContent = formatClock(state.remainingMs);
+      const restIsActive = state.phase === PHASE.REST;
+      const workTimeMs = restIsActive ? s.work * 1000 : state.remainingMs;
+      const restTimeMs = restIsActive ? state.remainingMs : s.rest * 1000;
+      els.workTimerDisplay.textContent = formatClock(workTimeMs);
+      els.restTimerDisplay.textContent = formatClock(restTimeMs);
+      els.workPanel.classList.toggle("active", !restIsActive);
+      els.restPanel.classList.toggle("active", restIsActive);
+      els.workPanel.setAttribute("aria-current", restIsActive ? "false" : "true");
+      els.restPanel.setAttribute("aria-current", restIsActive ? "true" : "false");
+      els.workTimeLabel.textContent = state.phase === PHASE.PREPARE ? "준비 시간" : "운동 시간";
+      els.workTimeNote.textContent = restIsActive ? "다음 운동 구간" : state.phase === PHASE.IDLE ? "시작할 운동 시간" : "현재 진행 구간";
+      els.restTimeNote.textContent = restIsActive ? "현재 진행 구간" : "다음 휴식 구간";
       els.roundLabel.textContent = `ROUND ${state.round} / ${state.totalRounds || s.rounds}`;
       const labels = {
         idle: ["준비", "운동 준비", "시작 버튼을 눌러주세요"],
@@ -1443,7 +1487,7 @@
     // PWA 서비스 워커 등록: 앱 설치 및 오프라인 실행에 사용합니다.
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js?v=20260902-bilingual-voices-v4").then((registration) => {
+        navigator.serviceWorker.register("./sw.js?v=20260902-dual-phase-timer-v5").then((registration) => {
           registration.update().catch(() => {});
         }).catch((error) => {
           console.warn("서비스 워커 등록 실패:", error);
