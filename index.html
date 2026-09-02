@@ -951,12 +951,16 @@
       }
 
       const previous = els.voiceSelect.value || presetAudioSettings[activePresetName]?.voiceURI || "";
-      availableVoices = window.speechSynthesis.getVoices() || [];
-      const korean = availableVoices.filter((voice) => /^ko(?:-|_)/i.test(voice.lang || ""));
-      const others = availableVoices.filter((voice) => !korean.includes(voice));
+      const deviceVoices = window.speechSynthesis.getVoices() || [];
+      const korean = deviceVoices
+        .filter((voice) => /^ko(?:-|_)/i.test(voice.lang || ""))
+        .filter((voice, index, voices) => voices.findIndex((item) => voiceIdentity(item) === voiceIdentity(voice)) === index)
+        .sort((a, b) => Number(b.localService) - Number(a.localService));
+      // 한국어 안내 문장을 읽지 못하는 다른 언어 음성은 선택 목록에 표시하지 않습니다.
+      availableVoices = korean;
       els.voiceSelect.innerHTML = '<option value="">기기 기본 한국어 음성</option>';
 
-      [...korean, ...others].forEach((voice) => {
+      korean.forEach((voice) => {
         const option = document.createElement("option");
         option.value = voiceIdentity(voice);
         option.textContent = `${voice.name} · ${voice.lang || "언어 미표시"}${voice.localService ? " · 기기 내장" : ""}`;
@@ -965,9 +969,9 @@
       selectSavedVoice(previous);
 
       if (korean.length) {
-        els.voiceAvailability.textContent = `한국어 음성 ${korean.length}개를 찾았습니다. 모바일과 PC의 음성 목록은 서로 다를 수 있습니다.`;
-      } else if (availableVoices.length) {
-        els.voiceAvailability.textContent = "한국어 전용 음성이 없어 기기 기본 음성 또는 다른 설치 음성을 사용합니다.";
+        els.voiceAvailability.textContent = `재생 가능한 한국어 음성 ${korean.length}개만 표시합니다. 선택하면 바로 확인할 수 있습니다.`;
+      } else if (deviceVoices.length) {
+        els.voiceAvailability.textContent = "별도 한국어 음성이 없어 기기 기본 한국어 음성만 사용합니다.";
       } else {
         els.voiceAvailability.textContent = "음성 목록을 기다리는 중입니다. 미리듣기를 한 번 눌러주세요.";
       }
@@ -1299,7 +1303,12 @@
     });
     [els.presetNameBoxing,els.presetNameKickboxing,els.presetNameTabata].forEach((input) => input.addEventListener("input", () => { updatePresetUI(); saveSettings(false); }));
     [els.prepareSeconds,els.workMinutes,els.workSeconds,els.restMinutes,els.restSeconds,els.rounds].forEach((input) => input.addEventListener("change", saveTimeAndRefresh));
-    [els.voiceEnabled,els.alert30,els.alert10,els.countdown5,els.voiceSelect].forEach((input) => input.addEventListener("change", () => saveSettings(false)));
+    [els.voiceEnabled,els.alert30,els.alert10,els.countdown5].forEach((input) => input.addEventListener("change", () => saveSettings(false)));
+    els.voiceSelect.addEventListener("change", () => {
+      saveSettings(false);
+      primeMobileSpeech();
+      setTimeout(() => speak("준비 시작. 선택한 목소리입니다."), 80);
+    });
     els.voiceTone.addEventListener("change", () => {
       saveSettings(false);
       primeMobileSpeech();
@@ -1367,7 +1376,7 @@
     // PWA 서비스 워커 등록: 앱 설치 및 오프라인 실행에 사용합니다.
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js?v=20260902-settings-sections-v2").then((registration) => {
+        navigator.serviceWorker.register("./sw.js?v=20260902-korean-voices-v3").then((registration) => {
           registration.update().catch(() => {});
         }).catch((error) => {
           console.warn("서비스 워커 등록 실패:", error);
