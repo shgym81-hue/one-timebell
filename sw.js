@@ -1,7 +1,7 @@
 "use strict";
 
-// 원타임벨 캐시 갱신용 서비스워커 - 2026-09-02 Korean voices only
-const CACHE_NAME = "one-timebell-20260902-korean-voices-v3";
+// 원타임벨 캐시 갱신용 서비스워커 - 2026-09-02 bilingual simple voice selector
+const CACHE_NAME = "one-timebell-20260902-bilingual-voices-v4";
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();

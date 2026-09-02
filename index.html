@@ -571,6 +571,13 @@
           </div>
           <div class="field-grid" style="margin-top:12px;">
             <div class="field full">
+              <label for="voiceLanguage">안내 언어</label>
+              <select id="voiceLanguage">
+                <option value="ko">한국어 안내</option>
+                <option value="en">English 안내</option>
+              </select>
+            </div>
+            <div class="field full">
               <label for="voiceSelect">안내 목소리 선택</label>
               <div class="sound-select-row">
                 <select id="voiceSelect">
@@ -652,7 +659,7 @@
       prepareSeconds: $("prepareSeconds"), workMinutes: $("workMinutes"), workSeconds: $("workSeconds"),
       restMinutes: $("restMinutes"), restSeconds: $("restSeconds"), rounds: $("rounds"),
       voiceEnabled: $("voiceEnabled"), alert30: $("alert30"), alert10: $("alert10"), countdown5: $("countdown5"),
-      voiceTone: $("voiceTone"), voiceSelect: $("voiceSelect"), voicePreviewBtn: $("voicePreviewBtn"),
+      voiceLanguage: $("voiceLanguage"), voiceTone: $("voiceTone"), voiceSelect: $("voiceSelect"), voicePreviewBtn: $("voicePreviewBtn"),
       voiceAvailability: $("voiceAvailability"), prepareSound: $("prepareSound"), startSound: $("startSound"),
       restSound: $("restSound"), finishSound: $("finishSound"), alertSound: $("alertSound"),
       prepareSoundPreviewBtn: $("prepareSoundPreviewBtn"), startSoundPreviewBtn: $("startSoundPreviewBtn"),
@@ -689,9 +696,9 @@
     };
     const DEFAULT_NAMES = { boxing: "복싱 3분", kickboxing: "킥복싱", tabata: "타바타" };
     const DEFAULT_PRESET_AUDIO = {
-      boxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
-      kickboxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
-      tabata: { voiceEnabled: true, alert30: false, alert10: true, countdown5: true, voiceTone: "high", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "fastBeep" }
+      boxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceLanguage: "ko", voiceTone: "normal", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
+      kickboxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceLanguage: "ko", voiceTone: "normal", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
+      tabata: { voiceEnabled: true, alert30: false, alert10: true, countdown5: true, voiceLanguage: "ko", voiceTone: "high", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "fastBeep" }
     };
 
     const PHASE = { IDLE: "idle", PREPARE: "prepare", WORK: "work", REST: "rest", FINISHED: "finished" };
@@ -714,6 +721,7 @@
     let autoSaveStatusTimer = null;
     let volumeSaveTimer = null;
     let availableVoices = [];
+    let deviceVoices = [];
 
     function showToast(message) {
       els.toast.textContent = message;
@@ -802,7 +810,8 @@
     function readAudioInputs() {
       return {
         voiceEnabled: els.voiceEnabled.checked, alert30: els.alert30.checked, alert10: els.alert10.checked,
-        countdown5: els.countdown5.checked, voiceTone: els.voiceTone.value, voiceURI: els.voiceSelect.value,
+        countdown5: els.countdown5.checked, voiceLanguage: els.voiceLanguage.value,
+        voiceTone: els.voiceTone.value, voiceURI: els.voiceSelect.value,
         prepareSound: els.prepareSound.value, startSound: els.startSound.value, restSound: els.restSound.value,
         finishSound: els.finishSound.value, alertSound: els.alertSound.value
       };
@@ -821,6 +830,7 @@
         alert30: item.alert30 ?? d.alert30,
         alert10: item.alert10 ?? d.alert10,
         countdown5: item.countdown5 ?? d.countdown5,
+        voiceLanguage: ["ko","en"].includes(item.voiceLanguage) ? item.voiceLanguage : d.voiceLanguage,
         voiceTone: ["normal","low","high"].includes(item.voiceTone) ? item.voiceTone : d.voiceTone,
         voiceURI: typeof item.voiceURI === "string" ? item.voiceURI : d.voiceURI,
         prepareSound: validSelectValue(els.prepareSound, item.prepareSound, d.prepareSound),
@@ -834,7 +844,8 @@
       const a = normalizeAudio(key, presetAudioSettings[key]);
       presetAudioSettings[key] = a;
       els.voiceEnabled.checked = a.voiceEnabled; els.alert30.checked = a.alert30; els.alert10.checked = a.alert10;
-      els.countdown5.checked = a.countdown5; els.voiceTone.value = a.voiceTone;
+      els.countdown5.checked = a.countdown5; els.voiceLanguage.value = a.voiceLanguage; els.voiceTone.value = a.voiceTone;
+      loadDeviceVoices();
       selectSavedVoice(a.voiceURI);
       els.prepareSound.value = a.prepareSound; els.startSound.value = a.startSound; els.restSound.value = a.restSound;
       els.finishSound.value = a.finishSound; els.alertSound.value = a.alertSound;
@@ -933,13 +944,28 @@
         const exact = availableVoices.find((voice) => voiceIdentity(voice) === wanted || voice.name === wanted);
         if (exact) return exact;
       }
-      return availableVoices.find((voice) => /^ko(?:-|_)/i.test(voice.lang || "")) || null;
+      const languagePattern = els.voiceLanguage.value === "en" ? /^en(?:-|_)/i : /^ko(?:-|_)/i;
+      return availableVoices.find((voice) => languagePattern.test(voice.lang || "")) || null;
     }
 
     function selectSavedVoice(savedValue) {
       const wanted = String(savedValue || "");
       const exists = Array.from(els.voiceSelect.options).some((option) => option.value === wanted);
       els.voiceSelect.value = exists ? wanted : "";
+    }
+
+    function simpleVoiceKind(voice, language, counters) {
+      const name = String(voice?.name || "").toLowerCase();
+      const femaleNames = /heami|sunhi|female|woman|zira|jenny|aria|samantha|victoria|karen|moira|ava|allison|susan|hazel/;
+      const maleNames = /injoon|hyunsu|male|man|david|mark|guy|daniel|alex|fred|tom|aaron|george/;
+      const kind = femaleNames.test(name) ? "female" : maleNames.test(name) ? "male" : "voice";
+      counters[kind] += 1;
+      if (language === "en") {
+        return kind === "female" ? `English 여성 음성 ${counters[kind]}`
+          : kind === "male" ? `English 남성 음성 ${counters[kind]}` : `English 음성 ${counters[kind]}`;
+      }
+      return kind === "female" ? `한국어 여성 음성 ${counters[kind]}`
+        : kind === "male" ? `한국어 남성 음성 ${counters[kind]}` : `한국어 음성 ${counters[kind]}`;
     }
 
     function loadDeviceVoices() {
@@ -951,27 +977,35 @@
       }
 
       const previous = els.voiceSelect.value || presetAudioSettings[activePresetName]?.voiceURI || "";
-      const deviceVoices = window.speechSynthesis.getVoices() || [];
-      const korean = deviceVoices
-        .filter((voice) => /^ko(?:-|_)/i.test(voice.lang || ""))
+      const loadedVoices = window.speechSynthesis.getVoices() || [];
+      if (loadedVoices.length) deviceVoices = loadedVoices;
+      const language = els.voiceLanguage.value === "en" ? "en" : "ko";
+      const languagePattern = language === "en" ? /^en(?:-|_)/i : /^ko(?:-|_)/i;
+      const matching = deviceVoices
+        .filter((voice) => languagePattern.test(voice.lang || ""))
         .filter((voice, index, voices) => voices.findIndex((item) => voiceIdentity(item) === voiceIdentity(voice)) === index)
         .sort((a, b) => Number(b.localService) - Number(a.localService));
-      // 한국어 안내 문장을 읽지 못하는 다른 언어 음성은 선택 목록에 표시하지 않습니다.
-      availableVoices = korean;
-      els.voiceSelect.innerHTML = '<option value="">기기 기본 한국어 음성</option>';
+      availableVoices = matching;
+      els.voiceSelect.disabled = false;
+      const defaultLabel = language === "en" ? "기기 기본 English 음성" : "기기 기본 한국어 음성";
+      els.voiceSelect.innerHTML = `<option value="">${defaultLabel}</option>`;
 
-      korean.forEach((voice) => {
+      const counters = { female: 0, male: 0, voice: 0 };
+      matching.forEach((voice) => {
         const option = document.createElement("option");
         option.value = voiceIdentity(voice);
-        option.textContent = `${voice.name} · ${voice.lang || "언어 미표시"}${voice.localService ? " · 기기 내장" : ""}`;
+        option.textContent = simpleVoiceKind(voice, language, counters);
         els.voiceSelect.appendChild(option);
       });
       selectSavedVoice(previous);
 
-      if (korean.length) {
-        els.voiceAvailability.textContent = `재생 가능한 한국어 음성 ${korean.length}개만 표시합니다. 선택하면 바로 확인할 수 있습니다.`;
+      if (matching.length) {
+        const languageLabel = language === "en" ? "English" : "한국어";
+        els.voiceAvailability.textContent = `${languageLabel} 음성 ${matching.length}개만 표시합니다. 선택하면 바로 확인할 수 있습니다.`;
       } else if (deviceVoices.length) {
-        els.voiceAvailability.textContent = "별도 한국어 음성이 없어 기기 기본 한국어 음성만 사용합니다.";
+        els.voiceAvailability.textContent = language === "en"
+          ? "별도 English 음성이 없어 기기 기본 English 음성만 사용합니다."
+          : "별도 한국어 음성이 없어 기기 기본 한국어 음성만 사용합니다.";
       } else {
         els.voiceAvailability.textContent = "음성 목록을 기다리는 중입니다. 미리듣기를 한 번 눌러주세요.";
       }
@@ -980,7 +1014,7 @@
     function makeUtterance(text, settings, silent = false) {
       const utter = new SpeechSynthesisUtterance(text);
       const voice = selectedVoice();
-      utter.lang = voice?.lang || "ko-KR";
+      utter.lang = voice?.lang || (settings.voiceLanguage === "en" ? "en-US" : "ko-KR");
       if (voice) utter.voice = voice;
       // 모바일 음성 엔진에서도 구분되도록 속도와 높낮이 차이를 충분히 벌립니다.
       utter.rate = settings.voiceTone === "low" ? .76 : settings.voiceTone === "high" ? 1.24 : 1;
@@ -1095,6 +1129,20 @@
       window.speechSynthesis.speak(makeUtterance(text, s));
     }
 
+    function announcement(key, round = 1) {
+      const english = els.voiceLanguage.value === "en";
+      const messages = english ? {
+        prepare: "Get ready", work: `Round ${round}, start`, rest: "Rest",
+        finished: "Workout complete", alert30: "30 seconds remaining", alert10: "10 seconds remaining",
+        preview: "Get ready. This is the selected voice."
+      } : {
+        prepare: "준비 시작", work: `${round} 라운드 시작`, rest: "휴식",
+        finished: "운동이 완료되었습니다", alert30: "30초 남았습니다", alert10: "10초 남았습니다",
+        preview: "준비 시작. 선택한 목소리입니다."
+      };
+      return messages[key];
+    }
+
     async function requestWakeLock() {
       try { if ("wakeLock" in navigator) { wakeLock = await navigator.wakeLock.request("screen"); els.wakeChip.textContent = "화면 유지: 켜짐"; } }
       catch (_) { els.wakeChip.textContent = "화면 유지: 제한됨"; }
@@ -1109,10 +1157,10 @@
       state.phase = phase; state.isRunning = phase !== PHASE.FINISHED; state.isPaused = false;
       state.remainingMs = Math.max(0, seconds * 1000); state.phaseDurationMs = Math.max(1, seconds * 1000);
       state.endAt = performance.now() + state.remainingMs; state.notified = new Set();
-      if (phase === PHASE.PREPARE) { playSound(s.prepareSound); speak("준비 시작"); }
-      if (phase === PHASE.WORK) { playSound(s.startSound); speak(`${state.round} 라운드 시작`); }
-      if (phase === PHASE.REST) { playSound(s.restSound); speak("휴식"); }
-      if (phase === PHASE.FINISHED) { playSound(s.finishSound); speak("운동이 완료되었습니다"); releaseWakeLock(); }
+      if (phase === PHASE.PREPARE) { playSound(s.prepareSound); speak(announcement("prepare")); }
+      if (phase === PHASE.WORK) { playSound(s.startSound); speak(announcement("work", state.round)); }
+      if (phase === PHASE.REST) { playSound(s.restSound); speak(announcement("rest")); }
+      if (phase === PHASE.FINISHED) { playSound(s.finishSound); speak(announcement("finished")); releaseWakeLock(); }
       if (state.isRunning) startTicker(); else clearInterval(state.timerId);
       render();
     }
@@ -1129,8 +1177,8 @@
     function notifyRemaining(seconds) {
       const s = currentSettings(); if (!s || state.phase === PHASE.FINISHED || state.phase === PHASE.IDLE) return;
       const whole = Math.ceil(seconds);
-      if (s.alert30 && whole === 30 && !state.notified.has("30")) { state.notified.add("30"); playSound(s.alertSound); speak("30초 남았습니다"); }
-      if (s.alert10 && whole === 10 && !state.notified.has("10")) { state.notified.add("10"); playSound(s.alertSound); speak("10초 남았습니다"); }
+      if (s.alert30 && whole === 30 && !state.notified.has("30")) { state.notified.add("30"); playSound(s.alertSound); speak(announcement("alert30")); }
+      if (s.alert10 && whole === 10 && !state.notified.has("10")) { state.notified.add("10"); playSound(s.alertSound); speak(announcement("alert10")); }
       if (s.countdown5 && whole <= 5 && whole >= 1 && !state.notified.has(`c${whole}`)) { state.notified.add(`c${whole}`); playSound("singleBeep"); }
     }
     function tick() {
@@ -1191,10 +1239,10 @@
       els.pauseBtn.disabled = !state.isRunning || state.isPaused;
       els.addTenBtn.disabled = !state.isRunning;
       document.querySelectorAll("input, select, .preset-btn, .theme-btn").forEach((el) => {
-        if ([els.volumeRange, els.voiceEnabled, els.alert30, els.alert10, els.countdown5].includes(el)) return;
+        if ([els.volumeRange, els.voiceEnabled, els.alert30, els.alert10, els.countdown5, els.voiceLanguage, els.voiceSelect, els.voiceTone].includes(el)) return;
         el.disabled = state.isRunning;
       });
-      document.querySelectorAll(".sound-preview-btn").forEach((el) => { el.disabled = state.isRunning; });
+      document.querySelectorAll(".sound-preview-btn").forEach((el) => { el.disabled = state.isRunning && el !== els.voicePreviewBtn; });
     }
 
     function saveSettings(showMessage = true) {
@@ -1304,24 +1352,39 @@
     [els.presetNameBoxing,els.presetNameKickboxing,els.presetNameTabata].forEach((input) => input.addEventListener("input", () => { updatePresetUI(); saveSettings(false); }));
     [els.prepareSeconds,els.workMinutes,els.workSeconds,els.restMinutes,els.restSeconds,els.rounds].forEach((input) => input.addEventListener("change", saveTimeAndRefresh));
     [els.voiceEnabled,els.alert30,els.alert10,els.countdown5].forEach((input) => input.addEventListener("change", () => saveSettings(false)));
+    els.voiceLanguage.addEventListener("change", () => {
+      els.voiceSelect.value = "";
+      loadDeviceVoices();
+      saveSettings(false);
+      primeMobileSpeech();
+      setTimeout(() => speak(announcement("preview")), 80);
+    });
+    // 모바일 브라우저는 첫 사용자 터치 뒤에야 음성 목록을 제공하는 경우가 있어 선택 직전에 엔진을 깨웁니다.
+    els.voiceSelect.addEventListener("pointerdown", () => {
+      if (deviceVoices.length) return;
+      primeMobileSpeech();
+      setTimeout(loadDeviceVoices, 60);
+    }, { passive: true });
     els.voiceSelect.addEventListener("change", () => {
       saveSettings(false);
       primeMobileSpeech();
-      setTimeout(() => speak("준비 시작. 선택한 목소리입니다."), 80);
+      setTimeout(() => speak(announcement("preview")), 80);
     });
     els.voiceTone.addEventListener("change", () => {
       saveSettings(false);
       primeMobileSpeech();
+      const english = els.voiceLanguage.value === "en";
       const tonePreview = els.voiceTone.value === "low"
-        ? "낮고 차분한 음성입니다. 준비 시작."
+        ? (english ? "This is a low and calm voice. Get ready." : "낮고 차분한 음성입니다. 준비 시작.")
         : els.voiceTone.value === "high"
-          ? "높고 빠른 음성입니다. 준비 시작."
-          : "기본 음성입니다. 준비 시작.";
+          ? (english ? "This is a high and fast voice. Get ready." : "높고 빠른 음성입니다. 준비 시작.")
+          : (english ? "This is the normal voice. Get ready." : "기본 음성입니다. 준비 시작.");
       setTimeout(() => speak(tonePreview), 80);
     });
     els.voicePreviewBtn.addEventListener("click", () => {
+      loadDeviceVoices();
       primeMobileSpeech();
-      setTimeout(() => speak("준비 시작. 선택한 목소리입니다."), 80);
+      setTimeout(() => speak(announcement("preview")), 80);
     });
 
     const soundPreviewItems = [
@@ -1348,7 +1411,11 @@
     els.brandResetBtn.addEventListener("click", resetBrand); els.brandCloseBtn.addEventListener("click", closeBrandModal);
     els.brandModalBackdrop.addEventListener("click", (e) => { if (e.target === els.brandModalBackdrop) closeBrandModal(); });
     document.addEventListener("fullscreenchange", syncFullscreen);
-    document.addEventListener("visibilitychange", async () => { if (document.visibilityState === "visible" && state.isRunning) await requestWakeLock(); });
+    document.addEventListener("visibilitychange", async () => {
+      if (document.visibilityState !== "visible") return;
+      loadDeviceVoices();
+      if (state.isRunning) await requestWakeLock();
+    });
     document.addEventListener("keydown", (e) => {
       if (["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName)) return;
       if (e.code === "Space") { e.preventDefault(); state.isRunning && !state.isPaused ? pauseTimer() : startTimer(); }
@@ -1376,7 +1443,7 @@
     // PWA 서비스 워커 등록: 앱 설치 및 오프라인 실행에 사용합니다.
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js?v=20260902-korean-voices-v3").then((registration) => {
+        navigator.serviceWorker.register("./sw.js?v=20260902-bilingual-voices-v4").then((registration) => {
           registration.update().catch(() => {});
         }).catch((error) => {
           console.warn("서비스 워커 등록 실패:", error);
