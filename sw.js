@@ -1,7 +1,7 @@
 "use strict";
 
-// 원타임벨 캐시 갱신용 서비스워커 - 2026-09-02 dual work/rest phase timer
-const CACHE_NAME = "one-timebell-20260902-dual-phase-timer-v5";
+// 원타임벨 캐시 갱신용 서비스워커 - 2026-09-02 original synthesized sounds
+const CACHE_NAME = "one-timebell-20260902-synth-sounds-v6";
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();
