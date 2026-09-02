@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#180824" />
   <title>모아넥트 타임벨</title>
+  <meta name="timebell-build" content="2026-08-12-soundpack-v2" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
   <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png" />
@@ -182,9 +183,32 @@
     .progress-bar { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .12s linear; }
     .control-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
 
-    .section { padding: 15px; border: 1px solid var(--line); border-radius: 18px; background: rgba(0,0,0,.14); }
-    .section + .section { margin-top: 12px; }
-    .section-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 12px; font-size: 18px; }
+    .section {
+      --section-color: var(--accent);
+      position: relative; overflow: hidden; padding: 16px 15px 16px 19px;
+      border: 1px solid color-mix(in srgb, var(--section-color) 48%, var(--line));
+      border-radius: 18px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--section-color) 12%, rgba(0,0,0,.18)), rgba(0,0,0,.16) 58%);
+      box-shadow: inset 4px 0 0 var(--section-color), 0 7px 20px rgba(0,0,0,.10);
+    }
+    .section::after {
+      content: ""; position: absolute; top: -36px; right: -30px; width: 105px; height: 105px;
+      border-radius: 50%; background: color-mix(in srgb, var(--section-color) 13%, transparent); pointer-events: none;
+    }
+    .section + .section { margin-top: 14px; }
+    .section-design { --section-color: #38bdf8; }
+    .section-program { --section-color: #a78bfa; }
+    .section-time { --section-color: #f59e0b; }
+    .section-sound { --section-color: #22c55e; }
+    .section-voice { --section-color: #f472b6; }
+    .section-save { --section-color: #94a3b8; background: rgba(0,0,0,.14); }
+    .section-title { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 13px; font-size: 18px; }
+    .section-heading { display: inline-flex; align-items: center; gap: 9px; }
+    .section-heading b {
+      width: 30px; height: 30px; display: inline-grid; place-items: center; flex: 0 0 auto;
+      border-radius: 9px; color: #fff; background: var(--section-color);
+      box-shadow: 0 5px 13px color-mix(in srgb, var(--section-color) 32%, transparent); font-size: 15px;
+    }
     .section-title small { color: var(--muted); font-size: 11px; font-weight: 650; }
     .preset-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
     .preset-btn {
@@ -341,7 +365,6 @@
     }
   </style>
 </head>
-  <!-- 원타임벨 소리 확장 버전: 기존 4개 + 새 MP3 6개 = 총 10개 -->
 <body class="theme-purple phase-idle">
   <main class="app">
     <header class="topbar">
@@ -395,8 +418,8 @@
       </article>
 
       <aside class="settings-card" id="settingsCard">
-        <section class="section">
-          <h2 class="section-title">① 화면 디자인 <small>배경색 / 전체 색감</small></h2>
+        <section class="section section-design">
+          <h2 class="section-title"><span class="section-heading"><b>1</b>화면 디자인</span><small>배경색 / 전체 색감</small></h2>
           <div class="theme-grid" id="themeGrid">
             <button class="theme-btn" type="button" data-theme="orange">주황</button>
             <button class="theme-btn" type="button" data-theme="yellow">노랑</button>
@@ -407,8 +430,8 @@
           </div>
         </section>
 
-        <section class="section">
-          <h2 class="section-title">② 빠른 프로그램 <small>3개 프로그램 + 타임 변경</small></h2>
+        <section class="section section-program">
+          <h2 class="section-title"><span class="section-heading"><b>2</b>빠른 프로그램</span><small>3개 프로그램 + 타임 변경</small></h2>
           <div class="preset-grid" id="presetGrid">
             <button class="preset-btn active" type="button" data-preset="boxing"><span>복싱 3분</span><small>3분 / 1분 · 10R</small></button>
             <button class="preset-btn" type="button" data-preset="kickboxing"><span>킥복싱</span><small>3분 / 1분 · 5R</small></button>
@@ -423,8 +446,8 @@
           <div class="notice">1번·2번·3번 프로그램은 서로 독립적으로 저장됩니다. <b>타임 변경</b>을 누르면 현재 선택한 프로그램의 준비·운동·휴식 시간과 라운드 수를 바로 바꿀 수 있으며, 변경 내용은 자동 저장됩니다.</div>
         </section>
 
-        <section class="section">
-          <h2 class="section-title">③ 시간 설정 <small>변경 즉시 자동 저장</small></h2>
+        <section class="section section-time">
+          <h2 class="section-title"><span class="section-heading"><b>3</b>시간 설정</span><small>변경 즉시 자동 저장</small></h2>
           <div class="field-grid">
             <div class="field"><label for="prepareSeconds">준비 시간(초)</label><input id="prepareSeconds" type="number" min="0" max="600" value="10" /></div>
             <div class="field"><label for="rounds">라운드 수</label><input id="rounds" type="number" min="1" max="99" value="10" /></div>
@@ -433,23 +456,23 @@
           </div>
         </section>
 
-        <section class="section">
-          <h2 class="section-title">④ 구간별 소리 <small>선택 즉시 재생 · 자동 저장</small></h2>
+        <section class="section section-sound">
+          <h2 class="section-title"><span class="section-heading"><b>4</b>구간별 소리</span><small>선택 즉시 재생 · 자동 저장</small></h2>
           <div class="field-grid">
             <div class="field full">
               <label for="prepareSound">준비 시작 소리</label>
               <div class="sound-select-row">
               <select id="prepareSound">
-                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
-                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
-                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
-                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
-                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
-                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
-                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
-                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
-                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
-                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="file:sounds/prepare.mp3">기존 MP3 · 준비음</option>
+                <option value="file:sounds/start.mp3">기존 MP3 · 시작음</option>
+                <option value="file:sounds/rest.mp3">기존 MP3 · 휴식음</option>
+                <option value="file:sounds/finish.mp3">기존 MP3 · 완료음</option>
+                <option value="file:sounds/01_short_beep.mp3?v=20260812-2">추가 · 짧은 삐 1회</option>
+                <option value="file:sounds/02_triple_beep.mp3?v=20260812-2">추가 · 삐삐삐 3회</option>
+                <option value="file:sounds/03_loud_double_beep.mp3?v=20260812-2">추가 · 강한 삐삐 2회</option>
+                <option value="file:sounds/04_gym_buzzer.mp3?v=20260812-2">추가 · 체육관 버저</option>
+                <option value="file:sounds/05_round_bell.mp3?v=20260812-2">추가 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3?v=20260812-2">추가 · 빠른 삐 5회</option>
                 <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="prepareSoundPreviewBtn" type="button">▶ 다시 듣기</button>
@@ -459,16 +482,16 @@
               <label for="startSound">운동 시작 소리</label>
               <div class="sound-select-row">
               <select id="startSound">
-                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
-                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
-                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
-                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
-                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
-                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
-                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
-                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
-                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
-                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="file:sounds/prepare.mp3">기존 MP3 · 준비음</option>
+                <option value="file:sounds/start.mp3">기존 MP3 · 시작음</option>
+                <option value="file:sounds/rest.mp3">기존 MP3 · 휴식음</option>
+                <option value="file:sounds/finish.mp3">기존 MP3 · 완료음</option>
+                <option value="file:sounds/01_short_beep.mp3?v=20260812-2">추가 · 짧은 삐 1회</option>
+                <option value="file:sounds/02_triple_beep.mp3?v=20260812-2">추가 · 삐삐삐 3회</option>
+                <option value="file:sounds/03_loud_double_beep.mp3?v=20260812-2">추가 · 강한 삐삐 2회</option>
+                <option value="file:sounds/04_gym_buzzer.mp3?v=20260812-2">추가 · 체육관 버저</option>
+                <option value="file:sounds/05_round_bell.mp3?v=20260812-2">추가 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3?v=20260812-2">추가 · 빠른 삐 5회</option>
                 <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="startSoundPreviewBtn" type="button">▶ 다시 듣기</button>
@@ -478,16 +501,16 @@
               <label for="restSound">휴식 시작 소리</label>
               <div class="sound-select-row">
               <select id="restSound">
-                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
-                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
-                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
-                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
-                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
-                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
-                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
-                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
-                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
-                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="file:sounds/prepare.mp3">기존 MP3 · 준비음</option>
+                <option value="file:sounds/start.mp3">기존 MP3 · 시작음</option>
+                <option value="file:sounds/rest.mp3">기존 MP3 · 휴식음</option>
+                <option value="file:sounds/finish.mp3">기존 MP3 · 완료음</option>
+                <option value="file:sounds/01_short_beep.mp3?v=20260812-2">추가 · 짧은 삐 1회</option>
+                <option value="file:sounds/02_triple_beep.mp3?v=20260812-2">추가 · 삐삐삐 3회</option>
+                <option value="file:sounds/03_loud_double_beep.mp3?v=20260812-2">추가 · 강한 삐삐 2회</option>
+                <option value="file:sounds/04_gym_buzzer.mp3?v=20260812-2">추가 · 체육관 버저</option>
+                <option value="file:sounds/05_round_bell.mp3?v=20260812-2">추가 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3?v=20260812-2">추가 · 빠른 삐 5회</option>
                 <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="restSoundPreviewBtn" type="button">▶ 다시 듣기</button>
@@ -497,16 +520,16 @@
               <label for="finishSound">운동 완료 소리</label>
               <div class="sound-select-row">
               <select id="finishSound">
-                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
-                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
-                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
-                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
-                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
-                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
-                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
-                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
-                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
-                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
+                <option value="file:sounds/prepare.mp3">기존 MP3 · 준비음</option>
+                <option value="file:sounds/start.mp3">기존 MP3 · 시작음</option>
+                <option value="file:sounds/rest.mp3">기존 MP3 · 휴식음</option>
+                <option value="file:sounds/finish.mp3">기존 MP3 · 완료음</option>
+                <option value="file:sounds/01_short_beep.mp3?v=20260812-2">추가 · 짧은 삐 1회</option>
+                <option value="file:sounds/02_triple_beep.mp3?v=20260812-2">추가 · 삐삐삐 3회</option>
+                <option value="file:sounds/03_loud_double_beep.mp3?v=20260812-2">추가 · 강한 삐삐 2회</option>
+                <option value="file:sounds/04_gym_buzzer.mp3?v=20260812-2">추가 · 체육관 버저</option>
+                <option value="file:sounds/05_round_bell.mp3?v=20260812-2">추가 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3?v=20260812-2">추가 · 빠른 삐 5회</option>
                 <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="finishSoundPreviewBtn" type="button">▶ 다시 듣기</button>
@@ -516,18 +539,18 @@
               <label for="alertSound">30초·10초 알림 소리</label>
               <div class="sound-select-row">
               <select id="alertSound">
-                <option value="file:sounds/prepare.mp3">기존 준비음 · prepare.mp3</option>
-                <option value="file:sounds/start.mp3">기존 시작음 · start.mp3</option>
-                <option value="file:sounds/rest.mp3">기존 휴식음 · rest.mp3</option>
-                <option value="file:sounds/finish.mp3">기존 완료음 · finish.mp3</option>
-                <option value="file:sounds/01_short_beep.mp3">새 소리 1 · 짧은 삐</option>
-                <option value="file:sounds/02_triple_beep.mp3">새 소리 2 · 삐삐삐</option>
-                <option value="file:sounds/03_loud_double_beep.mp3">새 소리 3 · 큰 삐삐</option>
-                <option value="file:sounds/04_gym_buzzer.mp3">새 소리 4 · 체육관 부저</option>
-                <option value="file:sounds/05_round_bell.mp3">새 소리 5 · 라운드 벨</option>
-                <option value="file:sounds/06_fast_5beep.mp3">새 소리 6 · 빠른 삐 5번</option>
-                <option value="doubleBeep">기본 삐삐 2번</option>
-                <option value="fastBeep">기본 빠른 삐</option>
+                <option value="file:sounds/prepare.mp3">기존 MP3 · 준비음</option>
+                <option value="file:sounds/start.mp3">기존 MP3 · 시작음</option>
+                <option value="file:sounds/rest.mp3">기존 MP3 · 휴식음</option>
+                <option value="file:sounds/finish.mp3">기존 MP3 · 완료음</option>
+                <option value="file:sounds/01_short_beep.mp3?v=20260812-2">추가 · 짧은 삐 1회</option>
+                <option value="file:sounds/02_triple_beep.mp3?v=20260812-2">추가 · 삐삐삐 3회</option>
+                <option value="file:sounds/03_loud_double_beep.mp3?v=20260812-2">추가 · 강한 삐삐 2회</option>
+                <option value="file:sounds/04_gym_buzzer.mp3?v=20260812-2">추가 · 체육관 버저</option>
+                <option value="file:sounds/05_round_bell.mp3?v=20260812-2">추가 · 라운드 벨</option>
+                <option value="file:sounds/06_fast_5beep.mp3?v=20260812-2">추가 · 빠른 삐 5회</option>
+                <option value="doubleBeep">기본 전자음 · 삐삐 2번</option>
+                <option value="fastBeep">기본 전자음 · 빠른 삐</option>
                 <option value="none">소리 없음</option>
               </select>
                 <button class="sound-preview-btn" id="alertSoundPreviewBtn" type="button">▶ 다시 듣기</button>
@@ -535,11 +558,11 @@
             </div>
           </div>
           <div class="notice" id="activePresetSoundNotice">현재 선택한 프로그램의 시간·소리·음성 설정을 편집 중입니다.</div>
-          <p class="small-note">소리를 선택하면 즉시 한 번 재생되며 동시에 현재 프로그램에 자동 저장됩니다. 준비·운동 시작·휴식·완료 소리는 <b>MP3 10개와 소리 없음</b>을 선택할 수 있습니다. 30초·10초 알림은 <b>MP3 10개, 기본 삐삐 2번, 기본 빠른 삐, 소리 없음</b>을 선택할 수 있습니다.</p>
+          <p class="small-note">소리를 선택하면 즉시 한 번 재생되며 동시에 현재 프로그램에 자동 저장됩니다. 준비·운동 시작·휴식·완료에는 <b>기존 MP3 4개 + 추가 효과음 MP3 6개 + 소리 없음</b>이 표시됩니다. 30초·10초 알림에도 동일한 MP3 10개와 <b>기본 전자음(삐삐 2번·빠른 삐)</b>을 선택할 수 있습니다.</p>
         </section>
 
-        <section class="section">
-          <h2 class="section-title">⑤ 음성·알림</h2>
+        <section class="section section-voice">
+          <h2 class="section-title"><span class="section-heading"><b>5</b>음성·알림</span><small>목소리 / 알림 / 음량</small></h2>
           <div class="switch-list">
             <div class="switch-line"><span>한국어 음성 안내</span><label class="switch"><input id="voiceEnabled" type="checkbox" checked /><span class="slider"></span></label></div>
             <div class="switch-line"><span>30초 남음 알림</span><label class="switch"><input id="alert30" type="checkbox" checked /><span class="slider"></span></label></div>
@@ -547,12 +570,22 @@
             <div class="switch-line"><span>마지막 5초 삐 소리</span><label class="switch"><input id="countdown5" type="checkbox" checked /><span class="slider"></span></label></div>
           </div>
           <div class="field-grid" style="margin-top:12px;">
-            <div class="field full"><label for="voiceTone">음성 톤</label><select id="voiceTone"><option value="normal">기본 음성</option><option value="low">낮은 음성</option><option value="high">높은 음성</option></select></div>
+            <div class="field full">
+              <label for="voiceSelect">안내 목소리 선택</label>
+              <div class="sound-select-row">
+                <select id="voiceSelect">
+                  <option value="">기기 기본 한국어 음성</option>
+                </select>
+                <button class="sound-preview-btn" id="voicePreviewBtn" type="button">▶ 미리듣기</button>
+              </div>
+              <small id="voiceAvailability" class="small-note">이 기기에 설치된 음성을 불러오는 중입니다.</small>
+            </div>
+            <div class="field full"><label for="voiceTone">음성 톤</label><select id="voiceTone"><option value="normal">기본 음성 · 자연스러운 속도</option><option value="low">낮은 음성 · 더 느리고 굵게</option><option value="high">높은 음성 · 더 빠르고 밝게</option></select><small class="small-note">톤을 바꾸면 선택한 목소리로 바로 미리 들려드립니다.</small></div>
             <div class="field full"><label for="volumeRange">전체 음량</label><div class="volume-row"><input id="volumeRange" type="range" min="0" max="150" value="110" /><strong id="volumeValue">110%</strong></div></div>
           </div>
         </section>
 
-        <section class="section">
+        <section class="section section-save">
           <button class="btn good" id="saveBtn" type="button" style="width:100%;">💾 현재 설정 저장</button>
           <div class="footer-status"><span class="mini-chip" id="wakeChip">화면 유지: 대기</span><span class="mini-chip" id="audioChip">소리: 확인 필요</span><span class="mini-chip" id="autoSaveChip">자동 저장: 켜짐</span></div>
           <p class="small-note">단축키: 스페이스바 시작/일시정지 · R 초기화 · F 전체화면</p>
@@ -619,7 +652,8 @@
       prepareSeconds: $("prepareSeconds"), workMinutes: $("workMinutes"), workSeconds: $("workSeconds"),
       restMinutes: $("restMinutes"), restSeconds: $("restSeconds"), rounds: $("rounds"),
       voiceEnabled: $("voiceEnabled"), alert30: $("alert30"), alert10: $("alert10"), countdown5: $("countdown5"),
-      voiceTone: $("voiceTone"), prepareSound: $("prepareSound"), startSound: $("startSound"),
+      voiceTone: $("voiceTone"), voiceSelect: $("voiceSelect"), voicePreviewBtn: $("voicePreviewBtn"),
+      voiceAvailability: $("voiceAvailability"), prepareSound: $("prepareSound"), startSound: $("startSound"),
       restSound: $("restSound"), finishSound: $("finishSound"), alertSound: $("alertSound"),
       prepareSoundPreviewBtn: $("prepareSoundPreviewBtn"), startSoundPreviewBtn: $("startSoundPreviewBtn"),
       restSoundPreviewBtn: $("restSoundPreviewBtn"), finishSoundPreviewBtn: $("finishSoundPreviewBtn"),
@@ -655,9 +689,9 @@
     };
     const DEFAULT_NAMES = { boxing: "복싱 3분", kickboxing: "킥복싱", tabata: "타바타" };
     const DEFAULT_PRESET_AUDIO = {
-      boxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
-      kickboxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
-      tabata: { voiceEnabled: true, alert30: false, alert10: true, countdown5: true, voiceTone: "high", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "fastBeep" }
+      boxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
+      kickboxing: { voiceEnabled: true, alert30: true, alert10: true, countdown5: true, voiceTone: "normal", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "doubleBeep" },
+      tabata: { voiceEnabled: true, alert30: false, alert10: true, countdown5: true, voiceTone: "high", voiceURI: "", prepareSound: "file:sounds/prepare.mp3", startSound: "file:sounds/start.mp3", restSound: "file:sounds/rest.mp3", finishSound: "file:sounds/finish.mp3", alertSound: "fastBeep" }
     };
 
     const PHASE = { IDLE: "idle", PREPARE: "prepare", WORK: "work", REST: "rest", FINISHED: "finished" };
@@ -679,6 +713,7 @@
     let toastTimer = null;
     let autoSaveStatusTimer = null;
     let volumeSaveTimer = null;
+    let availableVoices = [];
 
     function showToast(message) {
       els.toast.textContent = message;
@@ -767,7 +802,7 @@
     function readAudioInputs() {
       return {
         voiceEnabled: els.voiceEnabled.checked, alert30: els.alert30.checked, alert10: els.alert10.checked,
-        countdown5: els.countdown5.checked, voiceTone: els.voiceTone.value,
+        countdown5: els.countdown5.checked, voiceTone: els.voiceTone.value, voiceURI: els.voiceSelect.value,
         prepareSound: els.prepareSound.value, startSound: els.startSound.value, restSound: els.restSound.value,
         finishSound: els.finishSound.value, alertSound: els.alertSound.value
       };
@@ -787,6 +822,7 @@
         alert10: item.alert10 ?? d.alert10,
         countdown5: item.countdown5 ?? d.countdown5,
         voiceTone: ["normal","low","high"].includes(item.voiceTone) ? item.voiceTone : d.voiceTone,
+        voiceURI: typeof item.voiceURI === "string" ? item.voiceURI : d.voiceURI,
         prepareSound: validSelectValue(els.prepareSound, item.prepareSound, d.prepareSound),
         startSound: validSelectValue(els.startSound, item.startSound, d.startSound),
         restSound: validSelectValue(els.restSound, item.restSound, d.restSound),
@@ -799,6 +835,7 @@
       presetAudioSettings[key] = a;
       els.voiceEnabled.checked = a.voiceEnabled; els.alert30.checked = a.alert30; els.alert10.checked = a.alert10;
       els.countdown5.checked = a.countdown5; els.voiceTone.value = a.voiceTone;
+      selectSavedVoice(a.voiceURI);
       els.prepareSound.value = a.prepareSound; els.startSound.value = a.startSound; els.restSound.value = a.restSound;
       els.finishSound.value = a.finishSound; els.alertSound.value = a.alertSound;
     }
@@ -884,6 +921,76 @@
     function currentSettings() {
       const timing = readTimingInputs(); if (!timing) return null;
       return { ...timing, ...readAudioInputs(), volume: clamp(els.volumeRange.value, 0, 150, 110) / 100 };
+    }
+
+    function voiceIdentity(voice) {
+      return String(voice?.voiceURI || voice?.name || "");
+    }
+
+    function selectedVoice() {
+      const wanted = els.voiceSelect.value;
+      if (wanted) {
+        const exact = availableVoices.find((voice) => voiceIdentity(voice) === wanted || voice.name === wanted);
+        if (exact) return exact;
+      }
+      return availableVoices.find((voice) => /^ko(?:-|_)/i.test(voice.lang || "")) || null;
+    }
+
+    function selectSavedVoice(savedValue) {
+      const wanted = String(savedValue || "");
+      const exists = Array.from(els.voiceSelect.options).some((option) => option.value === wanted);
+      els.voiceSelect.value = exists ? wanted : "";
+    }
+
+    function loadDeviceVoices() {
+      if (!window.speechSynthesis) {
+        els.voiceSelect.disabled = true;
+        els.voicePreviewBtn.disabled = true;
+        els.voiceAvailability.textContent = "이 브라우저는 음성 안내를 지원하지 않습니다.";
+        return;
+      }
+
+      const previous = els.voiceSelect.value || presetAudioSettings[activePresetName]?.voiceURI || "";
+      availableVoices = window.speechSynthesis.getVoices() || [];
+      const korean = availableVoices.filter((voice) => /^ko(?:-|_)/i.test(voice.lang || ""));
+      const others = availableVoices.filter((voice) => !korean.includes(voice));
+      els.voiceSelect.innerHTML = '<option value="">기기 기본 한국어 음성</option>';
+
+      [...korean, ...others].forEach((voice) => {
+        const option = document.createElement("option");
+        option.value = voiceIdentity(voice);
+        option.textContent = `${voice.name} · ${voice.lang || "언어 미표시"}${voice.localService ? " · 기기 내장" : ""}`;
+        els.voiceSelect.appendChild(option);
+      });
+      selectSavedVoice(previous);
+
+      if (korean.length) {
+        els.voiceAvailability.textContent = `한국어 음성 ${korean.length}개를 찾았습니다. 모바일과 PC의 음성 목록은 서로 다를 수 있습니다.`;
+      } else if (availableVoices.length) {
+        els.voiceAvailability.textContent = "한국어 전용 음성이 없어 기기 기본 음성 또는 다른 설치 음성을 사용합니다.";
+      } else {
+        els.voiceAvailability.textContent = "음성 목록을 기다리는 중입니다. 미리듣기를 한 번 눌러주세요.";
+      }
+    }
+
+    function makeUtterance(text, settings, silent = false) {
+      const utter = new SpeechSynthesisUtterance(text);
+      const voice = selectedVoice();
+      utter.lang = voice?.lang || "ko-KR";
+      if (voice) utter.voice = voice;
+      // 모바일 음성 엔진에서도 구분되도록 속도와 높낮이 차이를 충분히 벌립니다.
+      utter.rate = settings.voiceTone === "low" ? .76 : settings.voiceTone === "high" ? 1.24 : 1;
+      utter.pitch = settings.voiceTone === "low" ? .52 : settings.voiceTone === "high" ? 1.62 : 1;
+      utter.volume = silent ? 0 : Math.min(1, settings.volume);
+      return utter;
+    }
+
+    function primeMobileSpeech() {
+      const s = currentSettings();
+      if (!s?.voiceEnabled || !window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined") return;
+      window.speechSynthesis.resume();
+      window.speechSynthesis.speak(makeUtterance(" ", s, true));
+      setTimeout(loadDeviceVoices, 50);
     }
 
     async function ensureAudio() {
@@ -980,11 +1087,8 @@
       const s = currentSettings();
       if (!s?.voiceEnabled || !window.speechSynthesis) return;
       window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(text); utter.lang = "ko-KR";
-      utter.rate = s.voiceTone === "low" ? .88 : s.voiceTone === "high" ? 1.12 : 1;
-      utter.pitch = s.voiceTone === "low" ? .72 : s.voiceTone === "high" ? 1.32 : 1;
-      utter.volume = Math.min(1, s.volume);
-      window.speechSynthesis.speak(utter);
+      window.speechSynthesis.resume();
+      window.speechSynthesis.speak(makeUtterance(text, s));
     }
 
     async function requestWakeLock() {
@@ -1036,6 +1140,8 @@
     async function startTimer() {
       closeTimeEditor();
       const s = currentSettings(); if (!s) return;
+      // 모바일은 사용자 터치가 이어지는 순간에 음성 엔진을 먼저 활성화해야 합니다.
+      primeMobileSpeech();
       await ensureAudio(); await requestWakeLock(); saveActivePresetData();
       if (state.isPaused) { state.isPaused = false; state.isRunning = true; state.endAt = performance.now() + state.remainingMs; startTicker(); return render(); }
       if (state.phase === PHASE.FINISHED) resetTimer(false);
@@ -1193,7 +1299,21 @@
     });
     [els.presetNameBoxing,els.presetNameKickboxing,els.presetNameTabata].forEach((input) => input.addEventListener("input", () => { updatePresetUI(); saveSettings(false); }));
     [els.prepareSeconds,els.workMinutes,els.workSeconds,els.restMinutes,els.restSeconds,els.rounds].forEach((input) => input.addEventListener("change", saveTimeAndRefresh));
-    [els.voiceEnabled,els.alert30,els.alert10,els.countdown5,els.voiceTone].forEach((input) => input.addEventListener("change", () => saveSettings(false)));
+    [els.voiceEnabled,els.alert30,els.alert10,els.countdown5,els.voiceSelect].forEach((input) => input.addEventListener("change", () => saveSettings(false)));
+    els.voiceTone.addEventListener("change", () => {
+      saveSettings(false);
+      primeMobileSpeech();
+      const tonePreview = els.voiceTone.value === "low"
+        ? "낮고 차분한 음성입니다. 준비 시작."
+        : els.voiceTone.value === "high"
+          ? "높고 빠른 음성입니다. 준비 시작."
+          : "기본 음성입니다. 준비 시작.";
+      setTimeout(() => speak(tonePreview), 80);
+    });
+    els.voicePreviewBtn.addEventListener("click", () => {
+      primeMobileSpeech();
+      setTimeout(() => speak("준비 시작. 선택한 목소리입니다."), 80);
+    });
 
     const soundPreviewItems = [
       [els.prepareSound, els.prepareSoundPreviewBtn, "준비 시작 소리"],
@@ -1235,13 +1355,19 @@
 
     initialSettingsVisibility();
     loadSavedData();
+    loadDeviceVoices();
+    if (window.speechSynthesis) {
+      window.speechSynthesis.addEventListener?.("voiceschanged", loadDeviceVoices);
+      setTimeout(loadDeviceVoices, 250);
+      setTimeout(loadDeviceVoices, 1000);
+    }
   </script>
 
   <script>
     // PWA 서비스 워커 등록: 앱 설치 및 오프라인 실행에 사용합니다.
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").then((registration) => {
+        navigator.serviceWorker.register("./sw.js?v=20260902-settings-sections-v2").then((registration) => {
           registration.update().catch(() => {});
         }).catch((error) => {
           console.warn("서비스 워커 등록 실패:", error);
